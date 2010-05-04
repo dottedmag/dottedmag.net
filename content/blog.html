@@ -1,0 +1,17 @@
+{% meta %}
+  title: Blog
+{% endmeta %}
+
+{% block content %}
+<h2>Latest posts</h2>
+
+<table>
+  {% for post in site.posts %}
+  <tr>
+    <th class="date">{{ post.date.strftime('%Y, %B %d') }}</td>
+    <td>&nbsp;</td>
+    <td class="title"><a href="{{ post.get_url() }}">{{ post.title }}</a></td>
+  </tr>
+  {% endfor %}
+</table>
+{% endblock %}
