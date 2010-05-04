@@ -1,0 +1,3 @@
+;; -*- emacs-lisp -*-
+
+(server-start)

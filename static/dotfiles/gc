@@ -1,0 +1,9 @@
+#!/bin/sh
+
+if [ -z "$DISPLAY" ]; then
+  exec /usr/bin/nano "$@"
+fi
+
+if ! gnuclient "$@"; then
+  exit 1
+fi

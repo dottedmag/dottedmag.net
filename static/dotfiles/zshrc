@@ -1,0 +1,127 @@
+# .zshrc
+
+# Tools
+
+if [ -f /etc/debian_verion -o -f /etc/ubuntu_version -o -f /etc/altlinux-release ]; then
+    # Optimized common case
+    alias ls="ls --color=auto -phs"
+    export GREP_OPTIONS='--color=auto --directories=recurse'
+    export GZIP='--rsyncable'
+    eval $(lessfile)
+else
+    if [ `uname -s` = Darwin ]; then
+        alias ls="ls -FG"
+    elif ls --version | grep Stallman >/dev/null; then
+        alias ls="ls --color=auto -phs"
+    else
+        alias ls="ls -phs"
+    fi
+
+    if grep --version | grep GNU >/dev/null; then
+        export GREP_OPTIONS='--color=auto --directories=recurse'
+    fi
+
+    if gzip --help | grep --directories=skip rsyncable >/dev/null; then
+        export GZIP='--rsyncable'
+    fi
+
+    if [ -f /usr/bin/lessfile ]; then
+        eval $(lessfile)
+    fi
+fi
+
+export LESS=-IRS
+
+export PYTHONSTARTUP=$HOME/.pythonstartup
+
+export RI='--format ansi'
+
+alias c=cd
+alias mr=rm
+
+alias gdb='gdb -q'
+
+# Too much IRC
+alias /clear=clear
+
+# Zsh
+
+#
+# $ZSH_VERSION
+#
+
+case "$ZSH_VERSION" in
+    4.3.1*|4.3.[789]|4.[56789]*)
+        autoload -Uz vcs_info;;
+    *)
+        echo "Upgrade your zsh!";;
+esac
+
+PS1='[%n@%m:%~]%70(l|
+|)%# '
+
+if [ $TERM = screen.rxvt ]; then
+    export TERM=rxvt-unicode
+fi
+
+case $TERM in
+    dumb)
+        export PROMPT="%#"
+        ;;
+    *)
+        case "$ZSH_VERSION" in
+            4.3.1*|4.3.[789]|4.[56789]*)
+            export PROMPT="[%(!.%S.)%n%(!.%s.)@%m:%~]%(?..%B%?%b)%70(l|
+|)%(1v.%F{blue}%1v%f.)%B%#%b ";;
+            *)
+                export PROMPT="[%(!.%S.)%n%(!.%s.)@%m:%~]%(?..%B%?%b)%70(l|
+|)%B%#%b ";;
+        esac
+    ;;
+esac
+
+case $TERM in
+    xterm*|Eterm*|rxvt*)
+        function preexec { local s=${2//\\/\\\\}; print -nP "\033]2;[zsh@%m:%~]%# $s\007\033]1;[%m:%~]%# $s\007" }
+
+        case "$ZSH_VERSION" in
+            4.3.1*|4.3.[789]|4.[56789]*)
+                function precmd {
+                    print -nP "\033]2;[zsh@%m:%~]%#\007\033]1;[%m:%~]%#\007"
+                    psvar=()
+                    vcs_info
+                    [[ -n $vcs_info_msg_0_ ]] && psvar[1]="$vcs_info_msg_0_"
+                };;
+            *)
+                function precmd {
+                    print -nP "\033]2;[zsh@%m:%~]%#\007\033]1;[%m:%~]%#\007"
+                };;
+        esac
+        ;;
+esac
+
+slashre=/; export WORDCHARS=${WORDCHARS/$slashre}
+
+setopt no_auto_menu
+setopt auto_pushd
+setopt extended_glob
+setopt share_history
+setopt hist_ignore_all_dups
+setopt hist_no_store
+setopt hist_reduce_blanks
+setopt inc_append_history
+setopt extended_history
+setopt pushd_ignore_dups
+setopt no_bang_hist
+setopt nobeep
+
+autoload -U compinit
+compinit
+
+zstyle ':completion:*' use-cache on
+zstyle ':completion:*' cache-path ~/.zshcache
+zstyle ':completion:*:(all-|)files' ignored-patterns '(|*/)CVS'
+zstyle ':completion:*:cd:*' ignored-patterns '(*/)#CVS'
+zstyle ':completion:*:(all-|)files' ignored-patterns '(|*/).svn'
+zstyle ':completion:*:cd:*' ignored-patterns '(*/)#.svn'
+

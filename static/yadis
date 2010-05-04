@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xrds:XRDS xmlns:xrds="xri://$xrds" xmlns="xri://$xrd*($v*2.0)">
+  <XRD>
+    <Service>
+      <Type>http://openid.net/signon/1.0</Type>
+      <URI>http://www.myopenid.com/server</URI>
+      <Delegate xmlns="http://openid.net/xmlns/1.0">http://dottedmag.myopenid.com/</Delegate>
+    </Service>
+  </XRD>
+</xrds:XRDS>
