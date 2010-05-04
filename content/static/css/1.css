@@ -342,6 +342,7 @@ a[href^="http"] {
 
 a.noext {
     background:none;
+    padding-right: 0px;
 }
 
 a:hover {
