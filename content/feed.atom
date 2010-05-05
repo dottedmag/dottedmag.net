@@ -15,6 +15,7 @@ parent_tmpl: _empty.html
     <name>{{ site.author }}</name>
   </author>
   <link href="{{ site.url }}" rel="alternate"></link>
+  <link href="{{ entry.get_absolute_url() }}" rel="self"></link>
   <generator uri="http://hg.piranha.org.ua/cyrax/">cyrax</generator>
 
 {%- for post in site.posts[:5] %}
