@@ -2,6 +2,11 @@
   title: Blog
 {% endmeta %}
 
+{% block feeds %}
+<link href="feed.atom" type="application/atom+xml"
+      rel="alternate" title="Blog posts" />
+{% endblock %}
+
 {% block content %}
 <h2>Latest posts</h2>
 
