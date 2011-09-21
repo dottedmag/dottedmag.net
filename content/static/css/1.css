@@ -87,7 +87,6 @@ body {
 	color:#555;
 	padding:14px 0 0 0;
 	border:none;
-        clear:both;
 }
 
 #header h2 a {
@@ -313,6 +312,7 @@ h2 {
 	font:190% Arial;
 	color:#79B933;
 	border-bottom:2px solid #f6f6f6;
+	clear:both;
 }
 
 h2 a {
