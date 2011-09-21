@@ -87,6 +87,7 @@ body {
 	color:#555;
 	padding:14px 0 0 0;
 	border:none;
+        clear:both;
 }
 
 #header h2 a {
