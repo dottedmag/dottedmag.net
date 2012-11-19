@@ -1,8 +1,20 @@
 {% meta %}
+  title: Mikhail Gusarov - Resume
 {% endmeta %}
 
 {% block style %}
 th { background-color: #eeeeee }
+
+@media print
+{
+  #footer { display: none; }
+  #sidebar { display: none; }
+  #header { display: none; }
+  #wrapper { border: 0px; width: 0px; }
+  h1 { color: black; }
+  h2 { color: black; }
+}
+
 {% endblock %}
 
 {% block content %}
