@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>{{ page.title }}</title>
+    <link rel="stylesheet" href="/css/1.css">
+    {{ page.head }}
+  </head>
+  <body>
+    <div id="wrapper">
+      <div id="innerwrapper">
+        <div id="header">
+	<h1><a href="/">{{ site.title }}</a></h1>
+	<h2>{{ site.description }}</h2>
+        <ul id="nav">
+          {% for link in links %}
+          <li>
+              <a href="{{ url_for(link.0) }}"
+                 {% if url_for(link.0) == entry.get_url() %}class="active"{% endif %}>
+                {{ link.1 }}
+              </a>
+            </li>
+          {% endfor %}
+        </ul>
+      </div>
+      <div id="contentnorightbar">
+        {{ content }}
+      </div>
+      <div id="footer">
+        <p>
+          © 2010-2013 Mikhail Gusarov
+          <br/>
+          Template design by <a href="http://www.sixshootermedia.com" class="noext">Six
+          Shooter Media</a>
+        </p>
+      </div>
+    </div>
+    </div>
+    <script type="text/javascript" src="http://www.google-analytics.com/ga.js"/>
+    <script type="text/javascript">
+      try
+      {
+        _gat._getTracker('UA-3653041-1')._trackPageview();
+      }
+      catch (err) {}
+    </script>
+  </body>
+</html>
