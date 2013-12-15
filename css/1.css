@@ -4,7 +4,7 @@ body {
 	word-spacing:2px;
 	color:#444;
 	margin:20px;
-	background:url(../images/body.jpg) #f6f6f6;
+	background:url(../images/style/body.jpg) #f6f6f6;
 }
 
 * {
@@ -29,7 +29,7 @@ body {
 
 #innerwrapper {
 	margin:1px;
-	background:url(../images/innerwrapper.jpg) top repeat-x;
+	background:url(../images/style/innerwrapper.jpg) top repeat-x;
 	padding:20px;
 }
 
@@ -98,7 +98,7 @@ body {
 
 #header #nav {
 	clear:both;
-	background:url(../images/nav.jpg) top repeat-x #4F9EC9;
+	background:url(../images/style/nav.jpg) top repeat-x #4F9EC9;
 	border-bottom:2px solid #4F9EC9;
 	border-top:2px solid #388CBA;
 	border-left:2px solid #388CBA;
@@ -256,7 +256,7 @@ body {
 	width:170px;
 	float:right;
 	padding:10px 0 0 20px;
-	background:url(../images/sidebarright.jpg) top left no-repeat;
+	background:url(../images/style/sidebarright.jpg) top left no-repeat;
 }
 
 #sidebarright p {
@@ -337,7 +337,7 @@ a {
 }
 
 a[href^="http"] {
-    background:url(../images/external.png) 99% 40% no-repeat;
+    background:url(../images/style/external.png) 99% 40% no-repeat;
     padding-right: 15px;
 }
 
