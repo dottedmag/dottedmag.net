@@ -1,4 +1,5 @@
 ---
+layout: post
 title: Faster JWZ-style backup
 ---
 <p>
@@ -9,11 +10,11 @@ title: Faster JWZ-style backup
 </p>
 <p>
   There is one small implementation problem with this approach though: our disks
-  grew tremendously in last years, and did not speed up too much to compensate
-  size growth, which means making a full copy of even a laptop drive could take
-  a lot of time (and no, using rsync as JWZ recommends is not an option, as you
-  still have to deal with partition table, boot sector, LVM and $DEITY knows
-  what else).
+  grew tremendously in last years, and did not speed up to compensate size
+  growth, which means making a full copy of even a laptop drive could take a lot
+  of time (and no, using rsync as JWZ recommends is not an option, as you still
+  have to deal with partition table, boot sector, LVM and $DEITY knows what
+  else).
 </p>
 <p>
   It wouldn't be <i>that</i> bad if full SATA speed could be achieved, but eSATA
