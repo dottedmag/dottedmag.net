@@ -1,0 +1,6 @@
+- name: Personal
+  url: /
+- name: Software
+  url: /software/
+- name: Blog
+  url: /blog/

@@ -1,0 +1,80 @@
+---
+layout: post
+title: My dotfiles setup
+section: Blog
+---
+
+<p>
+  For a quite long time I wanted to clean up my dotfiles hanging around on
+  different machines having different OS- and host-specific quirks to make sure
+  there is smooth environment on any (Unix-like) machine I ever touch, so if I
+  work on something I could concentrate on what I am working on, not on having
+  different <tt>screen</tt> or <tt>less</tt> settings.
+</p>
+<p>
+  Beside having dotfiles adapted for different OSes I also wanted to avoid lot
+  of clutter lying around, like Emacs configs on headless router I never intend
+  to run Gnus on.
+</p>
+<p>
+  Couple of months ago ago I finally had a time and desire to do it (mostly due
+  to fact I had to use Mac OS X for more than browsing Web and reading PDFs (and
+  OS X is pretty damn good for those two tasks, BTW)), so I bit the bullet and
+  scratched <a href="http://git.dottedmag.net/dotfiles.git/">simple dotfiles
+  manager</a>, which allows me apply subset of configuration files checked out
+  from repository on selected machine.
+</p>
+<p>
+  The way I use it is as the following:
+</p>
+<ul>
+ <li>I check out my dotfiles from git repository to <tt>~/.dotfiles</tt></li>
+ <li>I think what dotfiles "profiles" make sense on this machine</li>
+ <li>I run ~/.dotfiles/applyprofiles profile1 profile2</li>
+ <li>Every file in selected profile gets a symlink from <tt>$HOME</tt> back to it</li>
+</ul>
+<p>
+  You can see the list of
+  profiles <a href="http://git.dottedmag.net/dotfiles.git/tree/">in my git
+  repository</a>. Each profile is just the list of files usually hanging
+  in <tt>$HOME</tt>:
+</p>
+<pre>
+~/.dotfiles $ ls -aR basic
+basic:
+.  ..  bin  .screenrc  .zshenv	.zshrc
+
+basic/bin:
+.  ..  downloadit  ssh
+~/.dotfiles $
+</pre>
+<p>
+  And applying this profile creates symlinks that point back to the <tt>~/.dotfiles</tt>:
+</p>
+<pre>
+~ $ ls -a
+...
+lrwxrwxrwx .zshenv -> .dotfiles/basic/.zshenv
+lrwxrwxrwx .zshrc -> .dotfiles/basic/.zshrc
+...
+</pre>
+<p>
+  If I am setting up a machine for a OS or version I never used before I adjust
+  my dotfiles locally and push the changes back to the git
+  (my <tt>.zshrc</tt> <a href="http://git.dottedmag.net/dotfiles.git/tree/basic/.zshrc#n143">nudges
+  me</a> every time I start a new shell if there any uncommitted changes in
+  repository).
+</p>
+<p>
+  On the other machines I do a <tt>git pull</tt> and
+  run <tt>~/.dotfiles/applyprofiles</tt> in order to set up new symlinks if the
+  need arises.
+</p>
+<p>
+  This setup works pretty much fine for a couple of months, the only hosts I
+  didn't use it yet are Solaris ones, with
+  non-POSIX <tt>#!/bin/sh</tt>. Fortunately I don't spend too much time on
+  Solaris.
+</p>
+
+
