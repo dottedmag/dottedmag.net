@@ -1,0 +1,90 @@
+\documentclass[pdf]{beamer}
+\usepackage[koi8-r]{inputenc}
+\usepackage[russian]{babel}
+
+\title{Принципы объектно-ориентированного проектирования в Python}
+\author{Михаил Гусаров \\ \texttt{dottedmag@dottedmag.net}}
+\date{10 февраля 2007 г.}
+\begin{document}
+
+\begin{frame}
+  \titlepage
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Статическая и динамическая типизация}
+  \begin{block}{Статически типизированные языки}
+    \begin{itemize}
+      \item Явно типизированные
+\begin{verbatim}
+Foo* f = new Foo();
+\end{verbatim}
+\item С выведением типов
+\begin{verbatim}
+-- foo :: Integer -> Tree
+foo i = Leaf i
+\end{verbatim}
+    \end{itemize}
+  \end{block}
+  \begin{block}{Динамически типизированные языки}
+\begin{verbatim}
+    var bar = foo();
+    id foobar = [[class alloc] init];
+\end{verbatim}
+  \end{block}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Open-Closed Principle: определение}
+  \begin{quotation}
+    Software entities (classes, modules, functions etc) should be open for extension, but closed for modification.
+  \end{quotation}
+  Robert Martin, \emph{``The Open-Closed Principle''}, Engineering Notebook, The C++ Report.
+\end{frame}
+
+\begin{frame}
+  \frametitle{Применение OCP}
+  \begin{block}{В статически типизированных языках}
+    \begin{itemize}
+    \item Расширение через подклассы и реализацию интерфейсов
+    \item ``Бедный'' синтаксис и семантика.
+    \end{itemize}
+  \end{block}
+  \begin{block}{В динамически типизированных языках}
+    \begin{itemize}
+    \item Расширение через новые реализации контрактов
+    \item Нет проверки контрактов во время компиляции
+    \end{itemize}
+  \end{block}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Liskov Substitution Principle}
+  \begin{quotation}
+    If for each object $O_{1}$ of type $S$ there is object $O_{2}$ of type $T$ such that for all programs $P$ defined in terms of $T$, the behavior of $P$ is unchanged when $O_{1}$ is substituted for $O_{2}$, then $S$ is a subtype of $T$.
+  \end{quotation}
+  Barbara Liskow, \emph{``Family Values: A Behavioral Notion of Subtyping''}.
+  \begin{quotation}
+    Function that uses pointers or references to base classes must be able to use objects of derived classes without knowing it.
+  \end{quotation}
+  Robert Martin, \emph{``Liskov Substitution Principle''}, Engineering Notebook, The C++ Report.
+\end{frame}
+
+\begin{frame}
+  \frametitle{Liskov Substitution Principle - обобщение}
+  \begin{block}{}
+    Code must be able to use objects of subtypes instead of objects of supertypes without knowing it.
+  \end{block}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Проверка контрактов в динамически типизированных языках}
+  \begin{block}{Юнит-тестирование}
+    \begin{itemize}
+      \item Проверка контрактов во время тестирования
+      \item Документация: не только синтаксис, но и поведение
+    \end{itemize}
+  \end{block}
+\end{frame}
+
+\end{document}
