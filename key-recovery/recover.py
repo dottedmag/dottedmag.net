@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/env python
 import re, sys, subprocess, conf
 
 def decrypt(passphrase, infile, outfile):
