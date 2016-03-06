@@ -1,0 +1,75 @@
+-----BEGIN PGP SIGNED MESSAGE-----
+Hash: SHA512
+
+Sun Mar 06 13:59:20 CEST 2016
+
+I have recently set up a new OpenPGP key and will be transitioning away from my
+old one.
+
+The old key will continue to be valid for some time, but I prefer all future
+correspondence to come to the new one. I would also like this new key to be
+re-integrated into the web of trust. This message is signed by both keys to
+certify the transition.
+
+the old key was:
+
+pub   rsa4096/3E338888 2009-05-11
+      Key fingerprint = A8DF 1326 9E5D 9A38 E57C  FAC2 9D20 F650 3E33 8888
+
+And the new key is:
+
+pub   rsa4096/56008008 2016-03-05
+      Key fingerprint = 31A5 2D39 9276 2969 F349  2D95 7B35 DADF 5600 8008
+
+You can get the new key with:
+
+  wget -q -O- https://dottedmag.net/56008008.pub | gpg --import -
+
+Or, to fetch it from a public key server, you can simply do:
+
+  gpg --keyserver hkp://pool.sks-keyservers.net --recv-key 56008008
+
+If you already know my old key, you can now verify that the new key is signed by
+the old one:
+
+  gpg --check-sigs 56008008
+
+If you don't already know my old key, or you just want to be double extra
+paranoid, you can check the fingerprint against the one above:
+
+  gpg --fingerprint 56008008
+
+If you are satisfied that you've got the right key, and the UIDs match what you
+expect, I'd appreciate it if you would sign my key:
+
+  gpg --sign-key 56008008
+
+Lastly, if you could upload these signatures, i would appreciate it.  You can
+either send me an e-mail with the new signatures:
+
+  gpg --armor --export 56008008 | mail -s 'OpenPGP Signatures' dottedmag@dottedmag.net
+
+Or you can just upload the signatures to a public keyserver directly:
+
+  gpg --keyserver hkp://pool.sks-keyservers.net --send-key 56008008
+
+Please let me know if there is any trouble, and sorry for the inconvenience.
+
+Regards, Mikhail «dottedmag» Gusarov.
+-----BEGIN PGP SIGNATURE-----
+Version: GnuPG v2
+
+iQEcBAEBCgAGBQJW3CoBAAoJEP3kt0ImyZM48RkIAMltblERyI5D1uDaQ+8LSOYg
+QgLUNIa3hzrQq6kry+ryjz95ElpvkcRb/1ffn2yEnQ7ufkck0lBAUvxIRZHfjR+b
+k7QjK4ODQETmBT4MIJ+qtr4eA5/bAYj4ghRpJRQr/ctpGoZuUrAWfbtPeobAEO46
+cZ6cDE9Euxlb9XlEsJx4ydF4P3x/5JRfVVYC0cakBoqfKAEZvKilyDaXzdHRFgrI
+qrxBULYDdYBVIhtvzOMQSob158Ds54CjzolZv01hWNtzl7O8c8CJxBJWj5bMILT3
+C1yFhsDkhvFc8jrQljynCY3znI4JNkTGoga2tlqtwgfIIUNWKpr31LfnWZ1BqW6J
+ARwEAQEKAAYFAlbcKgEACgkQIJvlqQhQKdnxGQgAj0a7N/PJ/MmkY8NDSupLqCXp
+rHzZQ+UW/2Edgokun/9HX4bRd6dQo4NubX+SNBNSjKDIhILO6zsqABoPhiGUe8Dw
+YzW2U87YAShvcZQF8bRom88diZGTn85EgRQN2CO0iTDhyRkQypLar2cJjv8/UNf3
+LHdGYrPGdBBuPNCtl5HkxhhE+1Fbj08Lim+AGr6Ns/2hZfMPGL3GWBLkv2/yPQ4+
+XShvYTC4/1T7iUdIqZLNFeQoHKUH4Q6oe2p/+o3cx+JN7x/99iaJBhPciw6PQrfX
+D4E1WJRQ2VX2UXeDI+NI23b78SsA1yxnK70Mj6h5mWgTgy7fdv6N1Z+hYGPkZQ==
+=IeBh
+-----END PGP SIGNATURE-----
