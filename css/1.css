@@ -336,10 +336,10 @@ a {
     color:#222;
 }
 
-a[href^="http"] {
+/*a[href^="http"] {
     background:url(../images/style/external.png) 99% 40% no-repeat;
     padding-right: 15px;
-}
+}*/
 
 a.noext {
     background:none;
