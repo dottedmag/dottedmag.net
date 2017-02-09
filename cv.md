@@ -25,7 +25,7 @@ I bring empirical approach to all tasks.
 I bring readiness to work directly with customers, without shielding by the
 intermediares.
 
-I bring my experience of managing of small teams, experience of managing
+I bring my experience of managing small teams, experience of managing
 distributed teams and working in them.
 
 I bring adherence (but not the blind kind) to Agile and Lean Startup ideas.
