@@ -54,7 +54,7 @@ providing better tools and improving process.
 
 I maintain several packages in Debian, mostly "scratching my own itch".
 
-My Debian experience usually makes me an "resident Debian/Ubuntu expert" in all
+My Debian experience usually makes me a "resident Debian/Ubuntu expert" in all
 companies I work for.
 
 ## [CFEngine](https://cfengine.com) (2011-2013)
