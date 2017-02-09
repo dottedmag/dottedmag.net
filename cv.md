@@ -130,5 +130,5 @@ design. Various tools and toolchains (CI, builds, testing etc).
 
 ## Toyed with
 
-Clojure, other Lisps, Haskell, React, Ruby, OCaml, Erlang, C#, J2EE (old one),
-React, Google Cloud Platform.
+Clojure, other Lisps, Go, Haskell, React, Ruby, OCaml, Erlang, C#, J2EE (old
+one), React, Google Cloud Platform.
