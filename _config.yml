@@ -1,3 +1,13 @@
-name: dottedmag's
-markdown: redcarpet
-pygments: true
+title: "dottedmag's"
+baseurl: ""
+url: "https://dottedmag.net"
+google_analytics: "UA-53005220-2"
+livereload: true
+markdown: kramdown
+permalink: pretty
+gems:
+sass:
+  style: compressed
+exclude:
+  - Gemfile
+  - Gemfile.lock
