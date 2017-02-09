@@ -115,7 +115,7 @@ C, Debian, Make, TCP/IP, Python, git, Linux, Korn-like shells, POSIX/SUSv3.
 ## 3Y+ experience in/with
 
 JavaScript, Node, MongoDB, C++, various Internet protocols, REST interfaces,
-embedded Linux.
+embedded Linux, ElasticSearch, AWS.
 
 ## 1Y+ experience with
 
@@ -128,4 +128,5 @@ design. Various tools and toolchains (CI, builds, testing etc).
 
 ## Toyed with
 
-Clojure, other Lisps, Haskell, React, Ruby, OCaml, Erlang, C#, J2EE (old one).
+Clojure, other Lisps, Haskell, React, Ruby, OCaml, Erlang, C#, J2EE (old one),
+React, Google Cloud Platform.
