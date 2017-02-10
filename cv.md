@@ -63,7 +63,7 @@ I have created several internal-facing statistic dashboards for Hola VPN and
 also user-facing statistics for Hola CDN,
 [like this one](http://holacdn.com/cp/stats/dashboard?cust=portal_demo&embed=1).
 
-Now I'm streamlining and simplifying onboarding for Hola CDN, making customer's
+Now I'm streamlining and simplifying onboarding for Hola CDN, making customers'
 experience smoother, detecting and fixing website compatibility issues and
 generally improving work efficiency of the onboarding team by providing better
 tools and improving process.
