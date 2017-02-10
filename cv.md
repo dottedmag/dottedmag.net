@@ -38,7 +38,7 @@ improve in this field.
 
 ## [Hola!](http://hola.org) (2013+)
 
-I have added centralised application-level logging tools and introduced
+I have added centralised application-level logging and introduced
 application-level metrics to Hola infrastructure.
 
 I have created several internal-facing statistic dashboards for Hola VPN and
