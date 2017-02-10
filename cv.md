@@ -11,14 +11,14 @@ I bring my 15 years of experience in varied projects.
 
 I bring self-sufficiency and self-motivation.
 
-I bring the readiness to Get Things Done, as well as readiness to focus to long-
+I bring the readiness to Get Things Done, as well as readiness to focus on long-
 and short-term perspectives, and corresponding understanding that some things
 should not need to be done at all.
 
 I bring relentless striving
 for [simplicity](https://www.infoq.com/presentations/Simple-Made-Easy) and
 strong belief that incidental complexity is the most frequent technical reason
-projects die.
+of projects' demise.
 
 I bring empirical approach to all tasks.
 
@@ -27,8 +27,7 @@ intermediares.
 
 I bring solid grasp of software engineering practices.
 
-I bring my experience of managing small teams, experience of managing
-distributed teams and working in them.
+I bring my experience of managing distributed teams.
 
 I bring adherence (but not the blind kind) to Agile and Lean Startup ideas.
 
@@ -39,18 +38,17 @@ improve in this field.
 
 ## [Hola!](http://hola.org) (2013+)
 
-I was doing [SRE](https://en.wikipedia.org/wiki/Site_reliability_engineer)
-things in Hola at the beginning, adding centralised application-level logging
-tools and introducing application-level metrics.
+I have added centralised application-level logging tools and introduced
+application-level metrics to Hola infrastructure.
 
-Also I have created several internal-facing statistic dashboards for Hola VPN
-and also user-facing statistics for Hola CDN,
+I have created several internal-facing statistic dashboards for Hola VPN and
+also user-facing statistics for Hola CDN,
 [like this one](http://holacdn.com/cp/stats/dashboard?cust=portal_demo&embed=1).
 
-Now I'm working on streamlining and simplifying onboarding for Hola CDN, making
-customer's experience smoother, detecting and fixing website compatibility
-issues and generally improving work efficiency of the small onboarding team by
-providing better tools and improving process.
+Now I'm streamlining and simplifying onboarding for Hola CDN, making customer's
+experience smoother, detecting and fixing website compatibility issues and
+generally improving work efficiency of the onboarding team by providing better
+tools and improving process.
 
 ## [Debian](https://debian.org/) (2006+)
 
@@ -70,7 +68,7 @@ engineering practices.
 ## [OpenInkpot](https://wiki.mobileread.com/wiki/Openinkpot) (2007-2012)
 
 A Linux distribution for eBook readers. It got eventually killed by Kindle, but
-it was a fun while it lasted.
+it was fun while it lasted.
 
 I have started it, have built the infrastructure (from bugtracking to
 cross-compiling Debian packages in CI environment to repository manager) and was
