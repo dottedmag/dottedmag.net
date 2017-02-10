@@ -38,8 +38,12 @@ improve in this field.
 
 ## [Hola!](http://hola.org) (2013+)
 
-I have added centralised application-level logging and introduced
-application-level metrics to Hola infrastructure.
+Wearing my SRE hat, I have improved insight into performance of Hola services,
+by adding
+- centralised application-level logging, and
+- application-level metrics,
+
+which made it much easier to pinpoint and resolve performance problems and bugs.
 
 I have created several internal-facing statistic dashboards for Hola VPN and
 also user-facing statistics for Hola CDN,
