@@ -1,9 +1,23 @@
 ---
 layout: page
-title: CV
+menu_title: CV
+pic: "/assets/me-cv.jpg"
+title: Mikhail Gusarov - CV
 toplevel: true
 weight: 2
 ---
+
+# Contact information
+
+- Mikhail Gusarov
+- E-mail [cv@dottedmag.net](mailto:cv@dottedmag.net)
+- Phone +356 99100291 (timezone is UTC+1)
+- Post address
+```
+8, Fuq Il-Ġonna
+San Ġiljan STJ1922
+Malta
+```
 
 # What do I bring to the table?
 

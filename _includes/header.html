@@ -14,7 +14,7 @@
         {% for p in ps %}
           {% if p.toplevel %}
             <a class="page-link{% if p.url == page.url %} active-page-link{% endif %}"
-             href="{{p.url | relative_url }}">{{ p.title | escape }}</a>
+               href="{{p.url | relative_url }}">{% if p.menu_title %}{{ p.menu_title | escape }}{% else %}{{ p.title | escape}}{% endif %}</a>
           {% endif %}
         {% endfor %}
       </div>

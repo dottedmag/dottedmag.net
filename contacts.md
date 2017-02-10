@@ -1,5 +1,6 @@
 ---
 layout: page
+pic: "/assets/me-valletta.jpg"
 title: Contacts
 toplevel: true
 weight: 5
