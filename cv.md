@@ -1,7 +1,6 @@
 ---
 layout: page
 menu_title: CV
-pic: "/assets/me-cv.jpg"
 title: Mikhail Gusarov - CV
 toplevel: true
 weight: 2
