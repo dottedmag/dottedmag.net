@@ -20,31 +20,31 @@ Malta
 
 # What do I bring to the table?
 
-I bring my 15 years of experience in varied projects.
+15 years of experience in varied projects.
 
-I bring self-sufficiency and self-motivation.
+Self-sufficiency and self-motivation.
 
-I bring the readiness to Get Things Done, as well as readiness to focus on long-
+Readiness to Get Things Done, as well as readiness to focus on long-
 and short-term perspectives, and corresponding understanding that some things
 should not need to be done at all.
 
-I bring relentless striving
+Relentless striving
 for [simplicity](https://www.infoq.com/presentations/Simple-Made-Easy) and
 strong belief that incidental complexity is the most frequent technical reason
 of projects' demise.
 
-I bring empirical approach to all tasks.
+Empirical approach to all tasks.
 
-I bring readiness to work directly with customers, without shielding by the
+Readiness to work directly with customers, without shielding by the
 intermediares.
 
-I bring solid grasp of software engineering practices.
+Solid grasp of software engineering practices.
 
-I bring my experience of managing distributed teams.
+Experience of managing distributed teams.
 
-I bring adherence (but not the blind kind) to Agile and Lean Startup ideas.
+Adherence (but not the blind kind) to Agile and Lean Startup ideas.
 
-I bring appreciation of usability and UX in particular and aspiration to
+Appreciation of usability and UX in particular and aspiration to
 improve in this field.
 
 # Projects/Companies
