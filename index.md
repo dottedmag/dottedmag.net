@@ -1,7 +1,6 @@
 ---
 layout: page
 pic: "/assets/me-hat.jpg"
-title: Personal
 permalink: /
 toplevel: true
 weight: 1
