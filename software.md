@@ -53,7 +53,7 @@ weight: 4
 [musl](https://www.musl-libc.org/),
 [notmuch](https://notmuchmail.org/),
 [pass(1)](https://www.passwordstore.org/),
-[python-lj](https://github.com/daniilr/python-lj)
+[python-lj](https://github.com/daniilr/python-lj),
 [rb-inotify](https://github.com/nex3/rb-inotify),
 [s3cmd](http://s3tools.org/s3cmd),
 [Sinon](http://sinonjs.org/),
