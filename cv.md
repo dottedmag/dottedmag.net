@@ -140,4 +140,4 @@ design. Various tools and toolchains (CI, builds, testing etc).
 ## Toyed with
 
 Clojure, other Lisps, Go, Docker, Haskell, React, Ruby, OCaml, Erlang, C#, J2EE
-(old one), React, Google Cloud Platform.
+(old one), Google Cloud Platform.
