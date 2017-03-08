@@ -49,6 +49,7 @@ weight: 4
 [Linux](https://www.kernel.org/),
 [musl](https://www.musl-libc.org/),
 [notmuch](https://notmuchmail.org/),
+[NTPsec](https://www.ntpsec.org/),
 [uClibc](https://uclibc.org/),
 [util-linux](https://git.kernel.org/cgit/utils/util-linux/util-linux.git),
 [wmii](https://code.google.com/archive/p/wmii/)
