@@ -9,7 +9,7 @@ weight: 2
 # Contact information
 
 - Mikhail Gusarov
-- E-mail [cv@dottedmag.net](mailto:cv@dottedmag.net)
+- E-mail [ask@dottedmag.net](mailto:ask@dottedmag.net)
 - Phone +356 99100291 (timezone is UTC+1)
 
 # What do I bring to the table?
