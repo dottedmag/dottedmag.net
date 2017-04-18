@@ -80,6 +80,7 @@ weight: 4
 [transifex](https://www.transifex.com/)
 * Ruby
 [rb-inotify](https://github.com/nex3/rb-inotify)
+[Homebrew Cask](https://caskroom.github.io/)
 * Shell
 [pass(1)](https://www.passwordstore.org/),
 [vcsh](https://github.com/RichiH/vcsh)
