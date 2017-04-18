@@ -79,7 +79,7 @@ weight: 4
 [s3cmd](http://s3tools.org/s3cmd),
 [transifex](https://www.transifex.com/)
 * Ruby
-[rb-inotify](https://github.com/nex3/rb-inotify)
+[rb-inotify](https://github.com/nex3/rb-inotify),
 [Homebrew Cask](https://caskroom.github.io/)
 * Shell
 [pass(1)](https://www.passwordstore.org/),
