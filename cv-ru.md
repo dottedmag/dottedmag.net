@@ -3,7 +3,7 @@ layout: page
 title: Mikhail Gusarov - CV
 ---
 
-# Контастная информация
+# Контактная информация
 
 - Гусаров Михаил (Mikhail Gusarov)
 - Почта [me@mikhailgusarov.com](mailto:me@mikhailgusarov.com)
