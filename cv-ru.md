@@ -3,12 +3,6 @@ layout: page
 title: Mikhail Gusarov - CV
 ---
 
-# Контактная информация
-
-- Гусаров Михаил (Mikhail Gusarov)
-- Почта [me@mikhailgusarov.com](mailto:me@mikhailgusarov.com)
-- Телефон +356 99100291 (часовой пояс UTC+1)
-
 # Профессиональные цели
 
 Неспешно ищется работа. Приметы:
