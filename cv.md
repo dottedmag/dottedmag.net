@@ -121,12 +121,13 @@ Are you running Linux? Check out the `AUTHOR` stanza in `man 1 unshare`.
 
 ## 5Y+ experience in/with
 
-C, Debian, Make, TCP/IP, Python, git, Linux, Korn-like shells, POSIX/SUSv3.
+C, Debian, Make, TCP/IP, Python, git, Linux, Korn-like shells, POSIX/SUSv3,
+CFEngine.
 
 ## 3Y+ experience in/with
 
 JavaScript, Node, MongoDB, C++, various Internet protocols, REST interfaces,
-embedded Linux, ElasticSearch, AWS.
+ElasticSearch, AWS.
 
 ## 1Y+ experience with
 
@@ -139,5 +140,6 @@ design. Various tools and toolchains (CI, builds, testing etc).
 
 ## Toyed with
 
-Clojure, other Lisps, Go, Docker, Haskell, React, Ruby, OCaml, Erlang, C#, J2EE
-(old one), Google Cloud Platform.
+Clojure, other Lisps, Go, Docker, Haskell, React, Ruby, OCaml, Rust, Erlang, C#,
+J2EE (old one), Google Cloud Platform, Kubernetes, Ansible, Salt, Puppet, and
+everything else on the front page of Hacker News.
