@@ -96,7 +96,8 @@ system.
 
 OpenFusion project was my first spell as a software architect. I have designed
 SSO mechanism for Parallels apps, and also
-a [Web applications packaging format](http://www.apsstandard.org/).
+a [Web applications packaging format](http://www.apsstandard.org/)
+([Wikipedia page](https://en.wikipedia.org/wiki/Application_Packaging_Standard)).
 
 ## [Open Source](/software)
 
