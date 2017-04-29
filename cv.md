@@ -85,8 +85,8 @@ I have started it, have built the infrastructure (from bugtracking to
 cross-compiling Debian packages in CI environment to repository manager) and was
 BDFLing it until it withered out.
 
-Also I've got the experience managing distributed team in addition to previous
-experince working in one.
+Also I've got the experience managing distributed team in addition to the
+previous experince working in one.
 
 ## [Parallels](https://parallels.com) (2004-2007)
 
