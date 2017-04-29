@@ -101,8 +101,8 @@ a [Web applications packaging format](http://www.apsstandard.org/)
 
 ## [Open Source](/software)
 
-I have contributed numberous patches to various open source projects, mostly
-fixing problems I have encountered.
+I have [contributed numerous patches](/software) to various open source
+projects, mostly fixing problems I have encountered.
 
 Are you running Ubuntu or Debian? Say `apt-cache show libssh2-1` and see the
 Maintainer field.
