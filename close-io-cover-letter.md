@@ -26,6 +26,8 @@ an order of magnitude. It was a server automation software. Yes, a server
 automation software which was previously released without even running a
 regression testing suite.
 
+I enjoy releasing code to production many times a day.
+
 I am very comfortable working remotely (8 years, 4 of them managing a small
 distributed team). In fact, I'm only looking for a position in a fully
 distributed team.
