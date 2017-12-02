@@ -28,6 +28,8 @@ weight: 4
 [libssh2](https://www.libssh2.org/),
 [rspamd+rmilter](https://rspamd.com/),
 [x2x](https://github.com/dottedmag/x2x)
+* Clojure
+[re-frisk](https://github.com/flexsurfer/re-frisk)
 * Python
 [path.py](https://pypi.python.org/pypi/path.py),
 [pychm](https://github.com/dottedmag/pychm),
