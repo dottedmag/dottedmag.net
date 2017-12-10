@@ -89,5 +89,5 @@ weight: 4
 [vcsh](https://github.com/RichiH/vcsh)
 * Misc
 [cdnjs](https://cdnjs.com/),
-[Go](https://golang.org)
+[Go](https://golang.org),
 [V8](https://developers.google.com/v8/)
