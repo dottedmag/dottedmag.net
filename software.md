@@ -90,4 +90,4 @@ weight: 4
 * Misc
 [cdnjs](https://cdnjs.com/),
 [Go](https://golang.org)
-[V8][https://developers.google.com/v8/]
+[V8](https://developers.google.com/v8/)
