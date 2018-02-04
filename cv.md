@@ -141,8 +141,8 @@ engineering practices.
 
 ## [OpenInkpot](https://wiki.mobileread.com/wiki/Openinkpot) (2007-2012)
 
-A Linux distribution for eBook readers. It got eventually killed by Kindle, but
-it was fun while it lasted.
+A Linux distribution for eBook readers. It was fun while it lasted until Kindle
+killed it.
 
 I have started it, have built the infrastructure (from bugtracking to
 cross-compiling Debian packages in CI environment to repository manager) and was
