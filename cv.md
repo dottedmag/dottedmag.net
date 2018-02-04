@@ -27,7 +27,7 @@ months implementing features nobody wants.
 Complexity creeps in. I know how to prune unwanted statefulness, remove layering
 violations, keep the interfaces minimal.
 
-All software is distributed now: Web SPA and mobile apps distributed systems
+All software is distributed now: Web SPA and mobile apps are distributed systems
 too. I know how to manage upgrades, do a staged rollout client- and server-side,
 collect metrics and log messages. I know how to deal with old versions of client
 software suddenly reappearing out of the blue. I know how to version REST
