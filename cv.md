@@ -115,13 +115,13 @@ by adding
 - centralised application-level logging, and
 - application-level metrics,
 
-which made it much easier to pinpoint and resolve performance problems and bugs.
+that made it much easier to pinpoint and resolve performance problems and bugs.
 
 I have created several internal-facing statistic dashboards for Hola VPN and
 also user-facing statistics for Hola Spark CDN.
 
 While working on Luminati I have implemented a custom in-memory DB to track the
-status of 1M+ peers of Luminati network, which decreased the price of hardware
+status of 1M+ peers of Luminati network, that decreased the price of hardware
 running this database by 8x compared to the off-the-shelf DB.
 
 ## [Debian](https://debian.org/) (2006+)
@@ -154,7 +154,7 @@ previous experince working in one.
 ## [Parallels](https://parallels.com) (2004-2007)
 
 For Plesk for Unix I have created (in a team) a tool for transferring contents
-of competing hosting panels to Plesk, which then was repurposed as a backup
+of competing hosting panels to Plesk, which was then repurposed as a backup
 system.
 
 OpenFusion project was my first spell as a software architect. I have designed
