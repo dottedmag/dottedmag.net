@@ -1,0 +1,16 @@
+@media print {
+    .site-header, .site-footer { display: none; }
+
+    h1, h2, h3, h4, h5, h6,
+    p, blockquote, pre, table,
+    ul, ol, dl, figure,
+    %vertical-rhythm {
+        margin-bottom: px;
+    }
+
+    .wrapper {
+        max-width: 100%;
+        padding-left: 0;
+        padding-right: 0;
+    }
+}
