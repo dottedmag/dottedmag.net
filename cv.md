@@ -22,8 +22,8 @@ and need to be designed. I know how to isolate layers, invert dependencies,
 partition systems, evict state, add immutability, split interfaces and make a
 thousand other small and large decisions to keep complexity at bay.
 
-Requirements change all the time: I avoid overengineering, know how to do an
-MVP, and to avoid spending months implementing features nobody wants.
+Requirements change all the time: I know how to do an MVP, and avoid spending
+months implementing features nobody wants.
 
 Complexity creeps in. I know how to prune unwanted statefulness, remove layering
 violations, keep the interfaces minimal.
