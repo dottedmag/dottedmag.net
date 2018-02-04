@@ -113,7 +113,7 @@ Are you running Linux? Check out the `AUTHOR` stanza in `man 1 unshare`.
 Wearing my SRE hat, I have improved insight into performance of Hola services,
 by adding
 - centralised application-level logging, and
-- application-level metrics,
+- application-level metrics
 
 that made it much easier to pinpoint and resolve performance problems and bugs.
 
@@ -121,7 +121,7 @@ I have created several internal-facing statistic dashboards for Hola VPN and
 also user-facing statistics for Hola Spark CDN.
 
 While working on Luminati I have implemented a custom in-memory DB to track the
-status of 1M+ peers of Luminati network, that decreased the price of hardware
+status of 1M+ peers of Luminati network that decreased the price of hardware
 running this database by 8x compared to the off-the-shelf DB.
 
 ## [Debian](https://debian.org/) (2006+)
