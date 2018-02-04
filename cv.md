@@ -21,7 +21,7 @@ adaptability and ease of operations. I know how to isolate layers, invert
 dependencies, partition systems, evict state, add immutability, split interfaces
 and make a thousand other small and large decisions to make it happen.
 
-Requirements change all the time: I know how to do an MVP, and avoid spending
+Requirements change all the time. I know how to do an MVP, and avoid spending
 months implementing features nobody wants.
 
 Complexity creeps in. I know how to prune unwanted statefulness, remove layering
