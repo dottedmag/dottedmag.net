@@ -19,36 +19,36 @@ weight: 2
 Software systems need both functionality and properties such as flexibility,
 adaptability and ease of operations. I know how to isolate layers, invert
 dependencies, partition systems, evict state, add immutability, split interfaces
-and make a thousand other small and large decisions to make it happen.
+and make tons of other small and large decisions to make it happen.
 
-Requirements change all the time. I know how to do an MVP, and avoid spending
+Requirements change all the time. I know how to do an MVP to avoid spending
 months implementing features nobody wants.
 
 Complexity creeps in. I know how to prune unwanted statefulness, remove layering
 violations, keep the interfaces minimal.
 
-All software is distributed now: Web SPA is, and a mobile app too. I know how to
-manage upgrades, do a staged rollout client- and server-side, collect metrics
-and log messages. I know how to deal with old versions of client software
-suddenly reappearing out of the blue. I know how to version REST protocols to
-avoid breakages, but to stay flexible.
+All software is distributed now: Web SPA and mobile apps distributed systems
+too. I know how to manage upgrades, do a staged rollout client- and server-side,
+collect metrics and log messages. I know how to deal with old versions of client
+software suddenly reappearing out of the blue. I know how to version REST
+protocols to avoid breakages while staying flexible.
 
 ## Software development
 
 Give me a task, I'll do it. Or better: give me a problem and I'll solve it.
 
 I always try to see the big picture: can this problem be solved without writing
-new code? By deleting the code we already have? By a change in an internal
-process? Or by using an external service (price, SLA)? Does this problem need to
-be solved at all?
+new code? By deleting existing code? By a change in an internal process? Or by
+using an external service (price, SLA)? Does this problem need to be solved at
+all?
 
 ## (Distributed) team leadership
 
-I have an experience leading small engineering teams (from 2 to 8 people), both
+I have experience leading small engineering teams (from 2 to 8 people), both
 on-site and distributed (with timezones spread from UTC-4 to UTC+8), both in
 commercial setting and in a voluntary cooperation around an open source project.
 
-I like this kind of work, and would like to do it again, especially in an
+I like this kind of work and would like to do it again, especially in an
 environment where management and technical leadership are separated.
 
 ## Reengineering and refactoring
@@ -57,9 +57,9 @@ Is your legacy system a mess? Does implementing new feature takes ages, bugfixes
 cause more problems than they solve, system administrators have to apply
 enormous amount of effort to keep it running?
 
-This is something I can and like to tackle. I have experience decluttering
-various software systems, getting rid of creeping statefulness and streamlining
-operations.
+This is something I am able to do and like to tackle. I have experience
+decluttering various software systems, getting rid of creeping statefulness and
+streamlining operations.
 
 ## Tools
 
@@ -74,12 +74,12 @@ Server configuration management is so XX century (I'm saying this as
 
 Read-only stateless containers are a good thing (I added a [container-related tool in util-linux](https://git.kernel.org/pub/scm/utils/util-linux/util-linux.git/tree/AUTHORS#n71)).
 
-I'd like to work on a project which either already uses or switches to existing
+I'd like to work on a project that either already uses or switches to existing
 tools, such as Docker and Kubernetes. Implementing infrastructure bits and
 pieces from scratch is a lot of fun and one can spend enormous amount of time on
 it, but it does not bring any customer-facing value.
 
-# What can't (won't) I do?
+# What I can not (will not) do
 
 * NEW FEATURES-NEW FEATURES-NEW FEATURES-NEW FEATURES. There are many people who
   are way too happy to create new features. I'd rather prevent the whole system
@@ -120,15 +120,15 @@ which made it much easier to pinpoint and resolve performance problems and bugs.
 I have created several internal-facing statistic dashboards for Hola VPN and
 also user-facing statistics for Hola Spark CDN.
 
-For Luminati I have implemented a custom in-memory DB to track the status of 1M+
-peers of Luminati network, which decreased the price of hardware running this
-database by 8x compared to the off-the-shelf DB.
+While working on Luminati I have implemented a custom in-memory DB to track the
+status of 1M+ peers of Luminati network, which decreased the price of hardware
+running this database by 8x compared to the off-the-shelf DB.
 
 ## [Debian](https://debian.org/) (2006+)
 
 I maintain several packages in Debian, mostly "scratching my own itch".
 
-My Debian experience usually makes me a "resident Debian/Ubuntu expert" in the
+My Debian experience usually makes me a "resident Debian/Ubuntu expert" in
 companies I work for.
 
 ## [CFEngine](https://cfengine.com) (2011-2013)
