@@ -17,10 +17,9 @@ weight: 2
 ## Software design
 
 Software systems need both functionality and properties such as flexibility,
-adaptability and ease of operations. These properties don't happen accidentally
-and need to be designed. I know how to isolate layers, invert dependencies,
-partition systems, evict state, add immutability, split interfaces and make a
-thousand other small and large decisions to keep complexity at bay.
+adaptability and ease of operations. I know how to isolate layers, invert
+dependencies, partition systems, evict state, add immutability, split interfaces
+and make a thousand other small and large decisions to make it happen.
 
 Requirements change all the time: I know how to do an MVP, and avoid spending
 months implementing features nobody wants.
@@ -70,7 +69,7 @@ number of tests, makefiles and scripts.
 
 ## DevOps / SRE
 
-Server configuration management is so XX century (and I'm saying this as
+Server configuration management is so XX century (I'm saying this as
 [a major contributor to CFEngine](https://github.com/cfengine/core/graphs/contributors)).
 
 Read-only stateless containers are a good thing (I added a [container-related tool in util-linux](https://git.kernel.org/pub/scm/utils/util-linux/util-linux.git/tree/AUTHORS#n71)).
