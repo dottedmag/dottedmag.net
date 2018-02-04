@@ -12,38 +12,104 @@ weight: 2
 - E-mail [me@mikhailgusarov.com](mailto:me@mikhailgusarov.com)
 - Phone +356 99100291 (timezone is UTC+1)
 
-# What do I bring to the table?
+# What do I do?
 
-15 years of experience in varied projects.
+## Software design
 
-Self-sufficiency and self-motivation.
+Software systems need both functionality and properties such as flexibility,
+adaptability and ease of operations. These properties don't happen accidentally
+and need to be designed. I know how to isolate layers, invert dependencies,
+partition systems, evict state, add immutability, split interfaces and make a
+thousand other small and large decisions to keep complexity at bay.
 
-Readiness to Get Things Done, as well as readiness to focus on long-
-and short-term perspectives, and corresponding understanding that some things
-should not need to be done at all.
+Requirements change all the time: I avoid overengineering, know how to do an
+MVP, and to avoid spending months implementing features nobody wants.
 
-Relentless striving
-for [simplicity](https://www.infoq.com/presentations/Simple-Made-Easy) and
-strong belief that incidental complexity is the most frequent technical reason
-of projects' demise.
+Complexity creeps in. I know how to prune unwanted statefulness, remove layering
+violations, keep the interfaces minimal.
 
-Empirical approach to all tasks.
+All software is distributed now: Web SPA is, and a mobile app too. I know how to
+manage upgrades, do a staged rollout client- and server-side, collect metrics
+and log messages. I know how to deal with old versions of client software
+suddenly reappearing out of the blue. I know how to version REST protocols to
+avoid breakages, but to stay flexible.
 
-Readiness to work directly with customers, without shielding by the
-intermediares.
+## Software development
 
-Solid grasp of software engineering practices.
+Give me a task, I'll do it. Or better: give me a problem and I'll solve it.
 
-Experience of managing distributed teams.
+I always try to see the big picture: can this problem be solved without writing
+new code? By deleting the code we already have? By a change in an internal
+process? Or by using an external service (price, SLA)? Does this problem need to
+be solved at all?
 
-Adherence (but not the blind kind) to Agile and Lean Startup ideas.
+## (Distributed) team leadership
 
-Appreciation of usability and UX in particular and aspiration to
-improve in this field.
+I have an experience leading small engineering teams (from 2 to 8 people), both
+on-site and distributed (with timezones spread from UTC-4 to UTC+8), both in
+commercial setting and in a voluntary cooperation around an open source project.
+
+I like this kind of work, and would like to do it again, especially in an
+environment where management and technical leadership are separated.
+
+## Reengineering and refactoring
+
+Is your legacy system a mess? Does implementing new feature takes ages, bugfixes
+cause more problems than they solve, system administrators have to apply
+enormous amount of effort to keep it running?
+
+This is something I can and like to tackle. I have experience decluttering
+various software systems, getting rid of creeping statefulness and streamlining
+operations.
+
+## Tools
+
+I know my tools. I have introduced CI into several projects, bootstrapped an
+embedded Linux distribution and all of its infrastructure, and wrote a countless
+number of tests, makefiles and scripts.
+
+## DevOps / SRE
+
+Server configuration management is so XX century (and I'm saying this as
+[a major contributor to CFEngine](https://github.com/cfengine/core/graphs/contributors)).
+
+The read-only stateless containers are a good thing (I added a [container-related tool in util-linux](https://git.kernel.org/pub/scm/utils/util-linux/util-linux.git/tree/AUTHORS#n71)).
+
+I'd like to work on a project which either already uses or switches to existing
+tools, such as Docker and Kubernetes. Implementing infrastructure bits and
+pieces from scratch is a lot of fun and one can spend enormous amount of time on
+it, but it does not bring any customer-facing value.
+
+# What can't (won't) I do?
+
+* NEW FEATURES-NEW FEATURES-NEW FEATURES-NEW FEATURES. There are many people who
+  are way too happy to create new features. I'd rather prevent the whole system
+  from collapsing into a Big Ball of Mud.
+* Client-side. I'm reasonably proficient in working with client-side functional
+  UI libraries (React, Reagent), but it is not my forté.
+* PHP.
+* Perl.
+* Windows as a mandated development environment.
+
+# What do I want?
+
+* Remote work (unless the company offices are located on Malta).
+* Flexible work schedule, to a reasonable extent.
+* Good salary.
 
 # Projects/Companies
 
-## [Hola!](http://hola.org) (2013+)
+## [Open Source](/software)
+
+I have [contributed numerous patches](/software) to various open source
+projects, mostly fixing problems I have encountered.
+
+Are you running Ubuntu or Debian? Say `apt-cache show libssh2-1` and see the
+Maintainer field.
+
+Are you running Linux? Check out the `AUTHOR` stanza in `man 1 unshare`.
+
+## [Hola!](https://hola.org) / [Luminati](https://luminati.io) (2013+)
 
 Wearing my SRE hat, I have improved insight into performance of Hola services,
 by adding
@@ -53,19 +119,17 @@ by adding
 which made it much easier to pinpoint and resolve performance problems and bugs.
 
 I have created several internal-facing statistic dashboards for Hola VPN and
-also user-facing statistics for Hola CDN,
-[like this one](http://holacdn.com/cp/stats/dashboard?cust=portal_demo&embed=1).
+also user-facing statistics for Hola Spark CDN.
 
-Now I'm streamlining and simplifying onboarding for Hola CDN, making customers'
-experience smoother, detecting and fixing website compatibility issues and
-generally improving work efficiency of the onboarding team by providing better
-tools and improving process.
+For Luminati I have implemented a custom in-memory DB to track the status of 1M+
+peers of Luminati network, which decreased the price of hardware running this
+database by 8x compared to the off-the-shelf DB.
 
 ## [Debian](https://debian.org/) (2006+)
 
 I maintain several packages in Debian, mostly "scratching my own itch".
 
-My Debian experience usually makes me a "resident Debian/Ubuntu expert" in all
+My Debian experience usually makes me a "resident Debian/Ubuntu expert" in the
 companies I work for.
 
 ## [CFEngine](https://cfengine.com) (2011-2013)
@@ -99,16 +163,6 @@ SSO mechanism for Parallels apps, and also
 a [Web applications packaging format](http://www.apsstandard.org/)
 ([Wikipedia page](https://en.wikipedia.org/wiki/Application_Packaging_Standard)).
 
-## [Open Source](/software)
-
-I have [contributed numerous patches](/software) to various open source
-projects, mostly fixing problems I have encountered.
-
-Are you running Ubuntu or Debian? Say `apt-cache show libssh2-1` and see the
-Maintainer field.
-
-Are you running Linux? Check out the `AUTHOR` stanza in `man 1 unshare`.
-
 ## Other
 
 | From | To | Name  | What it was/is about? |
@@ -122,17 +176,17 @@ Are you running Linux? Check out the `AUTHOR` stanza in `man 1 unshare`.
 
 ## 5Y+ experience in/with
 
-C, Debian, Make, TCP/IP, Python, git, Linux, Korn-like shells, POSIX/SUSv3,
-CFEngine.
+C, Javascript, Node.js, Debian, Make, TCP/IP, Python, git, Linux, Korn-like
+shells, POSIX/SUSv3, CFEngine.
 
 ## 3Y+ experience in/with
 
-JavaScript, Node, MongoDB, C++, various Internet protocols, REST interfaces,
-ElasticSearch, AWS.
+MongoDB, C++, various Internet protocols, REST interfaces, ElasticSearch, AWS.
 
 ## 1Y+ experience with
 
-Perl, other Unices, XSLT, Java, Django, Eclipse RCP, SQLite, PostgreSQL.
+Clojure, Perl, other Unices, XSLT, Java, Django, Eclipse RCP, SQLite,
+PostgreSQL.
 
 ## Have a good grasp of
 
@@ -141,6 +195,6 @@ design. Various tools and toolchains (CI, builds, testing etc).
 
 ## Toyed with
 
-Clojure, other Lisps, Go, Docker, Haskell, React, Ruby, OCaml, Rust, Erlang, C#,
-J2EE (old one), Google Cloud Platform, Kubernetes, Ansible, Salt, Puppet, and
+Various Lisps, Go, Docker, Haskell, React, Ruby, OCaml, Rust, Erlang, C#, J2EE
+(old one), Google Cloud Platform, Kubernetes, Ansible, Salt, Puppet, and
 everything else on the front page of Hacker News.
