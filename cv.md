@@ -77,7 +77,7 @@ number of tests, makefiles and scripts.
 Server configuration management is so XX century (I'm saying this as
 [a major contributor to CFEngine](https://github.com/cfengine/core/graphs/contributors)).
 
-Read-only stateless containers are a good thing (I added a [container-related tool in util-linux](https://git.kernel.org/pub/scm/utils/util-linux/util-linux.git/tree/AUTHORS#n71)).
+Read-only stateless containers are a good thing (I added a [container-related tool to util-linux](https://git.kernel.org/pub/scm/utils/util-linux/util-linux.git/tree/AUTHORS#n71)).
 
 I'd like to work on a project that either already uses or switches to existing
 tools, such as Docker and Kubernetes. Implementing infrastructure bits and
@@ -179,7 +179,7 @@ a [Web applications packaging format](http://www.apsstandard.org/)
 
 # Buzzwords (yay Ctrl-F!)
 
-## 15Y+ experience with
+## 10Y+ experience with
 
 C, Linux, Make, Debian, Korn-like shells, POSIX/SUSv3.
 
