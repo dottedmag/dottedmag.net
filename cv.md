@@ -193,7 +193,7 @@ MongoDB, various Internet protocols, REST interfaces, ElasticSearch, AWS.
 
 ## 1Y+ experience with
 
-Clojure, Perl, variousUnices, XSLT, Java, Django, Eclipse RCP, SQLite,
+Clojure, Perl, various Unices, XSLT, Java, Django, Eclipse RCP, SQLite,
 PostgreSQL.
 
 ## Have a good grasp of
