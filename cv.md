@@ -86,9 +86,11 @@ it, while it does not bring any customer-facing value.
 
 # What I can not (will not) do
 
-* NEW FEATURES-NEW FEATURES-NEW FEATURES-NEW FEATURES. There are many people who
-  are way too happy to create new features. I'd rather prevent the whole system
-  from collapsing into a Big Ball of Mud.
+* NEW FEATURES NO MATTER WHAT-NEW FEATURES NO MATTER WHAT-NEW FEATURES NO MATTER
+  WHAT. There are many people who are way too happy to create new features and
+  never look back at the mess created. I'd rather take additional time making
+  sure the new functionality integrates with the rest of the system and does not
+  contribute to a Big Ball of Mud.
 * Client-side. I'm reasonably proficient in working with client-side functional
   UI libraries (React, Reagent), but it is not my forté.
 * PHP.
