@@ -12,6 +12,11 @@ weight: 2
 - E-mail [me@mikhailgusarov.com](mailto:me@mikhailgusarov.com)
 - Phone +356 99100291 (timezone is UTC+1)
 
+# Summary
+
+I design, develop and run software systems, distributed or not, with a focus on
+long-term maintainability, and lead small teams for doing so.
+
 # What do I do?
 
 ## Software design
