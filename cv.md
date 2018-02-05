@@ -179,18 +179,21 @@ a [Web applications packaging format](http://www.apsstandard.org/)
 
 # Buzzwords (yay Ctrl-F!)
 
-## 5Y+ experience in/with
+## 15Y+ experience with
 
-C, Javascript, Node.js, Debian, Make, TCP/IP, Python, git, Linux, Korn-like
-shells, POSIX/SUSv3, CFEngine.
+C, Linux, Make, Debian, Korn-like shells, POSIX/SUSv3.
+
+## 5Y+ experience with
+
+C++, Javascript, Node.js, TCP/IP, Python, git, CFEngine.
 
 ## 3Y+ experience in/with
 
-MongoDB, C++, various Internet protocols, REST interfaces, ElasticSearch, AWS.
+MongoDB, various Internet protocols, REST interfaces, ElasticSearch, AWS.
 
 ## 1Y+ experience with
 
-Clojure, Perl, other Unices, XSLT, Java, Django, Eclipse RCP, SQLite,
+Clojure, Perl, variousUnices, XSLT, Java, Django, Eclipse RCP, SQLite,
 PostgreSQL.
 
 ## Have a good grasp of
