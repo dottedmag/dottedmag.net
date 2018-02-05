@@ -29,9 +29,9 @@ violations, keep the interfaces minimal.
 
 All software is distributed now: Web SPA and mobile apps are distributed systems
 too. I know how to manage upgrades, do a staged rollout client- and server-side,
-collect metrics and log messages. I know how to deal with old versions of client
-software suddenly reappearing out of the blue. I know how to version REST
-protocols to avoid breakages while staying flexible.
+collect metrics and log messages, how to deal with old versions of client
+software suddenly reappearing out of the blue and how to version REST protocols
+to avoid breakages while staying flexible.
 
 ## Software development
 
