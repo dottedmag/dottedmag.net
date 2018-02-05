@@ -94,7 +94,6 @@ it, while it does not bring any customer-facing value.
 
 * Remote work (unless the company offices are located on Malta).
 * Flexible work schedule, to a reasonable extent.
-* Good salary.
 
 # Projects/Companies
 
