@@ -14,8 +14,8 @@ weight: 2
 
 # Summary
 
-I design, develop and run software systems, distributed or not, with a focus on
-long-term maintainability, and lead small teams for doing so.
+I design, develop, maintain and run software systems with a focus on long-term
+maintainability, and lead small teams doing so.
 
 # What do I do?
 
