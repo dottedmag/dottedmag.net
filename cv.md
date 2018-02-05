@@ -53,9 +53,9 @@ environment where management and technical leadership are separated.
 
 ## Reengineering and refactoring
 
-Is your legacy system a mess? Does implementing new feature takes ages, bugfixes
-cause more problems than they solve, system administrators have to apply
-enormous amount of effort to keep it running?
+Is your legacy system a mess? Does implementing a new feature take ages, do
+bugfixes cause more problems than they solve, do system administrators have to
+apply enormous amount of effort to keep it running?
 
 This is something I am able to do and like to tackle. I have experience
 decluttering various software systems, getting rid of creeping statefulness and
@@ -77,7 +77,7 @@ Read-only stateless containers are a good thing (I added a [container-related to
 I'd like to work on a project that either already uses or switches to existing
 tools, such as Docker and Kubernetes. Implementing infrastructure bits and
 pieces from scratch is a lot of fun and one can spend enormous amount of time on
-it, but it does not bring any customer-facing value.
+it, while it does not bring any customer-facing value.
 
 # What I can not (will not) do
 
