@@ -177,21 +177,27 @@ a [Web applications packaging format](http://www.apsstandard.org/)
 | 2003 | 2004 | Axmor | As a member of IBM Solutions Group team I was doing R&D work for IBM, evaluating new cool technologies of the time for potential usefulness for IBM projects. Also doubled as system administrator. |
 | 2003 | 2003 | Novosoft | An intern! My first "real" place of work. Billing system based on Cisco NetFlow. |
 
-# Buzzwords (yay Ctrl-F!)
+# Keywords/Experience
 
-## 10Y+ experience with
+## 30Y+ experience in
+
+Russian language (native).
+
+## 10Y+ experience in
 
 C, Linux, Make, Debian, Korn-like shells, POSIX/SUSv3.
 
-## 5Y+ experience with
+## 5Y+ experience in
 
 C++, Javascript, Node.js, TCP/IP, Python, git, CFEngine.
 
-## 3Y+ experience in/with
+Norwegian language (upper intermediate).
+
+## 3Y+ experience in
 
 MongoDB, various Internet protocols, REST interfaces, ElasticSearch, AWS.
 
-## 1Y+ experience with
+## 1Y+ experience in
 
 Clojure, Perl, various Unices, XSLT, Java, Django, Eclipse RCP, SQLite,
 PostgreSQL.
