@@ -91,8 +91,7 @@ it, while it does not bring any customer-facing value.
   never look back at the mess created. I'd rather take additional time making
   sure the new functionality integrates with the rest of the system and does not
   contribute to a Big Ball of Mud.
-* Client-side. I'm reasonably proficient in working with client-side functional
-  UI libraries (React, Reagent), but it is not my forté.
+* Client-side all day long. I'm reasonably proficient in working with client-side functional UI libraries (React, Reagent), but it is not my forté.
 * PHP.
 * Perl.
 * Windows as a mandated development environment.
