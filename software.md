@@ -87,7 +87,7 @@ weight: 4
 [Homebrew Cask](https://caskroom.github.io/)
 * Shell
 [pass(1)](https://www.passwordstore.org/),
-[vcsh](https://github.com/RichiH/vcsh)
+[vcsh](https://github.com/RichiH/vcsh),
 [Status](https://status.im)
 * Misc
 [cdnjs](https://cdnjs.com/),
