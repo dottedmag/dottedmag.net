@@ -43,6 +43,7 @@ weight: 4
 * C
 [BusyBox](https://busybox.net/),
 [cgit](https://git.zx2c4.com/cgit/),
+[fakeroot](https://wiki.debian.org/FakeRoot),
 [fontconfig](https://www.freedesktop.org/wiki/Software/fontconfig/),
 [GLib](https://developer.gnome.org/glib/),
 [GNOME](https://www.gnome.org/),
@@ -87,6 +88,7 @@ weight: 4
 * Shell
 [pass(1)](https://www.passwordstore.org/),
 [vcsh](https://github.com/RichiH/vcsh)
+[Status](https://status.im)
 * Misc
 [cdnjs](https://cdnjs.com/),
 [Go](https://golang.org),
