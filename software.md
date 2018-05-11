@@ -91,3 +91,4 @@ weight: 4
 [cdnjs](https://cdnjs.com/),
 [Go](https://golang.org),
 [V8](https://developers.google.com/v8/)
+[Clojure](https://clojure.org/)
