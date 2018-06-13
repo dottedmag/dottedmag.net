@@ -3,7 +3,7 @@ layout: page
 pic: "/assets/me-valletta.jpg"
 title: Contacts
 toplevel: true
-weight: 5
+weight: 6
 ---
 Please send emails to [me@dottedmag.net](mailto:me@dottedmag.net)
 
