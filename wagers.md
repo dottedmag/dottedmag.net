@@ -6,9 +6,9 @@ weight: 5
 ---
 # Wagers
 
-This page keeps a list of wagers I have entered into. A wager is a useful tool
-for intellectual honesty: debating is cheap if nothing is at stake, and
-self-imposing financial incentives makes for a better quality of thinking.
+A wager is a useful tool for intellectual honesty: debating is cheap if nothing
+is at stake, and self-imposing financial incentives makes for a better quality
+of thinking.
 
 ## ASI in Go
 
