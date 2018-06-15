@@ -14,7 +14,7 @@ of thinking.
 
 Go [automatically inserts semicolons](https://groups.google.com/forum/#!topic/golang-nuts/XuMrWI0Q8uk).
 
-I believe is that Go grammar and mandatory use of `gofmt` make ASI safe to use in Go, unlike [some other languages](https://www.destroyallsoftware.com/talks/wat).
+I believe that Go grammar and mandatory use of `gofmt` make ASI safe to use in Go, unlike [some other languages](https://www.destroyallsoftware.com/talks/wat).
 
 To disprove that a real bug in real Go codebase caused by ASI has to be
 demonstrated.
