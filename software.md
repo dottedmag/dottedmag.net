@@ -8,7 +8,12 @@ weight: 4
 > Organic, artisanal, free-range, pesticide-free code.
 > All bugs are completely natural!
 
-# My contributions to open source
+# My projects
+
+* [OpenInkpot](https://openinkpot.org/)
+* [libsha1](https://github.com/dottedmag/libsha1)
+
+# My contributions
 
 * [GitHub page](https://github.com/dottedmag/)
 * [OpenHUB](https://www.openhub.net/accounts/dottedmag/positions)
@@ -16,7 +21,6 @@ weight: 4
 ## 1000+ commits to
 * C
 [CFEngine](https://github.com/),
-[OpenInkpot](https://openinkpot.org/)
 * Misc
 [Debian](https://qa.debian.org/developer.php?login=Mikhail+Gusarov)
 
@@ -51,7 +55,6 @@ weight: 4
 [fontconfig](https://www.freedesktop.org/wiki/Software/fontconfig/),
 [GLib](https://developer.gnome.org/glib/),
 [GNOME](https://www.gnome.org/),
-[libsha1](https://github.com/dottedmag/libsha1),
 [libusb](http://libusb.info/),
 [Linux](https://www.kernel.org/),
 [musl](https://www.musl-libc.org/),
