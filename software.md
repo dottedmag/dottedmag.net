@@ -4,6 +4,10 @@ title: Software
 toplevel: true
 weight: 4
 ---
+
+> Organic, artisanal, free-range, pesticide-free code.
+> All bugs are completely natural!
+
 # My contributions to open source
 
 * [GitHub page](https://github.com/dottedmag/)

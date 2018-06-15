@@ -12,6 +12,3 @@ I blog in [English](https://blog.dottedmag.net/) and
 I [tweet](https://twitter.com/dottedmag).
 
 I [develop software](/software), and [have been doing it for a while](/cv).
-
-My professional motto is: Organic, artisanal, free-range, pesticide-free code.
-All bugs are completely natural!
