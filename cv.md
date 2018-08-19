@@ -54,7 +54,7 @@ on-site and distributed (with timezones spread from UTC-4 to UTC+8), both in
 commercial setting and in a voluntary cooperation around an open source project.
 
 I like this kind of work and would like to do it again, especially in an
-environment where management and technical leadership are separated.
+environment where management and technical leadership are separate roles.
 
 ## Reengineering and refactoring
 
