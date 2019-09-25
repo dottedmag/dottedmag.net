@@ -62,6 +62,7 @@ weight: 4
 [NTPsec](https://www.ntpsec.org/),
 [uClibc](https://uclibc.org/),
 [util-linux](https://git.kernel.org/cgit/utils/util-linux/util-linux.git),
+[VLC](https://www.videolan.org/vlc/index.html)
 [wmii](https://code.google.com/archive/p/wmii/)
 * C++
 [Boost](https://www.boost.org/),
