@@ -61,6 +61,7 @@ weight: 4
 [musl](https://www.musl-libc.org/),
 [notmuch](https://notmuchmail.org/),
 [NTPsec](https://www.ntpsec.org/),
+[QEMU](https://www.qemu.org/),
 [uClibc](https://uclibc.org/),
 [util-linux](https://git.kernel.org/cgit/utils/util-linux/util-linux.git),
 [VLC](https://www.videolan.org/vlc/index.html),
