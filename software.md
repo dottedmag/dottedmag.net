@@ -77,6 +77,7 @@ weight: 4
 [eclus](https://github.com/goerlang/eclus),
 [gostatic](https://github.com/piranha/gostatic),
 [Loki](https://grafana.com/oss/loki/),
+[mdns](https://github.com/asim/mdns/),
 [Terragrunt](https://github.com/gruntwork-io/terragrunt)
 * JavaScript
 [dc.js](https://dc-js.github.io/dc.js/),
