@@ -113,7 +113,16 @@ Maintainer field.
 
 Are you running Linux? Check out the `AUTHOR` stanza in `man 1 unshare`.
 
-## [Hola!](https://hola.org) / [Luminati](https://luminati.io) (2013+)
+## [Ridge](https://ridge.co) (2018+)
+
+I am a software architect of Ridge project.
+
+I am responsible for eliciting and developing users' needs, formulating
+requirements for Ridge, shaping the architecture to fulfill these needs.
+
+I am also responsible for code reviews and for for improving project tooling.
+
+## [Hola!](https://hola.org) / [Luminati](https://luminati.io) (2013-2018)
 
 Wearing my SRE hat, I have improved insight into performance of Hola services,
 by adding
