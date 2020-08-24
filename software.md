@@ -65,6 +65,7 @@ weight: 4
 [uClibc](https://uclibc.org/),
 [util-linux](https://git.kernel.org/cgit/utils/util-linux/util-linux.git),
 [VLC](https://www.videolan.org/vlc/index.html),
+[Wireshark](https://gitlab.com/wireshark/wireshark),
 [wmii](https://code.google.com/archive/p/wmii/)
 * C++
 [Boost](https://www.boost.org/),
