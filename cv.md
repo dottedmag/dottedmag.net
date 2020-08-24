@@ -1,15 +1,15 @@
 ---
 layout: page
 menu_title: CV
-title: Mikhail Gusarov - CV
+title: Misha Gusarov - CV
 toplevel: true
 weight: 2
 ---
 
 # Contact information
 
-- Mikhail Gusarov
-- E-mail [me@mikhailgusarov.com](mailto:me@mikhailgusarov.com)
+- Misha Gusarov
+- E-mail [cv@dt.mg](mailto:cv@dt.mg)
 - Phone +356 99100291 (timezone is UTC+1)
 
 # Summary

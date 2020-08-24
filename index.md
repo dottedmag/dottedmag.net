@@ -5,7 +5,7 @@ permalink: /
 toplevel: true
 weight: 1
 ---
-My name is Mikhail Gusarov.
+My name is Misha Gusarov.
 
 I blog in [English](https://blog.dottedmag.net/) and
 [Russian](https://dottedmag.dreamwidth.org/) and
