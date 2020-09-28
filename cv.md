@@ -86,6 +86,7 @@ it, while it does not bring any customer-facing value.
 
 # What I can not (will not) do
 
+* Tolerate SJWs and cancel culture.
 * NEW FEATURES NO MATTER WHAT-NEW FEATURES NO MATTER WHAT-NEW FEATURES NO MATTER
   WHAT. There are many people who are way too happy to create new features and
   never look back at the mess created. I'd rather take additional time making
