@@ -75,7 +75,7 @@ tools, such as Docker and Kubernetes. Implementing infrastructure bits and
 pieces from scratch is a lot of fun and one can spend enormous amount of time on
 it, while it does not bring any customer-facing value.
 
-# What do I want?
+# What do I expect?
 
 * Remote work (unless the company offices are located on Malta).
 * Flexible work schedule, to a reasonable extent.
