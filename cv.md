@@ -72,8 +72,8 @@ Read-only stateless containers are a good thing (I added a [container-related to
 
 I'd like to work on a project that either plans to, switches, or uses existing
 tools, such as Docker and Kubernetes. Implementing infrastructure bits and
-pieces from scratch is a lot of fun and one can spend enormous amount of time on
-it, while it does not bring any customer-facing value.
+pieces from scratch is a lot of fun and one can sink enormous amount of effort
+on it.
 
 # What do I expect?
 
