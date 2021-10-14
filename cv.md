@@ -70,7 +70,7 @@ Server configuration management is so XX century (I'm saying this as
 
 Read-only stateless containers are a good thing (I added a [container-related tool to util-linux](https://git.kernel.org/pub/scm/utils/util-linux/util-linux.git/tree/AUTHORS#n71)).
 
-I'd like to work on a project that either already uses or switches to existing
+I'd like to work on a project that either plans to, switches, or uses existing
 tools, such as Docker and Kubernetes. Implementing infrastructure bits and
 pieces from scratch is a lot of fun and one can spend enormous amount of time on
 it, while it does not bring any customer-facing value.
