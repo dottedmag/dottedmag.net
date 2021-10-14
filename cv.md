@@ -84,19 +84,6 @@ tools, such as Docker and Kubernetes. Implementing infrastructure bits and
 pieces from scratch is a lot of fun and one can spend enormous amount of time on
 it, while it does not bring any customer-facing value.
 
-# What I can not (will not) do
-
-* Tolerate SJWs and cancel culture.
-* NEW FEATURES NO MATTER WHAT-NEW FEATURES NO MATTER WHAT-NEW FEATURES NO MATTER
-  WHAT. There are many people who are way too happy to create new features and
-  never look back at the mess created. I'd rather take additional time making
-  sure the new functionality integrates with the rest of the system and does not
-  contribute to a Big Ball of Mud.
-* Client-side all day long. I'm reasonably proficient in working with client-side functional UI libraries (React, Reagent), but it is not my forté.
-* PHP.
-* Perl.
-* Windows as a mandated development environment.
-
 # What do I want?
 
 * Remote work (unless the company offices are located on Malta).
