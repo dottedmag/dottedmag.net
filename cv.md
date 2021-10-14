@@ -38,15 +38,6 @@ collect metrics and log messages, how to deal with old versions of client
 software suddenly reappearing out of the blue and how to version REST protocols
 to avoid breakages while staying flexible.
 
-## Software development
-
-Give me a task, I'll do it. Or better: give me a problem and I'll solve it.
-
-I always try to see the big picture: can this problem be solved without writing
-new code? By deleting existing code? By a change in an internal process? Or by
-using an external service (price, SLA)? Does this problem need to be solved at
-all?
-
 ## (Distributed) team leadership
 
 I have experience leading small engineering teams (from 2 to 8 people), both
