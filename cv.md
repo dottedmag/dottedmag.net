@@ -15,7 +15,7 @@ weight: 2
 # Summary
 
 I design, develop, maintain and run software systems with a focus on long-term
-maintainability, and lead small teams doing so.
+maintainability, and lead compact teams doing so.
 
 # What do I do?
 
@@ -40,7 +40,7 @@ to avoid breakages while staying flexible.
 
 ## (Distributed) team leadership
 
-I have experience leading small engineering teams (from 2 to 8 people), both
+I have experience leading compact engineering teams (from 2 to 8 people), both
 on-site and distributed (with timezones spread from UTC-4 to UTC+8), both in
 commercial setting and in a voluntary cooperation around an open source project.
 
