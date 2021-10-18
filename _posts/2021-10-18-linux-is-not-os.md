@@ -2,6 +2,8 @@
 layout: post
 title: "Linux is not OS"
 ---
+# Linux is not OS
+
 TL;DR: Linux is not an operating system. GNU/Linux is not an operating system
 either. A Linux distribution is. This is important for niche distrbutions.
 
