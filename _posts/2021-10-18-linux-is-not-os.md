@@ -17,10 +17,10 @@ system I mean a software that fulfills two functions:
 Some operating systems only support a single application, therefore the second
 function, the stable interface, is the crucial one.
 
-## Why Linux or GNU/Linux is not OS?
+## Why Linux or GNU/Linux is not an OS?
 
-Linux is a source code of an operating system kernel. GNU is a source code of
-operating system userspace components. These are raw ingredients for build an
+Linux is the source code of an operating system kernel. GNU is the source code
+of operating system userspace components. These are raw ingredients to build an
 OS.
 
 Linux distributions vary greatly: file locations, libraries, build options,
