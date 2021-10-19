@@ -76,6 +76,10 @@ Some underlying variations still leak through the abstraction (e.g. the set of
 supported Linux syscalls may vary based on distribution's kernel configuration),
 but the resulting ABI is way stabler than the native one.
 
+For the applications that do not require system services beyond what's available
+in Snap and Flatpack sandboxes this target is the least painful way to support
+Linux.
+
 ### Shouldn't application authors stick to the published API, and let distribution authors build and package their software?
 
 This is totally fine. However note that this means application authors merely
