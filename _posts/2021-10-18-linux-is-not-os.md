@@ -50,7 +50,7 @@ application may not work if it was not tested on this particular distribution.
 
 Every niche Linux distribution that does not follow the interface of a larger
 one is a unique OS, closely related but not compatible with other Linux OSes.
-This means the applications has to be ported.
+This means the applications have to be ported.
 
 Application developers have to choose what targets their applications support.
 With Linux distributions being just a blip on the graph of operating systems
