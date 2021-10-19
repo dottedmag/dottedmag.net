@@ -76,7 +76,7 @@ Some underlying variations still leak through the abstraction (e.g. the set of
 supported Linux syscalls may vary based on distribution's kernel configuration),
 but the resulting ABI is way stabler than the native one.
 
-## Shouldn't application authors stick to the published API, and let distribution authors build and package their software?
+### Shouldn't application authors stick to the published API, and let distribution authors build and package their software?
 
 This is totally fine. However note that this means application authors merely
 supply more raw ingredients, and distribution authors have to make/port
