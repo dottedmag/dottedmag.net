@@ -42,9 +42,9 @@ options to build their kernels.
 
 In practice this means that application developers are unable to target "Linux",
 they have to target many Linux distributions. This is most evident when clicking
-"Download" button opens a menu with the set of packages to choose from, but even
-then the application may not work it was not tested on this particular
-distribution.
+"Download" button that opens a menu with the set of packages to choose from, but
+even if the package for a particular package manager is available, the installed
+application may not work if it was not tested on this particular distribution.
 
 ## Consequences for niche Linux distributions
 
