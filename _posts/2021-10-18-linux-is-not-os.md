@@ -116,6 +116,14 @@ of applications available.
 ## Footnotes
 
 [^1]:
-Some small platforms (Amiga, C64) could get away with it for a while by
+Some small platforms (ZX Spectrum, C64) could get away with it for a while by
 having a stable set of hardware, however this approach does not work long-term,
 due to sheer number of computer components and periphery produced.
+
+  Manufacturers of these platforms got bitten by the hardware stability when
+they introduced new versions of their computers.
+
+  Application developers were disincentivised to use new features because they
+also had to target large install base of older computers, so new computers
+didn't provide any benefits to the end users due to lack of applications, and
+both Sinclair and Commodore ultimately closed down.
