@@ -5,7 +5,7 @@ title: "Linux is not OS"
 # Linux is not OS
 
 TL;DR: Every Linux distribution is a separate OS. Niche Linux distributions will
-never enjoy even the modest software selection available for mainstream Linux
+never enjoy even the modest application selection available for mainstream Linux
 distributions.
 
 ## Operating systems and why they matter
@@ -33,8 +33,8 @@ source code, one for the kernel, another for userspace components.
 
 Every Linux distribution takes the source code produced by Linux, GNU and other
 projects, and combines them into an operating system, deciding on syscall
-interface, particular file layout, available libraries and other aspects that
-together specify the operating system interface.
+interface, file layout, available libraries and other aspects that together
+specify the operating system interface.
 
 Different distributions make different choices, and therefore they are closely
 related operating systems, but not a single OS. Even Linux syscall interface
@@ -51,7 +51,7 @@ distribution.
 
 Every niche Linux distribution that does not follow the interface of a larger
 one is a unique OS, closely related but not compatible with other Linux OSes.
-This means the software has to be ported.
+This means the applications has to be ported.
 
 Application developers have to choose what targets their applications support.
 With Linux distributions being just a blip on the graph of operating systems
@@ -63,7 +63,7 @@ distributions. Therefore the only realistic option for application developers is
 to care about several largest distributions, if they care about Linux at all.
 
 This places the burden of porting and testing on the niche distribution makers,
-which means that the only most popular and easily ported software will be
+which means that the only most popular and easily ported applications will be
 available.
 
 ## Q&A
@@ -84,12 +84,7 @@ Linux.
 
 This is totally fine. However note that this means application authors merely
 supply more raw ingredients, and distribution authors have to make/port
-applications for their OS out of these ingredients.
-
-As an aside, a free software license is not a universally sound choice for
-software authors. This limits the set of software available for the
-distributions that insist that the application packaging and testing has to be
-done by the distribution maintainers.
+applications for their OS out of these ingredients[^2].
 
 ### Shouldn't application authors stick to the standards to make porting trivial?
 
@@ -116,14 +111,20 @@ of applications available.
 ## Footnotes
 
 [^1]:
-Some small platforms (ZX Spectrum, C64) could get away with it for a while by
-having a stable set of hardware, however this approach does not work long-term,
-due to sheer number of computer components and periphery produced.
+  Some small platforms (ZX Spectrum, C64) could get away with it for a while by
+  having a stable set of hardware, however this approach does not work long-term,
+  due to sheer number of computer components and periphery produced.
 
   Manufacturers of these platforms got bitten by the hardware stability when
-they introduced new versions of their computers.
+  they introduced new versions of their computers.
 
   Application developers were disincentivised to use new features because they
-also had to target large install base of older computers, so new computers
-didn't provide any benefits to the end users due to lack of applications, and
-both Sinclair and Commodore ultimately closed down.
+  also had to target large install base of older computers, so new computers
+  didn't provide any benefits to the end users due to lack of applications, and
+  both Sinclair and Commodore ultimately closed down.
+
+[^2]:
+  Moreover, a free software license is not a universally sound choice for
+  software authors. This limits the set of applications available for the
+  distributions that insist that the application packaging and testing has to be
+  done by the distribution maintainers.
