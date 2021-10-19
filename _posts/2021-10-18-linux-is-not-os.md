@@ -24,9 +24,8 @@ hardware in existence, an untenable task[^1].
 
 ## Linux distributions are operating systems
 
-Operating system is defined by its interface, consisting of syscalls, file
-layout, packages and package managers, services and libraries, function call ABI
-etc.
+Operating system is defined by its interface: syscalls, file layout, packages
+and package managers, services and libraries, function call ABI etc.
 
 Linux and GNU projects do not produce operating systems. Both projects produce
 source code, one for the kernel, another for userspace components.
