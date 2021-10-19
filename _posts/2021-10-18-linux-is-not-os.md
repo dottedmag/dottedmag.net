@@ -22,7 +22,7 @@ Stable application interface is the crucial invention that enables applications:
 without it every application would have to be ported to every combination of
 hardware in existence, an untenable task[^1].
 
-## Linux distributions as operating systems
+## Linux distributions are operating systems
 
 Operating system is defined by its interface, consisting of syscalls, file
 layout, packages and package managers, services and libraries, function call ABI
