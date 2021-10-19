@@ -18,9 +18,9 @@ Operating system is software that sits directly atop computer hardware, and perf
 Operating systems by themselves are useless, they exist solely to enable
 applications to be run.
 
-Stable application interface is the crucial invention that enables applications:
-without it every application would have to be ported to every combination of
-hardware in existence, an untenable task[^1].
+Stable interface is the crucial invention that enables applications: without it
+every application would have to be ported to every combination of hardware in
+existence, an untenable task[^1].
 
 ## Linux distributions are operating systems
 
