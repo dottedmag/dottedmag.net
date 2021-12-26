@@ -1,6 +1,6 @@
 ---
 layout: page
-title: Misha Gusarov - CV
+title: Mikhail Gusarov - CV
 ---
 
 # Контакты
