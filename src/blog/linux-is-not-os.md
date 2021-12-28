@@ -1,9 +1,6 @@
----
-layout: post
-title: "Linux is not OS"
----
-# Linux is not OS
-
+title: Linux is not OS
+date: 2021-10-18
+----
 TL;DR: Every Linux distribution is a separate OS. Niche Linux distributions will
 never enjoy even the modest application selection available for mainstream Linux
 distributions.

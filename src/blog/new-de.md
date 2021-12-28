@@ -1,9 +1,6 @@
----
-layout: post
 title: New Linux desktop environment
----
-# New Linux desktop environment
-
+date: 2021-12-26
+----
 I am developing a new Linux desktop environment. This may sound odd in
 2021, desktop environments being a part of Linux landscape for the last
 20 years, so why I'm doing it?

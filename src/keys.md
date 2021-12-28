@@ -1,9 +1,5 @@
----
-layout: page
 title: Keys
-toplevel: true
-weight: 3
----
+----
 # GPG
 
 Primary:

@@ -1,10 +1,6 @@
----
 layout: page
-menu_title: CV
 title: Mikhail Gusarov - CV
-toplevel: true
-weight: 2
----
+----
 
 # Contact information
 

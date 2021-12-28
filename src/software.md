@@ -1,9 +1,5 @@
----
-layout: page
 title: Software
-toplevel: true
-weight: 4
----
+----
 
 # My projects
 

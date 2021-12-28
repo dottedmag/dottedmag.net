@@ -1,0 +1,34 @@
+TEMPLATES = site.tmpl
+SOURCE = src
+OUTPUT = docs
+TITLE = Mikhail Gusarov
+URL = https://dottedmag.net/
+AUTHOR = Mikhail Gusarov
+
+blog/*.md:
+	config
+	ext .html
+	markdown
+	jekyllify
+	directorify
+	template blogpost
+	template page
+
+*.md:
+	config
+	ext .html
+	directorify
+	markdown
+	template singlepage
+	template page
+
+index.md: blog/*.md
+	config
+	ext .html
+	directorify
+	template blogindex
+	template singlepage
+	template page
+
+blog.atom: blog/*.md
+	inner-template
