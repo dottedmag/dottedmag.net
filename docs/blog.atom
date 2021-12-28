@@ -1,0 +1,233 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom" xmlns:thr="http://purl.org/syndication/thread/1.0">
+  <id>https://dottedmag.net/</id>
+  <title>Mikhail Gusarov</title>
+  
+  <updated>2021-12-26T00:00:00Z</updated>
+  
+  <author><name>Mikhail Gusarov</name></author>
+  <link href="https://dottedmag.net/" rel="alternate"></link>
+  <link href="https://dottedmag.net/blog.atom" rel="self"></link>
+
+
+
+<entry>
+  <id>https://dottedmag.net/blog/new-de/</id>
+  <author><name>Mikhail Gusarov</name></author>
+  <title type="html">New Linux desktop environment</title>
+  <published>2021-12-26T00:00:00Z</published>
+  <updated>2021-12-26T00:00:00Z</updated>
+  
+  <link href="https://dottedmag.net/blog/new-de/" rel="alternate"></link>
+  <content type="html">
+    
+      
+  &lt;p&gt;I am developing a new Linux desktop environment. This may sound odd in
+2021, desktop environments being a part of Linux landscape for the last
+20 years, so why I&amp;rsquo;m doing it?&lt;/p&gt;
+&lt;p&gt;Obviously, I&amp;rsquo;m not satisfied with the available options (not only on Linux,
+but also under macOS, but there is no chance to having better desktop environment
+for macOS).&lt;/p&gt;
+&lt;p&gt;More specifically, I do not see an existing solution that successfully
+covers the following needs:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;deep work,&lt;/li&gt;
+&lt;li&gt;dynamic hardware and networking environment,&lt;/li&gt;
+&lt;li&gt;hackability.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;deep-work&#34;&gt;Deep work&lt;/h2&gt;
+&lt;p&gt;Deep work, or work in the state of the flow, requires environment that minimises
+distractions and promotes formation of habits.&lt;/p&gt;
+&lt;p&gt;Existing desktop environments are not scoring high on these counts:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;Visible latency of desktop environments is a constant source of distraction.
+One can often &lt;em&gt;see&lt;/em&gt; the lag of GNOME desktop, even on a last-generation video
+card! This means keystrokes and mouse clicks often get misdelivered or lost,
+and this breaks the formation of habits: one can start forming a habit by
+using keystrokes or mouse actions, only to see it crumbling when one becomes
+good at this habit, as latency kicks in and breaks the flow.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Application laggines creates unneeded source of distraction too. While desktop
+environment may not do much in this regard, there is not enough work for
+detection of laggy applications popping up their windows in the middle of
+unrelated operation.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Stability. One might think that after 20 years of development desktop environments
+finally settled down, but &lt;a href=&#34;https://gitlab.gnome.org/GNOME/gnome-shell/-/commit/7298ee23e91b756c7009b4d7687dfd8673856f8b&#34;&gt;this is not what happens&lt;/a&gt;.
+Due to lack of hackability (see below), this makes upgrades very disruptive.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Notification systems are a nuisance, and desktop environments, while
+acknowledging their distraction potential, and providing crude ways to disable
+notifications, do not have a good solution for important, non-urgent
+notifications.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;dynamic-hardware-and-networking-environment&#34;&gt;Dynamic hardware and networking environment&lt;/h2&gt;
+&lt;p&gt;Desktop environments are no longer used on PCs encased in tower cases sitting
+on the floor with peripherals connected to them before boot. Hence the
+desktop environment has to give user the control over the hardware and networks
+coming and going dynamically, and the following is the &lt;em&gt;minimal&lt;/em&gt; list:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;WiFi connectivity&lt;/li&gt;
+&lt;li&gt;Mobile broadband connectivity&lt;/li&gt;
+&lt;li&gt;VPNs&lt;/li&gt;
+&lt;li&gt;Bluetooth input and output (keyboards, mices, trackpads, audio)&lt;/li&gt;
+&lt;li&gt;USB peripheral devices (mass storage, eGPUs)&lt;/li&gt;
+&lt;li&gt;Displays (HDMI, DisplayPort, Thunderbolt, DB-over-USB tunneling)&lt;/li&gt;
+&lt;li&gt;Thunderbolt access control&lt;/li&gt;
+&lt;li&gt;Various weird stuff, like pairing Logitech mice and keyboards using
+their special dongles.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;This rules out any Wayland compositors except KDE and GNOME: like X11 window
+managers, many niche Wayland compositors are scoring high in the &amp;ldquo;deep work&amp;rdquo;
+department, but they do not provide the user with any tools for hardware
+management.&lt;/p&gt;
+&lt;p&gt;As a side-note, wlroots-enabled compositors are doubly disqualified
+&lt;a href=&#34;https://github.com/danvd/wlroots-eglstreams&#34;&gt;as wlroots project won&amp;rsquo;t merge support for NVidia drivers due to political reasons&lt;/a&gt;.&lt;/p&gt;
+&lt;h2 id=&#34;hackability&#34;&gt;Hackability&lt;/h2&gt;
+&lt;p&gt;If the software was perfect, hackability won&amp;rsquo;t be needed. Alas it is not, so
+to overcome the imperfections of software we still have to improve it.&lt;/p&gt;
+&lt;p&gt;Hackability is a freedom often touted by open source advocates, but this
+freedom is very hard to exercise in reality for existing desktop
+environments.&lt;/p&gt;
+&lt;p&gt;Imagine a single person trying to change a way GNOME shell works. How does one
+learn how to do it, how does one prepare, how does one execute the change, and
+how does one integrate this change?&lt;/p&gt;
+&lt;p&gt;Direct dependencies of &lt;code&gt;gnome-shell&lt;/code&gt; package in Debian include 64 packages,
+including JavaScript and Python interpreters. The whole list of obviously
+GNOME-related indirect dependencies is over a hundred packages long.&lt;/p&gt;
+&lt;p&gt;How does one understand which piece of code to change? By wading around in the
+source code that contains tons of boilerplate?&lt;/p&gt;
+&lt;p&gt;How does one create a debug environment for experimenting with GNOME shell?
+GNOME shell contains a lot of C code, so all the libraries have to be rebuilt in
+debug mode. I don&amp;rsquo;t see a documentation how to do it in a way that does not
+ruin the system one is developing on. NixOS comes close, and actually provides
+a way to integrate changes back to the running system, but
+&lt;a href=&#34;/2021/10/18/linux-is-not-os&#34;&gt;it comes with its own set of drawbacks&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;Once this is done, how one uses the changed code, especially if the fix is not
+in the shell itself (as a leaf package it could easily be replaced), but in a
+library? What if the change is spread over several packages?&lt;/p&gt;
+&lt;p&gt;Hackability can&amp;rsquo;t be introduced into a large system once it&amp;rsquo;s built, so
+there is no hope it can be added to existing desktop environments.&lt;/p&gt;
+&lt;h2 id=&#34;project&#34;&gt;Project&lt;/h2&gt;
+&lt;p&gt;The project is named &lt;a href=&#34;https://github.com/5de&#34;&gt;5DE&lt;/a&gt;, and the goals for the project
+are as stated above: try to make a Linux desktop environment that facilitates
+deep work, handles dynamic hardware/networking environment of computers and
+provides hackability.&lt;/p&gt;
+&lt;p&gt;There is not much there yet, and I will be documenting its progress in this blog
+for the time being.&lt;/p&gt;
+
+  
+    
+  </content>
+</entry>
+
+<entry>
+  <id>https://dottedmag.net/blog/linux-is-not-os/</id>
+  <author><name>Mikhail Gusarov</name></author>
+  <title type="html">Linux is not OS</title>
+  <published>2021-10-18T00:00:00Z</published>
+  <updated>2021-10-18T00:00:00Z</updated>
+  
+  <link href="https://dottedmag.net/blog/linux-is-not-os/" rel="alternate"></link>
+  <content type="html">
+    
+      
+  &lt;p&gt;TL;DR: Every Linux distribution is a separate OS. Niche Linux distributions will
+never enjoy even the modest application selection available for mainstream Linux
+distributions.&lt;/p&gt;
+&lt;h2 id=&#34;operating-systems-and-why-they-matter&#34;&gt;Operating systems and why they matter&lt;/h2&gt;
+&lt;p&gt;Operating system is software that sits directly atop computer hardware, and performs multiple functions, namely&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;sharing resources between applications,&lt;/li&gt;
+&lt;li&gt;isolating applications from each other,&lt;/li&gt;
+&lt;li&gt;providing applications with a stable interface to access the hardware.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Operating systems by themselves are useless, they exist solely to enable
+applications to be run.&lt;/p&gt;
+&lt;p&gt;Stable interface is the crucial invention that enables applications: without it
+every application would have to be ported to every combination of hardware in
+existence, an untenable task&lt;sup id=&#34;fnref:1&#34;&gt;&lt;a href=&#34;#fn:1&#34; class=&#34;footnote-ref&#34; role=&#34;doc-noteref&#34;&gt;1&lt;/a&gt;&lt;/sup&gt;.&lt;/p&gt;
+&lt;h2 id=&#34;linux-distributions-are-operating-systems&#34;&gt;Linux distributions are operating systems&lt;/h2&gt;
+&lt;p&gt;Operating system is defined by its interface: syscalls, file layout, packages
+and package managers, services and libraries, function call ABI etc.&lt;/p&gt;
+&lt;p&gt;Linux and GNU projects do not produce operating systems. Both projects produce
+source code, one for the kernel, another for userspace components.&lt;/p&gt;
+&lt;p&gt;Every Linux distribution takes the source code produced by Linux, GNU and other
+projects, and combines them into an operating system, deciding on syscall
+interface, file layout, available libraries and other aspects that together
+specify the operating system interface.&lt;/p&gt;
+&lt;p&gt;Different distributions make different choices, and therefore they are closely
+related operating systems, but not a single OS. Even Linux syscall interface
+subtly changes from distribution to distribution, as they pick and choose
+options to build their kernels.&lt;/p&gt;
+&lt;p&gt;In practice this means that application developers are unable to target &amp;ldquo;Linux&amp;rdquo;,
+they have to target many Linux distributions. This is most evident when clicking
+&amp;ldquo;Download&amp;rdquo; button that opens a menu with the set of packages to choose from, but
+even if the package for a particular package manager is available, the installed
+application may not work if it was not tested on this particular distribution.&lt;/p&gt;
+&lt;h2 id=&#34;consequences-for-niche-linux-distributions&#34;&gt;Consequences for niche Linux distributions&lt;/h2&gt;
+&lt;p&gt;Every niche Linux distribution that does not follow the interface of a larger
+one is a unique OS, closely related but not compatible with other Linux OSes.
+This means the applications have to be ported.&lt;/p&gt;
+&lt;p&gt;Application developers have to choose what targets their applications support.
+With Linux distributions being just a blip on the graph of operating systems
+popularity, the application developers may not invest significant amount of
+resources into porting and testing.&lt;/p&gt;
+&lt;p&gt;Even this blip is hopelessly fragmented: there are hundreds of Linux
+distributions. Therefore the only realistic option for application developers is
+to care about several largest distributions, if they care about Linux at all.&lt;/p&gt;
+&lt;p&gt;This places the burden of porting and testing on the niche distribution makers,
+which means that the only most popular and easily ported applications will be
+available.&lt;/p&gt;
+&lt;h2 id=&#34;qa&#34;&gt;Q&amp;amp;A&lt;/h2&gt;
+&lt;h3 id=&#34;arent-snap-and-flatpak-designed-to-run-applications-on-any-linux-distribution&#34;&gt;Aren&amp;rsquo;t Snap and Flatpak designed to run applications on any Linux distribution?&lt;/h3&gt;
+&lt;p&gt;This is true. Snap and Flatpak can be seen as virtualized operating systems.&lt;/p&gt;
+&lt;p&gt;Some underlying variations still leak through the abstraction (e.g. the set of
+supported Linux syscalls may vary based on distribution&amp;rsquo;s kernel configuration),
+but the resulting ABI is way stabler than the native one.&lt;/p&gt;
+&lt;p&gt;This is the easiest way to target Linux for applications that do not need
+services beyond what Snap and Flatpak provide.&lt;/p&gt;
+&lt;h3 id=&#34;shouldnt-application-authors-stick-to-the-published-api-and-let-distribution-authors-build-and-package-their-software&#34;&gt;Shouldn&amp;rsquo;t application authors stick to the published API, and let distribution authors build and package their software?&lt;/h3&gt;
+&lt;p&gt;This is totally fine. However note that this means application authors merely
+supply more raw ingredients, and distribution authors have to make/port
+applications for their OS out of these ingredients&lt;sup id=&#34;fnref:2&#34;&gt;&lt;a href=&#34;#fn:2&#34; class=&#34;footnote-ref&#34; role=&#34;doc-noteref&#34;&gt;2&lt;/a&gt;&lt;/sup&gt;.&lt;/p&gt;
+&lt;h3 id=&#34;shouldnt-application-authors-stick-to-the-standards-to-make-porting-trivial&#34;&gt;Shouldn&amp;rsquo;t application authors stick to the standards to make porting trivial?&lt;/h3&gt;
+&lt;p&gt;It does not work.&lt;/p&gt;
+&lt;p&gt;First, there aren&amp;rsquo;t many great standards out there to stick to. LSB is outdated.
+SUSv4 only covers basic syscalls and shell. X11 and Wayland are low-level, and
+contain numerous extensions.&lt;/p&gt;
+&lt;p&gt;Second, existing standards cover a small subset of functionality provided by
+Linux and userspace libraries. Standards do not cover &lt;code&gt;signalfd(2)&lt;/code&gt; or GTK4.&lt;/p&gt;
+&lt;p&gt;Third, even if porting is made relatively trivial, there is additional per-OS
+work of testing the application. Application authors have at least be aware of
+existence of a particular niche distribution to be able to test and release
+their application, and with distributions counting in hundreds this is not
+feasible.&lt;/p&gt;
+&lt;h3 id=&#34;i-dont-care-about-anything-thats-not-packaged-by-the-distribution&#34;&gt;I don&amp;rsquo;t care about anything that&amp;rsquo;s not packaged by the distribution&lt;/h3&gt;
+&lt;p&gt;This is totally fine. Just note that you are using a niche OS with a limited set
+of applications available.&lt;/p&gt;
+&lt;h2 id=&#34;footnotes&#34;&gt;Footnotes&lt;/h2&gt;
+&lt;div class=&#34;footnotes&#34; role=&#34;doc-endnotes&#34;&gt;
+&lt;hr /&gt;
+&lt;ol&gt;
+&lt;li id=&#34;fn:1&#34; role=&#34;doc-endnote&#34;&gt;
+&lt;p&gt;Some small platforms (ZX Spectrum, C64) could get away with it for a while by having a stable set of hardware, however this approach does not work long-term, due to sheer number of computer components and periphery produced.
+Manufacturers of these platforms got bitten by the hardware stability when they introduced new versions of their computers.
+Application developers were disincentivised to use new features because they also had to target large install base of older computers, so new computers didn&amp;rsquo;t provide any benefits to the end users due to lack of applications, and both Sinclair and Commodore ultimately closed down.&amp;#160;&lt;a href=&#34;#fnref:1&#34; class=&#34;footnote-backref&#34; role=&#34;doc-backlink&#34;&gt;&amp;#x21a9;&amp;#xfe0e;&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li id=&#34;fn:2&#34; role=&#34;doc-endnote&#34;&gt;
+&lt;p&gt;Moreover, a free software license is not a universally sound choice for software authors. This limits the set of applications available for the distributions that insist that the application packaging and testing has to be done by the distribution maintainers.&amp;#160;&lt;a href=&#34;#fnref:2&#34; class=&#34;footnote-backref&#34; role=&#34;doc-backlink&#34;&gt;&amp;#x21a9;&amp;#xfe0e;&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+
+    
+  </content>
+</entry>
+
+
+</feed>
