@@ -2,105 +2,76 @@ layout: page
 title: Mikhail Gusarov - CV
 ----
 
-# Contact information
+## Contact information
 
 - Mikhail Gusarov
 - E-mail [cv@dt.mg](mailto:cv@dt.mg)
 - Phone +356 99100291 (timezone is UTC+1)
 
-# Summary
+## Summary
 
 I design, develop, maintain and run software systems with a focus on long-term
-maintainability, and lead compact teams doing so.
+maintainability, and lead small teams doing so.
 
-# What do I do?
+## Software design, development & operations
 
-## Software design
+In Ridge I produce software architecture, component design and supporting tools
+and procedures. I also implement a quite a bit of the design.
 
-Software systems need both functionality and properties such as flexibility,
-adaptability and ease of operations. I know how to isolate layers, invert
-dependencies, partition systems, evict state, add immutability, split interfaces
-and make tons of other small and large decisions to make it happen.
+In Luminati I have designed and implemented application-devel metrics and
+logging system, providing visibility into the application behaviour, and
+created an application-specific database system to eliminate the bottleneck
+that could not be solved by off-the-shelf database.
 
-Requirements change all the time. I know how to do an MVP to avoid spending
-months implementing features nobody wants.
+In OpenInkpot I have designed and guided the effort to develop embedded
+Linux distribution suited for eBook readers, from kernel up to custom
+UI optimized for e-Ink screens.
 
-Complexity creeps in. I know how to prune unwanted statefulness, remove layering
-violations, keep the interfaces minimal.
+Outside of commercial context I am a contributor to [numerous open source
+projects](https://dottedmag.net/software/), including well-known ones such
+as BusyBox, fontconfig, GNOME, Linux and VLC. Some of my code is present on
+most Linux machines: if you're on desktop Linux, you might want to run
+`man 1 unshare` and check `AUTHORS` section.
 
-All software is distributed now: Web SPA and mobile apps are distributed systems
-too. I know how to manage upgrades, do a staged rollout client- and server-side,
-collect metrics and log messages, how to deal with old versions of client
-software suddenly reappearing out of the blue and how to version REST protocols
-to avoid breakages while staying flexible.
+## Technical leadership
 
-## (Distributed) team leadership
+I know how to introduce, set up and fine tune processes of software development,
+testing and deployment. In Ridge, CFEngine and OpenInkpot I have established
+engineering processes of code review, continuous integration and unit- and
+acceptance-testing.
 
-I have experience leading compact engineering teams (from 2 to 8 people), both
-on-site and distributed (with timezones spread from UTC-4 to UTC+8), both in
-commercial setting and in a voluntary cooperation around an open source project.
+## Product management
 
-I like this kind of work and would like to do it again, especially in an
-environment where management and technical leadership are separate roles.
+In Ridge I define product requirements based on collected customers' needs
+to make the product appealing to all roles in customers' organizations.
 
-## Reengineering and refactoring
+In OpenInkpot I defined the product scope, collected customers' needs and
+translated them into product requirements.
 
-Is your legacy system a mess? Does implementing a new feature take ages, do
-bugfixes cause more problems than they solve, do system administrators have to
-apply enormous amount of effort to keep it running?
+## Project management
 
-This is something I am able to do and like to tackle. I have experience
-decluttering various software systems, getting rid of creeping statefulness and
-streamlining operations.
-
-## Tools
-
-I know my tools. I have introduced CI into several projects, bootstrapped an
-embedded Linux distribution and all of its infrastructure, and wrote a countless
-number of tests, makefiles and scripts.
-
-## DevOps / SRE
-
-Server configuration management is so XX century (I'm saying this as
-[a major contributor to CFEngine](https://github.com/cfengine/core/graphs/contributors)).
-
-Read-only stateless containers are a good thing (I added a [container-related tool to util-linux](https://git.kernel.org/pub/scm/utils/util-linux/util-linux.git/tree/AUTHORS#n71)).
-
-I'd like to work on a project that either plans to, switches, or uses existing
-tools, such as Docker and Kubernetes. Implementing infrastructure bits and
-pieces from scratch is a lot of fun and one can sink enormous amount of effort
-on it.
+I have some experience managing small teams, especially volunteer-based: In OpenInkpot
+I managed volunteer contributors and a distributed team to produce software for
+Azbooka e-reader.
 
 # What do I expect?
 
-* Remote work (unless the company offices are located on Malta).
-* Flexible work schedule, to a reasonable extent.
+Remote work and a flexible work schedule, to a reasonable extent.
 
 # Projects/Companies
 
-## [Open Source](/software)
-
-I have [contributed numerous patches](/software) to various open source
-projects, mostly fixing problems I have encountered.
-
-Are you running Ubuntu or Debian? Say `apt-cache show libssh2-1` and see the
-Maintainer field.
-
-Are you running Linux? Check out the `AUTHOR` stanza in `man 1 unshare`.
-
 ## [Ridge](https://ridge.co) (2018+)
 
-I am a software architect of Ridge project.
+Software architect.
 
-I am responsible for eliciting and developing users' needs, formulating
-requirements for Ridge, shaping the architecture to fulfill these needs.
-
-I am also responsible for code reviews and for for improving project tooling.
+I'm responsible for creating product requirements, software architecture,
+internal tools and development procedures.
 
 ## [Hola!](https://hola.org) / [Luminati](https://luminati.io) (2013-2018)
 
-Wearing my SRE hat, I have improved insight into performance of Hola services,
-by adding
+Senior software engineer.
+
+I have improved insight into performance of Hola services by adding
 - centralised application-level logging, and
 - application-level metrics
 
@@ -113,85 +84,45 @@ While working on Luminati I have implemented a custom in-memory DB to track the
 status of 1M+ peers of Luminati network that decreased the price of hardware
 running this database by 8x compared to the off-the-shelf DB.
 
-## [Debian](https://debian.org/) (2006+)
-
-I maintain several packages in Debian, mostly "scratching my own itch".
-
-My Debian experience usually makes me a "resident Debian/Ubuntu expert" in
-companies I work for.
-
 ## [CFEngine](https://cfengine.com) (2011-2013)
 
-I have thrust CFEngine from SunOS 4 times into 21 century (not single-handedly,
-but pushing hard for the changes), converting it from R&D-ware to a reliable
-software package along the way, adding unit and system testing, continuous
-integration, discernible release management and other useful software
-engineering practices.
+Senior software engineer.
 
 ## [OpenInkpot](https://wiki.mobileread.com/wiki/Openinkpot) (2007-2012)
 
-A Linux distribution for eBook readers. It was fun while it lasted until Kindle
-killed it.
+Founder, software developer, product manager, project manager.
 
-I have started it, have built the infrastructure (from bugtracking to
-cross-compiling Debian packages in CI environment to repository manager) and was
-BDFLing it until it withered out.
-
-Also I've got the experience managing distributed team in addition to the
-previous experince working in one.
+A Linux distribution for eBook readers. I have started it, have built the
+infrastructure (from bugtracking to cross-compiling Debian packages in
+CI environment to repository manager) and have implemented lot of low-level code.
 
 ## [Parallels](https://parallels.com) (2004-2007)
 
-For Plesk for Unix I have created (in a team) a tool for transferring contents
-of competing hosting panels to Plesk, which was then repurposed as a backup
-system.
+* Software engineer in Plesk for Unix. I have created a tool for transferring contents
+of competing hosting panels to Plesk, which was then repurposed as a backup system.
 
-OpenFusion project was my first spell as a software architect. I have designed
-SSO mechanism for Parallels apps, and also
+* Software architect in OpenFusion. I have designed SSO mechanism for Parallels apps, and also
 a [Web applications packaging format](http://www.apsstandard.org/)
 ([Wikipedia page](https://en.wikipedia.org/wiki/Application_Packaging_Standard)).
 
 ## Other
 
-| From | To | Name  | What it was/is about? |
+| From | To | Name  | Description |
 | - | - | - | - | - |
-| 2009 | 2010 | IPlinux | Unwillingly started a Debian-based embedded distro to build OpenInkpot on top of something after previous base distribution got abandoned by the primary developer. Worked OK, but OpenInkpot was always the main focus. |
-| 2007 | 2009 | ALT&nbsp;Linux | I was maintaining distro bugtracker, bringing development documentation into order and creating internal web apps for analysis of development process. |
-| 2003 | 2004 | Axmor | As a member of IBM Solutions Group team I was doing R&D work for IBM, evaluating new cool technologies of the time for potential usefulness for IBM projects. Also doubled as system administrator. |
+| 2009 | 2010 | IPlinux | Companion project for OpenInkpot, generic embedded Linux distribution. Design and implementation. |
+| 2007 | 2009 | ALT&nbsp;Linux | Desktop/server Linux distribution. Maintenance of infrastructure and documentation for development team. |
+| 2003 | 2004 | Axmor | R&D work for IBM, evaluating new technologies for IBM projects. Also system administration. |
 | 2003 | 2003 | Novosoft | An intern! My first "real" place of work. Billing system based on Cisco NetFlow. |
 
-# Keywords/Experience
+## Education
 
-## 30Y+ experience in
+MSc in CS. Novosibirsk State University, 2000-2005.
 
-Russian language (native).
+Systems Theory, Systems Management courses. Systems Management School, 2018-2020.
 
-## 10Y+ experience in
+# Keywords
 
-C, Linux, Make, Debian, Korn-like shells, POSIX/SUSv3.
-
-## 5Y+ experience in
-
-C++, Javascript, Node.js, TCP/IP, Python, git, CFEngine.
-
-Norwegian language (upper intermediate).
-
-## 3Y+ experience in
-
-MongoDB, various Internet protocols, REST interfaces, ElasticSearch, AWS.
-
-## 1Y+ experience in
-
-Clojure, Perl, various Unices, XSLT, Java, Django, Eclipse RCP, SQLite,
-PostgreSQL.
-
-## Have a good grasp of
-
-OO, functional, structured and other kinds of programming. OO and functional
-design. Various tools and toolchains (CI, builds, testing etc).
-
-## Toyed with
-
-Various Lisps, Go, Docker, Haskell, React, Ruby, OCaml, Rust, Erlang, C#, J2EE
-(old one), Google Cloud Platform, Kubernetes, Ansible, Salt, Puppet, and
-everything else on the front page of Hacker News.
+Go, Kafka, Google Cloud, Kubernetes, Terraform, C, Linux, Debian, Korn-like shells,
+POSIX/SUSv3, Javascript, Node.js, Python, git, CFEngine, MongoDB,
+various Internet protocols, REST, ElasticSearch, AWS, Clojure,
+various Unices, Django, SQLite, PostgreSQL.
