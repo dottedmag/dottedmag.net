@@ -3,13 +3,70 @@
   <id>https://dottedmag.net/</id>
   <title>Mikhail Gusarov</title>
   
-  <updated>2021-12-26T00:00:00Z</updated>
+  <updated>2022-12-01T00:00:00Z</updated>
   
   <author><name>Mikhail Gusarov</name></author>
   <link href="https://dottedmag.net/" rel="alternate"></link>
   <link href="https://dottedmag.net/blog.atom" rel="self"></link>
 
 
+
+<entry>
+  <id>https://dottedmag.net/blog/dependencies/</id>
+  <author><name>Mikhail Gusarov</name></author>
+  <title type="html">Dependencies</title>
+  <published>2022-12-01T00:00:00Z</published>
+  <updated>2022-12-01T00:00:00Z</updated>
+  
+  <link href="https://dottedmag.net/blog/dependencies/" rel="alternate"></link>
+  <content type="html">
+    
+      
+  &lt;h2 id=&#34;why-dependencies-are-useful&#34;&gt;Why dependencies are useful?&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;Quick prototyping&lt;/li&gt;
+&lt;li&gt;Bugs are someone&amp;rsquo;s else concern&lt;/li&gt;
+&lt;li&gt;Reverse engineering is someone&amp;rsquo;s else concern&lt;/li&gt;
+&lt;li&gt;Complicated algorithms and cryptography are someone&amp;rsquo;s else concern&lt;/li&gt;
+&lt;li&gt;Security-critical code testing is someone&amp;rsquo;s else concern&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;why-dependencies-are-problematic&#34;&gt;Why dependencies are problematic?&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;Balooning build times&lt;/li&gt;
+&lt;li&gt;Balooning build graph (hence tools slow down)&lt;/li&gt;
+&lt;li&gt;Someone&amp;rsquo;s else ideas of interfaces&lt;/li&gt;
+&lt;li&gt;Someone&amp;rsquo;s else ideas how to structure programs&lt;/li&gt;
+&lt;li&gt;Someone&amp;rsquo;s else ideas about build and code generation&lt;/li&gt;
+&lt;li&gt;Someone&amp;rsquo;s else bugs, and the authors of dependencies have their own priorities for bugfixing&lt;/li&gt;
+&lt;li&gt;Someone&amp;rsquo;s else release and deprecation schedules&lt;/li&gt;
+&lt;li&gt;Conflicts due to transitive dependencies&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;useful-dependencies&#34;&gt;Useful dependencies&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;Algorithmics, such as cryptography and compression&lt;/li&gt;
+&lt;li&gt;Stable interfaces for unstable external systems (scraping, unstable APIs etc)&lt;/li&gt;
+&lt;li&gt;Parsing, including basic network protocols: JSON, HTTP, XML et al.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;By and large, slower the dependency changes (without accumulating known bugs) more potentially useful it is.&lt;/p&gt;
+&lt;h2 id=&#34;harmful-dependencies&#34;&gt;Harmful dependencies&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;Trivial wrappers around REST APIs&lt;/li&gt;
+&lt;li&gt;Opinionated clients, libraries, helpers&lt;/li&gt;
+&lt;li&gt;Abstractions over stable interfaces, especially unstable abstractions&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;an-experience-of-dependectomy-in-a-medium-scale-go-project-300-kloc&#34;&gt;An experience of dependectomy in a medium-scale Go project (~300 kLOC)&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;Removing dependency does not make the code longer. Majority of removals made the code shorter.&lt;/li&gt;
+&lt;li&gt;Build (especially link stage) becomes significantly faster.&lt;/li&gt;
+&lt;li&gt;Linting becomes significantly faster.&lt;/li&gt;
+&lt;li&gt;Non-REST protocols are painful but doable (small subset of Mongo protocol and Protobuf can be written in several
+hours, though it&amp;rsquo;s definitely not production-grade. We try to avoid these protocols in production).&lt;/li&gt;
+&lt;/ul&gt;
+
+  
+    
+  </content>
+</entry>
 
 <entry>
   <id>https://dottedmag.net/blog/new-de/</id>

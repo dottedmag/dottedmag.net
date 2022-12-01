@@ -1,0 +1,112 @@
+
+<!doctype html>
+<html>
+<head>
+  
+  <meta charset="utf-8">
+  <!-- Still needed? -->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <meta name="author" content="Mikhail Gusarov">
+  <title>Dependencies</title>
+
+  <link rel="stylesheet" href="/styles/main.css">
+  <link rel="alternate" type="application/atom+xml" title="Mikhail Gusarov feed" href="../../blog.atom">
+
+  <script async="" src="https://www.googletagmanager.com/gtag/js?id=UA-120900398-1">
+  </script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'UA-120900398-1');
+  </script>
+
+</head>
+<body>
+  
+<header class="site-header" role="banner">
+  <div class="wrapper">
+    <a class="site-title" href="/">Mikhail Gusarov</a>
+    <nav class="site-nav">
+      <span class="menu-icon">
+        <svg viewBox="0 0 18 15" width="18px" height="15px">
+          <path fill="#424242" d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.031C17.335,0,18,0.665,18,1.484L18,1.484z"/>
+          <path fill="#424242" d="M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0c0-0.82,0.665-1.484,1.484-1.484 h15.031C17.335,6.031,18,6.696,18,7.516L18,7.516z"/>
+          <path fill="#424242" d="M18,13.516C18,14.335,17.335,15,16.516,15H1.484C0.665,15,0,14.335,0,13.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.031C17.335,12.031,18,12.696,18,13.516L18,13.516z"/>
+        </svg>
+      </span>
+      <div class="trigger">
+        <a class="page-link active-page-link" href="/">Blog</a>
+        <a class="page-link " href="/cv">CV</a>
+        <a class="page-link " href="/keys">Keys</a>
+        <a class="page-link " href="/software">Software</a>
+        <a class="page-link " href="/contacts">Contacts</a>
+      </div>
+    </nav>
+  </div>
+</header>
+
+  <main class="page-content">
+    <div class="wrapper">
+      
+<article class="post">
+  <h1>Dependencies</h1>
+  <div class="post-content">
+  <h2 id="why-dependencies-are-useful">Why dependencies are useful?</h2>
+<ul>
+<li>Quick prototyping</li>
+<li>Bugs are someone&rsquo;s else concern</li>
+<li>Reverse engineering is someone&rsquo;s else concern</li>
+<li>Complicated algorithms and cryptography are someone&rsquo;s else concern</li>
+<li>Security-critical code testing is someone&rsquo;s else concern</li>
+</ul>
+<h2 id="why-dependencies-are-problematic">Why dependencies are problematic?</h2>
+<ul>
+<li>Balooning build times</li>
+<li>Balooning build graph (hence tools slow down)</li>
+<li>Someone&rsquo;s else ideas of interfaces</li>
+<li>Someone&rsquo;s else ideas how to structure programs</li>
+<li>Someone&rsquo;s else ideas about build and code generation</li>
+<li>Someone&rsquo;s else bugs, and the authors of dependencies have their own priorities for bugfixing</li>
+<li>Someone&rsquo;s else release and deprecation schedules</li>
+<li>Conflicts due to transitive dependencies</li>
+</ul>
+<h2 id="useful-dependencies">Useful dependencies</h2>
+<ul>
+<li>Algorithmics, such as cryptography and compression</li>
+<li>Stable interfaces for unstable external systems (scraping, unstable APIs etc)</li>
+<li>Parsing, including basic network protocols: JSON, HTTP, XML et al.</li>
+</ul>
+<p>By and large, slower the dependency changes (without accumulating known bugs) more potentially useful it is.</p>
+<h2 id="harmful-dependencies">Harmful dependencies</h2>
+<ul>
+<li>Trivial wrappers around REST APIs</li>
+<li>Opinionated clients, libraries, helpers</li>
+<li>Abstractions over stable interfaces, especially unstable abstractions</li>
+</ul>
+<h2 id="an-experience-of-dependectomy-in-a-medium-scale-go-project-300-kloc">An experience of dependectomy in a medium-scale Go project (~300 kLOC)</h2>
+<ul>
+<li>Removing dependency does not make the code longer. Majority of removals made the code shorter.</li>
+<li>Build (especially link stage) becomes significantly faster.</li>
+<li>Linting becomes significantly faster.</li>
+<li>Non-REST protocols are painful but doable (small subset of Mongo protocol and Protobuf can be written in several
+hours, though it&rsquo;s definitely not production-grade. We try to avoid these protocols in production).</li>
+</ul>
+
+  </div>
+  <div class="post-meta">
+    
+<time datetime="2022-12-01T00:00:00Z">
+  2022-12-01
+</time>
+
+  </div>
+</article>
+
+    </div>
+  </main>
+  
+
+</body>
+</html>
