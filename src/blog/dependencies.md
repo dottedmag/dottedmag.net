@@ -13,11 +13,11 @@ date: 2022-12-01
 
 - Balooning build times
 - Balooning build graph (hence tools slow down)
-- Someone's else ideas of interfaces
-- Someone's else ideas how to structure programs
-- Someone's else ideas about build and code generation
-- Someone's else bugs, and the authors of dependencies have their own priorities for bugfixing
-- Someone's else release and deprecation schedules
+- Someone else's ideas of interfaces
+- Someone else's ideas how to structure programs
+- Someone else's ideas about build and code generation
+- Someone else's bugs, and the authors of dependencies have their own priorities for bugfixing
+- Someone else's release and deprecation schedules
 - Conflicts due to transitive dependencies
 
 ## Useful dependencies
@@ -26,7 +26,7 @@ date: 2022-12-01
 - Stable interfaces for unstable external systems (scraping, unstable APIs etc)
 - Parsing, including basic network protocols: JSON, HTTP, XML et al.
 
-By and large, slower the dependency changes (without accumulating known bugs) more potentially useful it is.
+By and large, less often a dependency changes (without accumulating known bugs) the more potentially useful it is.
 
 ## Harmful dependencies
 

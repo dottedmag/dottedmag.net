@@ -34,11 +34,11 @@
 &lt;ul&gt;
 &lt;li&gt;Balooning build times&lt;/li&gt;
 &lt;li&gt;Balooning build graph (hence tools slow down)&lt;/li&gt;
-&lt;li&gt;Someone&amp;rsquo;s else ideas of interfaces&lt;/li&gt;
-&lt;li&gt;Someone&amp;rsquo;s else ideas how to structure programs&lt;/li&gt;
-&lt;li&gt;Someone&amp;rsquo;s else ideas about build and code generation&lt;/li&gt;
-&lt;li&gt;Someone&amp;rsquo;s else bugs, and the authors of dependencies have their own priorities for bugfixing&lt;/li&gt;
-&lt;li&gt;Someone&amp;rsquo;s else release and deprecation schedules&lt;/li&gt;
+&lt;li&gt;Someone else&amp;rsquo;s ideas of interfaces&lt;/li&gt;
+&lt;li&gt;Someone else&amp;rsquo;s ideas how to structure programs&lt;/li&gt;
+&lt;li&gt;Someone else&amp;rsquo;s ideas about build and code generation&lt;/li&gt;
+&lt;li&gt;Someone else&amp;rsquo;s bugs, and the authors of dependencies have their own priorities for bugfixing&lt;/li&gt;
+&lt;li&gt;Someone else&amp;rsquo;s release and deprecation schedules&lt;/li&gt;
 &lt;li&gt;Conflicts due to transitive dependencies&lt;/li&gt;
 &lt;/ul&gt;
 &lt;h2 id=&#34;useful-dependencies&#34;&gt;Useful dependencies&lt;/h2&gt;
@@ -47,7 +47,7 @@
 &lt;li&gt;Stable interfaces for unstable external systems (scraping, unstable APIs etc)&lt;/li&gt;
 &lt;li&gt;Parsing, including basic network protocols: JSON, HTTP, XML et al.&lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;By and large, slower the dependency changes (without accumulating known bugs) more potentially useful it is.&lt;/p&gt;
+&lt;p&gt;By and large, less often a dependency changes (without accumulating known bugs) the more potentially useful it is.&lt;/p&gt;
 &lt;h2 id=&#34;harmful-dependencies&#34;&gt;Harmful dependencies&lt;/h2&gt;
 &lt;ul&gt;
 &lt;li&gt;Trivial wrappers around REST APIs&lt;/li&gt;
