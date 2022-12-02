@@ -40,4 +40,4 @@ By and large, less often a dependency changes (without accumulating known bugs) 
 - Build (especially link stage) becomes significantly faster.
 - Linting becomes significantly faster.
 - Non-REST protocols are painful but doable (small subset of Mongo protocol and Protobuf can be written in several
-  hours, though it's definitely not production-grade. We try to avoid these protocols in production).
+  hours, though it's definitely not production-grade. The project tries to avoid these protocols in production).

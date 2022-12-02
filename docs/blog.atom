@@ -60,7 +60,7 @@
 &lt;li&gt;Build (especially link stage) becomes significantly faster.&lt;/li&gt;
 &lt;li&gt;Linting becomes significantly faster.&lt;/li&gt;
 &lt;li&gt;Non-REST protocols are painful but doable (small subset of Mongo protocol and Protobuf can be written in several
-hours, though it&amp;rsquo;s definitely not production-grade. We try to avoid these protocols in production).&lt;/li&gt;
+hours, though it&amp;rsquo;s definitely not production-grade. The project tries to avoid these protocols in production).&lt;/li&gt;
 &lt;/ul&gt;
 
   
