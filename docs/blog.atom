@@ -25,10 +25,10 @@
   &lt;h2 id=&#34;why-dependencies-are-useful&#34;&gt;Why dependencies are useful?&lt;/h2&gt;
 &lt;ul&gt;
 &lt;li&gt;Quick prototyping&lt;/li&gt;
-&lt;li&gt;Bugs are someone&amp;rsquo;s else concern&lt;/li&gt;
-&lt;li&gt;Reverse engineering is someone&amp;rsquo;s else concern&lt;/li&gt;
-&lt;li&gt;Complicated algorithms and cryptography are someone&amp;rsquo;s else concern&lt;/li&gt;
-&lt;li&gt;Security-critical code testing is someone&amp;rsquo;s else concern&lt;/li&gt;
+&lt;li&gt;Bugs are someone else&amp;rsquo;s concern&lt;/li&gt;
+&lt;li&gt;Reverse engineering is someone else&amp;rsquo;s concern&lt;/li&gt;
+&lt;li&gt;Complicated algorithms and cryptography are someone else&amp;rsquo;s concern&lt;/li&gt;
+&lt;li&gt;Security-critical code testing is someone else&amp;rsquo;s concern&lt;/li&gt;
 &lt;/ul&gt;
 &lt;h2 id=&#34;why-dependencies-are-problematic&#34;&gt;Why dependencies are problematic?&lt;/h2&gt;
 &lt;ul&gt;
