@@ -12,7 +12,7 @@ title: Software
 
 ### 1000+ commits to
 
-[CFEngine](https://github.com/),
+[CFEngine](https://github.com/cfengine/core/graphs/contributors),
 [Debian](https://qa.debian.org/developer.php?login=Mikhail+Gusarov)
 
 ### 100+ commits to
