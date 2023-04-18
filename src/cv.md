@@ -114,7 +114,7 @@ a [Web applications packaging format](http://www.apsstandard.org/)
 | 2003 | 2004 | Axmor | R&D work for IBM, evaluating new technologies for IBM projects. Also system administration. |
 | 2003 | 2003 | Novosoft | An intern! My first "real" place of work. Billing system based on Cisco NetFlow. |
 
-## Education
+Finalist of ICPC 2004.
 
 MSc in CS. Novosibirsk State University, 2000-2005.
 
