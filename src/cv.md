@@ -5,84 +5,86 @@ title: Mikhail Gusarov - CV
 ## Contact information
 
 - Mikhail Gusarov
-- E-mail [cv@dt.mg](mailto:cv@dt.mg)
-- Phone +356 99100291 (timezone is UTC+1)
+- E-mail: [cv@dt.mg](mailto:cv@dt.mg)
+- Phone: +356 99100291 (Timezone: UTC+1)
 
-## Summary
+## Professional Summary
 
-I design, develop, maintain and run software systems with a focus on long-term
-maintainability, and lead small teams doing so.
+I am a software engineer specializing in designing, developing,
+maintaining and running software systems with a focus on long-term
+maintainability. I have experience leading small teams and possess
+strong technical leadership and product management skills. I am an
+an contributor to numerous open-source projects, including
+well-known ones such as BusyBox, fontconfig, GNOME, Linux, and VLC.
 
-## Software design, development & operations
+## Areas of Expertise
 
-In Ridge I produce software architecture, component design and supporting tools
-and procedures. I also implement a quite a bit of the design.
+### Software design, Development & Operations
 
-In Luminati I have designed and implemented application-devel metrics and
-logging system, providing visibility into the application behaviour, and
-created an application-specific database system to eliminate the bottleneck
-that could not be solved by off-the-shelf database.
+At Ridge, I have been responsible for software architecture,
+component design and the development of supporting tools
+and procedures. Additionally, I have implemented a significant portion
+of the system.
 
-In OpenInkpot I have designed and guided the effort to develop embedded
-Linux distribution suited for eBook readers, from kernel up to custom
-UI optimized for e-Ink screens.
+At Luminati, I designed and implemented an application-devel metrics and
+logging system to enhance visibility into the application behaviour, and
+created a custom database system to overcome a performance bottleneck
+that could not be resolved by using off-the-shelf databases.
 
-Outside of commercial context I am a contributor to [numerous open source
-projects](https://dottedmag.net/software/), including well-known ones such
-as BusyBox, fontconfig, GNOME, Linux and VLC. Some of my code is present on
-most Linux machines: if you're on desktop Linux, you might want to run
-`man 1 unshare` and check `AUTHORS` section.
+In the OpenInkpot project, I guided the development of an embedded
+Linux distribution tailored for eBook readers, spanning from the kernel
+up to custom UI optimized for e-Ink screens.
 
-## Technical leadership
+Some of my code can be found on most Linux machines. If you are using a
+desktok Linux system, you may want to execute `man 1 unshare` and refer
+to the `AUTHORS` section.
 
-I know how to introduce, set up and fine tune processes of software development,
-testing and deployment. In Ridge, CFEngine and OpenInkpot I have established
-engineering processes of code review, continuous integration and unit- and
-acceptance-testing.
+### Technical leadership
 
-## Product management
+I have experience in introducing, setting up and fine-tuning software
+development, testing, deployment processes. In Ridge, CFEngine and OpenInkpot,
+I established engineering processes for code review, continuous integration,
+and unit and acceptance testing.
 
-In Ridge I define product requirements based on collected customers' needs
-to make the product appealing to all roles in customers' organizations.
+### Product management
 
-In OpenInkpot I defined the product scope, collected customers' needs and
+At Ridge, I have defined product requirements based on customers needs
+to make the product appealing to various roles within customers organizations.
+
+In OpenInkpot, I determined the product scope, gathered customer needs and
 translated them into product requirements.
 
-## Project management
+### Project management
 
-I have some experience managing small teams, especially volunteer-based: In OpenInkpot
-I managed volunteer contributors and a distributed team to produce software for
-Azbooka e-reader.
+I have managed small, volunteer-based teams, such as the distributed team
+responsible for producing software for the Azbooka e-reader in the OpenInkpot
+project.
 
-# What do I expect?
+## Work preferences
 
-Remote work and a flexible work schedule, to a reasonable extent.
+I am seeking remote work with a reasonably flexible schedule.
 
-# Projects/Companies
+## Professional Experience
 
-## [Ridge](https://ridge.co) (2018+)
+## [Ridge](https://ridge.co) (2018—Present)
 
 Software architect.
 
-I'm responsible for creating product requirements, software architecture,
+* Responsible for creating product requirements, software architecture,
 internal tools and development procedures.
+* Code reviewer and individual contributor.
 
-## [Hola!](https://hola.org) / [Luminati](https://luminati.io) (2013-2018)
+## [Hola!](https://hola.org) / [Luminati](https://luminati.io) (2013—2018)
 
 Senior software engineer.
 
-I have improved insight into performance of Hola services by adding
-- centralised application-level logging, and
-- application-level metrics
-
-that made it much easier to pinpoint and resolve performance problems and bugs.
-
-I have created several internal-facing statistic dashboards for Hola VPN and
-also user-facing statistics for Hola Spark CDN.
-
-While working on Luminati I have implemented a custom in-memory DB to track the
-status of 1M+ peers of Luminati network that decreased the price of hardware
-running this database by 8x compared to the off-the-shelf DB.
+* Enhanced the availability of performance information for Hola services
+  by implementing centralized application-level logging and metrics.
+* Developed internal and user-facing statistical dashboards for Hola VPN
+  and Hola Spark CDN.
+* Created a custom in-memory database to track the status of 1M+ peers
+  of the Luminati network, reducing hardware costs by 8x compared to
+  off-the-shelf databases.
 
 ## [CFEngine](https://cfengine.com) (2011-2013)
 
@@ -92,33 +94,36 @@ Senior software engineer.
 
 Founder, software developer, product manager, project manager.
 
-A Linux distribution for eBook readers. I have started it, have built the
-infrastructure (from bugtracking to cross-compiling Debian packages in
-CI environment to repository manager) and have implemented lot of low-level code.
+* Developed a Linux distribution for eBook readers, building infrastructure,
+and implementing low-level code.
 
 ## [Parallels](https://parallels.com) (2004-2007)
 
-* Software engineer in Plesk for Unix. I have created a tool for transferring contents
-of competing hosting panels to Plesk, which was then repurposed as a backup system.
+### Software engineer in Plesk for Unix project
 
-* Software architect in OpenFusion. I have designed SSO mechanism for Parallels apps, and also
-a [Web applications packaging format](http://www.apsstandard.org/)
-([Wikipedia page](https://en.wikipedia.org/wiki/Application_Packaging_Standard)).
+* Developed a tool transferring content from competing hosting panels to Plesk.
+* Developed a backup system for Plesk for Unix.
 
-## Other
+### Software Architect in OpenFusion project
+
+* Developed a Single Sign-On mechanism for Parallels apps.
+
+* Developed a Web applications packaging format [Web applications packaging format](https://en.wikipedia.org/wiki/Application_Packaging_Standard).
+
+## Other Professional Experiences
 
 | From | To | Name  | Description |
 | - | - | - | - | - |
-| 2009 | 2010 | IPlinux | Companion project for OpenInkpot, generic embedded Linux distribution. Design and implementation. |
-| 2007 | 2009 | ALT&nbsp;Linux | Desktop/server Linux distribution. Maintenance of infrastructure and documentation for development team. |
-| 2003 | 2004 | Axmor | R&D work for IBM, evaluating new technologies for IBM projects. Also system administration. |
-| 2003 | 2003 | Novosoft | An intern! My first "real" place of work. Billing system based on Cisco NetFlow. |
+| 2009 | 2010 | IPlinux | Design and implementation of companion project for OpenInkpot |
+| 2007 | 2009 | ALT&nbsp;Linux | Maintenance of infrastructure and documentation for development team |
+| 2003 | 2004 | Axmor | R&D work for IBM |
+| 2003 | 2003 | Novosoft | Internship, working on a billing system based on Cisco NetFlow. |
 
-Finalist of ICPC 2004.
+## Education and Achievments
 
-MSc in CS. Novosibirsk State University, 2000-2005.
-
-Systems Theory, Systems Management courses. Systems Management School, 2018-2020.
+* Finalist of ICPC 2004.
+* MSc in CS. Novosibirsk State University, 2000-2005.
+* Systems Theory, Systems Management courses. Systems Management School, 2018-2020.
 
 # Keywords
 
