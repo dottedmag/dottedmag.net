@@ -26,8 +26,8 @@ component design and the development of supporting tools
 and procedures. Additionally, I have implemented a significant portion
 of the system.
 
-At Luminati, I designed and implemented an application-devel metrics and
-logging system to enhance visibility into the application behaviour, and
+At Luminati, I designed and implemented an application-level metrics and
+logging system to enhance visibility into the application behavior, and
 created a custom database system to overcome a performance bottleneck
 that could not be resolved by using off-the-shelf databases.
 
@@ -119,7 +119,7 @@ and implementing low-level code.
 | 2003 | 2004 | Axmor | R&D work for IBM |
 | 2003 | 2003 | Novosoft | Internship, working on a billing system based on Cisco NetFlow. |
 
-## Education and Achievments
+## Education and Achievements
 
 * Finalist of ICPC 2004.
 * MSc in CS. Novosibirsk State University, 2000-2005.
