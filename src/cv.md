@@ -36,7 +36,7 @@ Linux distribution tailored for eBook readers, spanning from the kernel
 up to custom UI optimized for e-Ink screens.
 
 Some of my code can be found on most Linux machines. If you are using a
-desktok Linux system, you may want to execute `man 1 unshare` and refer
+desktop Linux system, you may want to execute `man 1 unshare` and refer
 to the `AUTHORS` section.
 
 ### Technical leadership
