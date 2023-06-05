@@ -61,6 +61,8 @@ I have managed small, volunteer-based teams, including the the distributed team
 responsible for producing software for the Azbooka e-reader of the OpenInkpot
 project.
 
+<div style="page-break-before: always;"></div>
+
 ## Work preferences
 
 I am seeking remote work opportunity that offers a reasonably flexible schedule.
@@ -110,6 +112,8 @@ and implementing low-level code.
 * Developed a Single Sign-On mechanism for Parallels apps.
 
 * Developed a Web applications packaging format [Web applications packaging format](https://en.wikipedia.org/wiki/Application_Packaging_Standard).
+
+<div style="page-break-before: always;"></div>
 
 ## Other Professional Experiences
 
