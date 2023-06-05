@@ -10,59 +10,60 @@ title: Mikhail Gusarov - CV
 
 ## Professional Summary
 
-I am a software engineer specializing in designing, developing,
-maintaining and running software systems with a focus on long-term
-maintainability. I have experience leading small teams and possess
-strong technical leadership and product management skills. I am an
-an contributor to numerous open-source projects, including
-well-known ones such as BusyBox, fontconfig, GNOME, Linux, and VLC.
+I am a software engineer who specializes in the design, development,
+maintenance, and operation software systems emphasizing long-term
+maintainability. My experience includes leading small teams, and I
+have demonstrated technical leadership and product management skills.
+I am a contributor to various open-source projects, including
+prominent ones like BusyBox, fontconfig, GNOME, Linux, and VLC.
 
 ## Areas of Expertise
 
 ### Software design, Development & Operations
 
-At Ridge, I have been responsible for software architecture,
-component design and the development of supporting tools
+At Ridge, my responsibilities inlcude software architecture,
+component design and the development of development tools
 and procedures. Additionally, I have implemented a significant portion
 of the system.
 
 At Luminati, I designed and implemented an application-level metrics and
-logging system to enhance visibility into the application behavior, and
-created a custom database system to overcome a performance bottleneck
-that could not be resolved by using off-the-shelf databases.
+logging system to improve the visibility of application behavior. Moreover
+I created a custom database system to address a performance bottleneck
+that could not be resolved with off-the-shelf databases.
 
-In the OpenInkpot project, I guided the development of an embedded
-Linux distribution tailored for eBook readers, spanning from the kernel
-up to custom UI optimized for e-Ink screens.
+In the OpenInkpot project, I steered the development of an embedded
+Linux distribution specifically designed for eBook readers, encompassing
+everything from the kernel to a custom UI optimized for e-Ink screens.
 
 Some of my code can be found on most Linux machines. If you are using a
-desktop Linux system, you may want to execute `man 1 unshare` and refer
-to the `AUTHORS` section.
+desktop Linux system, you might consider executing `man 1 unshare` and
+referring to the `AUTHORS` section.
 
 ### Technical leadership
 
 I have experience in introducing, setting up and fine-tuning software
-development, testing, deployment processes. In Ridge, CFEngine and OpenInkpot,
-I established engineering processes for code review, continuous integration,
-and unit and acceptance testing.
+development, testing, and deployment processes. I established engineering
+processes for code review, continuous integration, and unit and acceptance
+testing in Ridge, CFEngine and OpenInkpot.
 
 ### Product management
 
-At Ridge, I have defined product requirements based on customers needs
-to make the product appealing to various roles within customers organizations.
+At Ridge, I have defined product requirements based on customers needs,
+aiming to make the product appealing to various roles within our customers'
+organizations.
 
-In OpenInkpot, I determined the product scope, gathered customer needs and
-translated them into product requirements.
+In OpenInkpot, I determined the product scope, gathered information about
+customer needs, and translated them into specific product requirements.
 
 ### Project management
 
-I have managed small, volunteer-based teams, such as the distributed team
-responsible for producing software for the Azbooka e-reader in the OpenInkpot
+I have managed small, volunteer-based teams, including the the distributed team
+responsible for producing software for the Azbooka e-reader of the OpenInkpot
 project.
 
 ## Work preferences
 
-I am seeking remote work with a reasonably flexible schedule.
+I am seeking remote work opportunity that offers a reasonably flexible schedule.
 
 ## Professional Experience
 
@@ -117,13 +118,13 @@ and implementing low-level code.
 | 2009 | 2010 | IPlinux | Design and implementation of companion project for OpenInkpot |
 | 2007 | 2009 | ALT&nbsp;Linux | Maintenance of infrastructure and documentation for development team |
 | 2003 | 2004 | Axmor | R&D work for IBM |
-| 2003 | 2003 | Novosoft | Internship, working on a billing system based on Cisco NetFlow. |
+| 2003 | 2003 | Novosoft | Internship, a billing system based on Cisco NetFlow. |
 
 ## Education and Achievements
 
-* Finalist of ICPC 2004.
-* MSc in CS. Novosibirsk State University, 2000-2005.
-* Systems Theory, Systems Management courses. Systems Management School, 2018-2020.
+* Finalist of International Collegiate Programmin Contest (ICPC) in 2004.
+* MSc in CS, with honors. Novosibirsk State University, 2000-2005.
+* Systems Theory and Systems Management courses. Systems Management School, 2018-2020.
 
 # Keywords
 
