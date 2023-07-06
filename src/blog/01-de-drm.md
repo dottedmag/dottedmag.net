@@ -11,13 +11,15 @@ There might be one or two devices for every display controller or GPU[^control]:
 - there is always a device named `card<N>`. It accepts all requests:
   for controlling the display (KMS[^kms]) and for rendering operations.
   If `card<N>` belongs to a pure display controller, then it won't accept
-  any rendering operations, of course.
+  any rendering operations, of course. This device has a concept of
+  "DRM master"&mdash: only one process can control it at any time,
+  as allowing several processes change resolution, reconfigure outputs
+  or update screen at the same time won't bring any useful results.
 - GPUs typically expose second device named `renderD<N>`. This device
-  accepts only rendering operations. However this device does have the
-  concept of "DRM master"&mdash;the process controlling the device&mdash;as
-  rendering does not involve global operations such as changing the
-  display mode or updating the framebuffer, so there is no need to limit
-  concurrent access.
+  accepts only rendering operations. However this device not does have the
+  concept of "DRM master" as rendering does not involve global operations
+  such as changing the display mode or updating the framebuffer, so there 
+  is no need to limit concurrent access.
 
 Matching `card<N>` and `renderD<N>` devices used to be awkward: the numbers
 are not the same for the devices of one card. The algorithm was bus-dependent:

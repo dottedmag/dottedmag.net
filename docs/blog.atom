@@ -31,13 +31,15 @@ character devices in &lt;code&gt;/dev/dri&lt;/code&gt;&lt;sup id=&#34;fnref:4&#3
 &lt;li&gt;there is always a device named &lt;code&gt;card&amp;lt;N&amp;gt;&lt;/code&gt;. It accepts all requests:
 for controlling the display (KMS&lt;sup id=&#34;fnref:7&#34;&gt;&lt;a href=&#34;#fn:7&#34; class=&#34;footnote-ref&#34; role=&#34;doc-noteref&#34;&gt;7&lt;/a&gt;&lt;/sup&gt;) and for rendering operations.
 If &lt;code&gt;card&amp;lt;N&amp;gt;&lt;/code&gt; belongs to a pure display controller, then it won&amp;rsquo;t accept
-any rendering operations, of course.&lt;/li&gt;
+any rendering operations, of course. This device has a concept of
+&amp;ldquo;DRM master&amp;rdquo;&amp;amp;mdash: only one process can control it at any time,
+as allowing several processes change resolution, reconfigure outputs
+or update screen at the same time won&amp;rsquo;t bring any useful results.&lt;/li&gt;
 &lt;li&gt;GPUs typically expose second device named &lt;code&gt;renderD&amp;lt;N&amp;gt;&lt;/code&gt;. This device
-accepts only rendering operations. However this device does have the
-concept of &amp;ldquo;DRM master&amp;rdquo;—the process controlling the device—as
-rendering does not involve global operations such as changing the
-display mode or updating the framebuffer, so there is no need to limit
-concurrent access.&lt;/li&gt;
+accepts only rendering operations. However this device not does have the
+concept of &amp;ldquo;DRM master&amp;rdquo; as rendering does not involve global operations
+such as changing the display mode or updating the framebuffer, so there
+is no need to limit concurrent access.&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;Matching &lt;code&gt;card&amp;lt;N&amp;gt;&lt;/code&gt; and &lt;code&gt;renderD&amp;lt;N&amp;gt;&lt;/code&gt; devices used to be awkward: the numbers
 are not the same for the devices of one card. The algorithm was bus-dependent:
