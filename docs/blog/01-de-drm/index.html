@@ -1,0 +1,141 @@
+
+<!doctype html>
+<html>
+<head>
+  
+  <meta charset="utf-8">
+  <!-- Still needed? -->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <meta name="author" content="Mikhail Gusarov">
+  <title>DE/compositor development notes - Linux DRM devices</title>
+
+  <link rel="stylesheet" href="/styles/main.css">
+  <link rel="alternate" type="application/atom+xml" title="Mikhail Gusarov feed" href="../../blog.atom">
+
+  <script async="" src="https://www.googletagmanager.com/gtag/js?id=UA-120900398-1">
+  </script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'UA-120900398-1');
+  </script>
+
+</head>
+<body>
+  
+<header class="site-header" role="banner">
+  <div class="wrapper">
+    <a class="site-title" href="/">Mikhail Gusarov</a>
+    <nav class="site-nav">
+      <span class="menu-icon">
+        <svg viewBox="0 0 18 15" width="18px" height="15px">
+          <path fill="#424242" d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.031C17.335,0,18,0.665,18,1.484L18,1.484z"/>
+          <path fill="#424242" d="M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0c0-0.82,0.665-1.484,1.484-1.484 h15.031C17.335,6.031,18,6.696,18,7.516L18,7.516z"/>
+          <path fill="#424242" d="M18,13.516C18,14.335,17.335,15,16.516,15H1.484C0.665,15,0,14.335,0,13.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.031C17.335,12.031,18,12.696,18,13.516L18,13.516z"/>
+        </svg>
+      </span>
+      <div class="trigger">
+        <a class="page-link active-page-link" href="/">Blog</a>
+        <a class="page-link " href="/cv">CV</a>
+        <a class="page-link " href="/keys">Keys</a>
+        <a class="page-link " href="/software">Software</a>
+        <a class="page-link " href="/contacts">Contacts</a>
+      </div>
+    </nav>
+  </div>
+</header>
+
+  <main class="page-content">
+    <div class="wrapper">
+      
+<article class="post">
+  <h1>DE/compositor development notes - Linux DRM devices</h1>
+  <div class="post-content">
+  <p>To draw anything on screen compositor should be able to communicate with display
+controller and GPU<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup><sup id="fnref:2"><a href="#fn:2" class="footnote-ref" role="doc-noteref">2</a></sup>.</p>
+<p>Linux exposes them to userspace via DRM subsystem<sup id="fnref:3"><a href="#fn:3" class="footnote-ref" role="doc-noteref">3</a></sup>, as
+character devices in <code>/dev/dri</code><sup id="fnref:4"><a href="#fn:4" class="footnote-ref" role="doc-noteref">4</a></sup><sup id="fnref:5"><a href="#fn:5" class="footnote-ref" role="doc-noteref">5</a></sup>.</p>
+<p>There might be one or two devices for every display controller or GPU<sup id="fnref:6"><a href="#fn:6" class="footnote-ref" role="doc-noteref">6</a></sup>:</p>
+<ul>
+<li>there is always a device named <code>card&lt;N&gt;</code>. It accepts all requests:
+for controlling the display (KMS<sup id="fnref:7"><a href="#fn:7" class="footnote-ref" role="doc-noteref">7</a></sup>) and for rendering operations.
+If <code>card&lt;N&gt;</code> belongs to a pure display controller, then it won&rsquo;t accept
+any rendering operations, of course.</li>
+<li>GPUs typically expose second device named <code>renderD&lt;N&gt;</code>. This device
+accepts only rendering operations. However this device does have the
+concept of &ldquo;DRM master&rdquo;—the process controlling the device—as
+rendering does not involve global operations such as changing the
+display mode or updating the framebuffer, so there is no need to limit
+concurrent access.</li>
+</ul>
+<p>Matching <code>card&lt;N&gt;</code> and <code>renderD&lt;N&gt;</code> devices used to be awkward: the numbers
+are not the same for the devices of one card. The algorithm was bus-dependent:
+PCI/USB cards were matched by PCI/USB bus info, platform devices were matched
+using device tree info. To find this information one had to scrounge around
+in <code>/sys/dev/char/&lt;N&gt;/device/subystem</code>. All of this is implemented in <code>libdrm</code>.</p>
+<p>Fortunately, <code>udev</code> nowadays creates symlinks in <code>/dev/dri/by-path</code> of form
+<code>&lt;unique-id-for-card&gt;-{card,render}</code>, so userspace does not care about device
+matching anymore.</p>
+<h2 id="references">References</h2>
+<ul>
+<li><a href="https://cgit.freedesktop.org/drm/libdrm/tree/xf86drm.c">libdrm&rsquo;s x86drm.c</a></li>
+<li><a href="https://dri.freedesktop.org/docs/drm/gpu/drm-uapi.html">Linux&rsquo;s DRM uAPI documentation</a></li>
+</ul>
+<h2 id="footnotes">Footnotes</h2>
+<div class="footnotes" role="doc-endnotes">
+<hr />
+<ol>
+<li id="fn:1" role="doc-endnote">
+<p>Display controller is a hardware block that takes bitmaps and displays them
+somewhere. It cares about outputs, links, modes etc. GPU takes a number of
+rendering commands and produces a bitmap based on these commands. It cares
+about triangles, shaders, textures and pixels. In PCs these two components
+are usually colocated in a &ldquo;graphic card&rdquo;, display controller may require
+bitmaps to be placed in a specialized on-card memory, and GPU may produce
+bitmaps in that specialized memory.&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+<li id="fn:2" role="doc-endnote">
+<p>There exists <a href="https://cgit.freedesktop.org/drm/libdrm/">libdrm</a> library that
+hides low-level details from the applications, but it is not a transparent
+wrapper, so it makes sense to understand what it actually does and what
+it actually calls.&#160;<a href="#fnref:2" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+<li id="fn:3" role="doc-endnote">
+<p>Direct rendering manager, not digital rights management.&#160;<a href="#fnref:3" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+<li id="fn:4" role="doc-endnote">
+<p>DRI stands for &ldquo;direct rendering interface&rdquo;. Historical reasons.&#160;<a href="#fnref:4" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+<li id="fn:5" role="doc-endnote">
+<p>These devices used to be also exposed as <code>/proc/dri</code>. It is no longer the case.&#160;<a href="#fnref:5" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+<li id="fn:6" role="doc-endnote">
+<p>There used to be a third kind of device, <code>controlD&lt;N&gt;</code>, but it did nothing
+and was eliminated.&#160;<a href="#fnref:6" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+<li id="fn:7" role="doc-endnote">
+<p>Kernel modesetting, a generic API to setup display controllers. Named
+to contrast with userland modesetting, where userland poked hardware
+directly to set the configuration of display controller.&#160;<a href="#fnref:7" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+</ol>
+</div>
+
+  </div>
+  <div class="post-meta">
+    
+<time datetime="2023-07-06T00:00:00Z">
+  2023-07-06
+</time>
+
+  </div>
+</article>
+
+    </div>
+  </main>
+  
+
+</body>
+</html>
