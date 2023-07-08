@@ -8,7 +8,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   <meta name="author" content="Mikhail Gusarov">
-  <title>DE/compositor development notes - common DRM device operatins</title>
+  <title>DE/compositor development notes - DRM operations (1)</title>
 
   <link rel="stylesheet" href="/styles/main.css">
   <link rel="alternate" type="application/atom+xml" title="Mikhail Gusarov feed" href="../../blog.atom">
@@ -51,180 +51,75 @@
     <div class="wrapper">
       
 <article class="post">
-  <h1>DE/compositor development notes - common DRM device operatins</h1>
+  <h1>DE/compositor development notes - DRM operations (1)</h1>
   <div class="post-content">
   <p>What can compositor do with DRM devices once it <a href="/blog/01-de-drm/">has found</a> them?</p>
 <p>These devices respond to a number of <code>ioctl</code>s. All DRM devices respond to a set
-of common <code>ioctl</code>s that cover display controller functionality and there are
+of common <code>ioctl</code>s that cover display controller functionality, and there are
 driver-specific <code>ioctl</code>s used chiefly by Mesa for rendering operations.</p>
-<h3 id="version-and-capabilities">Version and capabilities</h3>
+<p>The list of <code>ioctl</code>s is pretty large, so this post covers only a small subset.</p>
+<h2 id="versions">Versions</h2>
+<p><code>ioctl</code> <code>DRM_IOCTL_VERSION</code> returns human-readable version, name, description
+and (release?) date of DRM device.</p>
+<h2 id="device-capabilities">Device capabilities</h2>
+<p><code>ioctl</code> <code>DRM_IOCTL_GET_CAP</code> returns capabilities of a DRM device.</p>
+<p>Many of these capabilities refer to specific DRM <code>ioctl</code>s, so they may not
+make much sense yet.</p>
+<h3 id="framebuffer-capabilities">Framebuffer capabilities</h3>
 <ul>
-<li><code>DRM_IOCTL_GET_CAP</code></li>
-<li><code>DRM_IOCTL_SET_CLIENT_CAP</code></li>
-<li><code>DRM_IOCTL_SET_VERSION</code></li>
+<li><code>DRM_CAP_ADDFB2_MODIFIERS</code>. boolean. Framebuffers support pixel format modifiers.</li>
+<li><code>DRM_CAP_DUMB_BUFFER</code>. boolean. The device can create dumb framebuffers (<code>DRM_IOCTL_MODE_CREATE_DUMB</code> et al)</li>
+<li><code>DRM_CAP_DUMB_PREFERRED_DEPTH</code>. integer. The preferred pixel depth of dumb framebuffers.</li>
+<li><code>DRM_CAP_DUMB_PREFER_SHADOW</code>. boolean. Non-sequential writes or reading from dumb framebuffer is slow.</li>
 </ul>
-<h3 id="drm-master">DRM master</h3>
+<h3 id="syncobj-capabilities">Syncobj capabilities</h3>
 <ul>
-<li><code>DRM_IOCTL_GET_MAGIC</code></li>
-<li><code>DRM_IOCTL_AUTH_MAGIC</code></li>
-<li><code>DRM_IOCTL_SET_MASTER</code></li>
-<li><code>DRM_IOCTL_DROP_MASTER</code></li>
-<li><code>DRM_IOCTL_MODE_CREATE_LEASE</code></li>
-<li><code>DRM_IOCTL_MODE_GET_LEASE</code></li>
-<li><code>DRM_IOCTL_MODE_LIST_LESSEES</code></li>
-<li><code>DRM_IOCTL_MODE_REVOKE_LEASE</code></li>
+<li><code>DRM_CAP_SYNCOBJ</code>. boolean. The device supports DRM sync objects.</li>
+<li><code>DRM_CAP_SYNCOBJ_TIMELINE</code>. boolean. The device supports DRM timeline sync objects
+(they can signal at specific points in their lifetimes).</li>
 </ul>
-<h3 id="framebuffer-handling">Framebuffer handling</h3>
+<h3 id="page-flipping-capabilities">Page flipping capabilities</h3>
 <ul>
-<li><code>DRM_IOCTL_MODE_ADDFB2</code></li>
-<li><code>DRM_IOCTL_MODE_ADDFB</code></li>
-<li><code>DRM_IOCTL_MODE_GETFB2</code></li>
-<li><code>DRM_IOCTL_MODE_GETFB</code></li>
-<li><code>DRM_IOCTL_MODE_RMFB</code></li>
-<li><code>DRM_IOCTL_MODE_DIRTYFB</code></li>
+<li><code>DRM_CAP_ASYNC_PAGE_FLIP</code>. boolean. The device can pageflip without delay (tearing pageflip).</li>
+<li><code>DRM_CAP_PAGE_FLIP_TARGET</code>. boolean. The device can pageflip with a specified target
+(<code>DRM_MODE_PAGE_FLIP_TARGET_{ABSOLUTE,RELATIVE}</code>).</li>
 </ul>
-<h3 id="display-control">Display control</h3>
+<h3 id="other-capabilities">Other capabilities</h3>
 <ul>
-<li><code>DRM_IOCTL_CRTC_GET_SEQUENCE</code></li>
-<li><code>DRM_IOCTL_CRTC_QUEUE_SEQUENCE</code></li>
-<li><code>DRM_IOCTL_WAIT_VBLANK</code></li>
-<li><code>DRM_IOCTL_MODE_PAGE_FLIP</code></li>
+<li><code>DRM_CAP_CURSOR_HEIGHT</code>, <code>DRM_CAP_CURSOR_WIDTH</code> integer. return <em>valid</em> (not necessary the maximum) hardware cursor size.</li>
+<li><code>DRM_CAP_PRIME</code>. bitfield. The device can export buffers to other GPUs and/or import buffers from them.</li>
 </ul>
-<h3 id="memory-management">Memory management</h3>
+<h3 id="obsolete-capabilities">Obsolete capabilities</h3>
 <ul>
-<li><code>DRM_IOCTL_MODE_CREATE_DUMB</code></li>
-<li><code>DRM_IOCTL_MODE_DESTROY_DUMB</code></li>
-<li><code>DRM_IOCTL_MODE_MAP_DUMB</code></li>
-<li><code>DRM_IOCTL_GEM_CLOSE</code></li>
-<li><code>DRM_IOCTL_GEM_FLINK</code></li>
-<li><code>DRM_IOCTL_GEM_OPEN</code></li>
+<li><code>DRM_CAP_CRTC_IN_VBLANK_EVENT</code>. boolean. Always true since Linux 4.12.</li>
+<li><code>DRM_CAP_TIMESTAP_MONOTONIC</code>. boolean. Always true since Linux 4.15.</li>
+<li><code>DRM_CAP_VBLANK_HIGH_CRTC</code>. boolean. Always true since Linux 2.6.39</li>
 </ul>
-<h3 id="resources-and-properties">Resources and properties</h3>
+<h2 id="client-capabilities">Client capabilities</h2>
+<p>DRM client may indicate it has certain capabilites. This is necessary to activate backward-incompatible
+functionality that would otherwise break old clients.</p>
+<p>Client capabilities are set using <code>ioctl</code> <code>DRM_IOCTL_SET_CLIENT_CAP</code>.</p>
 <ul>
-<li><code>DRM_IOCTL_MODE_CREATEPROPBLOB</code></li>
-<li><code>DRM_IOCTL_MODE_DESTROYPROPBLOB</code></li>
-<li><code>DRM_IOCTL_MODE_GETPROPBLOB</code></li>
-<li><code>DRM_IOCTL_MODE_GETPROPERTY</code></li>
-<li><code>DRM_IOCTL_MODE_OBJ_GETPROPERTIES</code></li>
-<li><code>DRM_IOCTL_MODE_OBJ_SETPROPERTY</code></li>
-<li><code>DRM_IOCTL_MODE_GETCONNECTOR</code></li>
-<li><code>DRM_IOCTL_MODE_GETCRTC</code></li>
-<li><code>DRM_IOCTL_MODE_GETENCODER</code></li>
-<li><code>DRM_IOCTL_MODE_GETGAMMA</code></li>
-<li><code>DRM_IOCTL_MODE_GETPLANERESOURCES</code></li>
-<li><code>DRM_IOCTL_MODE_GETPLANE</code></li>
-<li><code>DRM_IOCTL_MODE_GETRESOURCES</code></li>
-<li><code>DRM_IOCTL_MODE_SETCRTC</code></li>
-<li><code>DRM_IOCTL_MODE_SETGAMMA</code></li>
-<li><code>DRM_IOCTL_MODE_SETPLANE</code></li>
-<li><code>DRM_IOCTL_MODE_SETPROPERTY</code></li>
-</ul>
-<h3 id="modesetting">Modesetting</h3>
-<ul>
-<li><code>DRM_IOCTL_MODESET_CTL</code></li>
-<li><code>DRM_IOCTL_MODE_ATOMIC</code></li>
-<li><code>DRM_IOCTL_MODE_CURSOR2</code> (?pre-atomic?)</li>
-<li><code>DRM_IOCTL_MODE_CURSOR</code> (?pre-atomic?)</li>
-</ul>
-<h3 id="synchronization">Synchronization</h3>
-<ul>
-<li><code>DRM_IOCTL_SYNCOBJ_CREATE</code></li>
-<li><code>DRM_IOCTL_SYNCOBJ_DESTROY</code></li>
-<li><code>DRM_IOCTL_SYNCOBJ_FD_TO_HANDLE</code></li>
-<li><code>DRM_IOCTL_SYNCOBJ_HANDLE_TO_FD</code></li>
-<li><code>DRM_IOCTL_SYNCOBJ_QUERY</code></li>
-<li><code>DRM_IOCTL_SYNCOBJ_RESET</code></li>
-<li><code>DRM_IOCTL_SYNCOBJ_SIGNAL</code></li>
-<li><code>DRM_IOCTL_SYNCOBJ_TIMELINE_SIGNAL</code></li>
-<li><code>DRM_IOCTL_SYNCOBJ_TIMELINE_WAIT</code></li>
-<li><code>DRM_IOCTL_SYNCOBJ_TRANSFER</code></li>
-<li><code>DRM_IOCTL_SYNCOBJ_WAIT</code></li>
-</ul>
-<h3 id="prime-">PRIME (?)</h3>
-<ul>
-<li><code>DRM_IOCTL_PRIME_FD_TO_HANDLE</code></li>
-<li><code>DRM_IOCTL_PRIME_HANDLE_TO_FD</code></li>
-</ul>
-<h3 id="misc">Misc</h3>
-<ul>
-<li><code>DRM_IOCTL_GET_CLIENT</code></li>
-<li><code>DRM_IOCTL_GET_STATS</code></li>
-<li><code>DRM_IOCTL_VERSION</code></li>
-<li><code>DRM_IOCTL_GET_UNIQUE</code></li>
-</ul>
-<h3 id="obsolete">Obsolete</h3>
-<p>These <code>ioctl</code>s are either explicitly marked as legacy, or stubbed out in kernel.</p>
-<ul>
-<li><code>DRM_IOCTL_SET_UNIQUE</code></li>
-<li><code>DRM_IOCTL_IRQ_BUSID</code></li>
-<li><code>DRM_IOCTL_GET_MAP</code></li>
-<li><code>DRM_IOCTL_ADD_MAP</code> ??</li>
-<li><code>DRM_IOCTL_RM_MAP</code> ??</li>
-<li><code>DRM_IOCTL_GET_SAREA_CTX</code> ??</li>
-<li><code>DRM_IOCTL_SET_SAREA_CTX</code> ??</li>
-<li><code>DRM_IOCTL_ADD_CTX</code></li>
-<li><code>DRM_IOCTL_RM_CTX</code></li>
-<li><code>DRM_IOCTL_MOD_CTX</code></li>
-<li><code>DRM_IOCTL_GET_CTX</code></li>
-<li><code>DRM_IOCTL_SWITCH_CTX</code></li>
-<li><code>DRM_IOCTL_NEW_CTX</code></li>
-<li><code>DRM_IOCTL_RES_CTX</code></li>
-<li><code>DRM_IOCTL_UNLOCK</code></li>
-<li><code>DRM_IOCTL_LOCK</code></li>
-<li><code>DRM_IOCTL_ADD_BUFS</code> ??</li>
-<li><code>DRM_IOCTL_MARK_BUFS</code> ??</li>
-<li><code>DRM_IOCTL_INFO_BUFS</code> ??</li>
-<li><code>DRM_IOCTL_MAP_BUFS</code> ??</li>
-<li><code>DRM_IOCTL_FREE_BUFS</code> ??</li>
-<li><code>DRM_IOCTL_DMA</code></li>
-<li><code>DRM_IOCTL_CONTROL</code></li>
-<li><code>DRM_IOCTL_SG_ALLOC</code></li>
-<li><code>DRM_IOCTL_SG_FREE</code></li>
-<li><code>DRM_IOCTL_FINISH</code>. Noop.</li>
-<li><code>DRM_IOCTL_BLOCK</code>. Noop.</li>
-<li><code>DRM_IOCTL_UNBLOCK</code>. Noop.</li>
-<li><code>DRM_IOCTL_ADD_DRAW</code>. Noop.</li>
-<li><code>DRM_IOCTL_RM_DRAW</code>. Noop.</li>
-<li><code>DRM_IOCTL_UPDATE_DRAW</code>. Noop.</li>
-<li><code>DRM_IOCTL_MODE_ATTACHMODE</code>. Noop.</li>
-<li><code>DRM_IOCTL_MODE_DETACHMODE</code>. Noop.</li>
-</ul>
-<p>AGP<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup>-specific <code>ioctl</code>s:</p>
-<ul>
-<li><code>DRM_IOCTL_AGP_ACQUIRE</code></li>
-<li><code>DRM_IOCTL_AGP_ALLOC</code></li>
-<li><code>DRM_IOCTL_AGP_BIND</code></li>
-<li><code>DRM_IOCTL_AGP_ENABLE</code></li>
-<li><code>DRM_IOCTL_AGP_FREE</code></li>
-<li><code>DRM_IOCTL_AGP_INFO</code></li>
-<li><code>DRM_IOCTL_AGP_RELEASE</code></li>
-<li><code>DRM_IOCTL_AGP_UNBIND</code></li>
-</ul>
-<h2 id="driver-specific-ioctls">Driver-specific <code>ioctl</code>s</h2>
-<p>An an example <code>virtio-gpu</code> implements the following set:</p>
-<ul>
-<li><code>DRM_IOCTL_VIRTGPU_MAP</code></li>
-<li><code>DRM_IOCTL_VIRTGPU_EXECBUFFER</code></li>
-<li><code>DRM_IOCTL_VIRTGPU_GETPARAM</code></li>
-<li><code>DRM_IOCTL_VIRTGPU_RESOURCE_CREATE</code></li>
-<li><code>DRM_IOCTL_VIRTGPU_RESOURCE_INFO</code></li>
-<li><code>DRM_IOCTL_VIRTGPU_TRANSFER_FROM_HOST</code></li>
-<li><code>DRM_IOCTL_VIRTGPU_TRANSFER_TO_HOST</code></li>
-<li><code>DRM_IOCTL_VIRTGPU_WAIT</code></li>
-<li><code>DRM_IOCTL_VIRTGPU_GET_GAPS</code></li>
-<li><code>DRM_IOCTL_VIRTGPU_RESOURCE_CREATE_BLOB</code></li>
-<li><code>DRM_IOCTL_VIRGPU_CONTEXT_INIT</code></li>
+<li><code>DRM_CLIENT_CAP_STEREO_3D</code>. boolean. Client can handle stereo 3D, so show it the corresponding modes in the list of modes.</li>
+<li><code>DRM_CLIENT_CAP_UNIVERSAL_PLANES</code>. integer<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup>. If &gt; 0 then client can handle multiple planes, show it planes beyond primary and cursor ones in the list of planes.</li>
+<li><code>DRM_CLIENT_CAP_ATOMIC</code>. boolean. Client can use atomic modesetting <code>ioctl</code>s. Also enables universal planes and aspect ratio.</li>
+<li><code>DRM_CLIENT_CAP_ASPECT_RATIO</code>. boolean. Client can handle aspect ratio in modes, so provide it.</li>
+<li><code>DRM_CLIENT_CAP_WRITEBACK_CONNECTORS</code>. boolean. Client can handle writeback connectors (connectors that capture output and save it into a framebuffer).</li>
 </ul>
 <h2 id="references">References</h2>
 <ul>
-<li><a href="https://keithp.com/blogs/DRM-lease/">https://keithp.com/blogs/DRM-lease/</a></li>
+<li><a href="https://dri.freedesktop.org/docs/drm/gpu/drm-uapi.html">DRM uAPI</a></li>
+<li>Linux <code>drivers/gpu/drm/drm_ioctl.c</code>.</li>
 </ul>
 <h2 id="footnotes">Footnotes</h2>
 <div class="footnotes" role="doc-endnotes">
 <hr />
 <ol>
 <li id="fn:1" role="doc-endnote">
-<p>Does anyone remember AGP nowadays?&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+<p>Xserver modesetting DDX is completely broken: it asks for universal planes, but is not ready to
+handle them. To avoid blowing up users' desktops, any process with name starting with <code>X</code> is
+required to set this capability to 2 to really enable universal planes.
+<a href="https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/drivers/gpu/drm/drm_ioctl.c?id=723dad977acd1bd37f87e88d430958a833491ff1#n339">Yes, really</a>.&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
 </li>
 </ol>
 </div>
@@ -232,8 +127,8 @@ driver-specific <code>ioctl</code>s used chiefly by Mesa for rendering operation
   </div>
   <div class="post-meta">
     
-<time datetime="2023-07-07T00:00:00Z">
-  2023-07-07
+<time datetime="2023-07-08T00:00:00Z">
+  2023-07-08
 </time>
 
   </div>

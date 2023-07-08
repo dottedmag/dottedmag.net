@@ -3,7 +3,7 @@
   <id>https://dottedmag.net/</id>
   <title>Mikhail Gusarov</title>
   
-  <updated>2023-07-07T00:00:00Z</updated>
+  <updated>2023-07-08T00:00:00Z</updated>
   
   <author><name>Mikhail Gusarov</name></author>
   <link href="https://dottedmag.net/" rel="alternate"></link>
@@ -14,9 +14,9 @@
 <entry>
   <id>https://dottedmag.net/blog/03-de-drm-ioctl/</id>
   <author><name>Mikhail Gusarov</name></author>
-  <title type="html">DE/compositor development notes - common DRM device operatins</title>
-  <published>2023-07-07T00:00:00Z</published>
-  <updated>2023-07-07T00:00:00Z</updated>
+  <title type="html">DE/compositor development notes - DRM operations (1)</title>
+  <published>2023-07-08T00:00:00Z</published>
+  <updated>2023-07-08T00:00:00Z</updated>
   
   <link href="https://dottedmag.net/blog/03-de-drm-ioctl/" rel="alternate"></link>
   <content type="html">
@@ -24,176 +24,71 @@
       
   &lt;p&gt;What can compositor do with DRM devices once it &lt;a href=&#34;/blog/01-de-drm/&#34;&gt;has found&lt;/a&gt; them?&lt;/p&gt;
 &lt;p&gt;These devices respond to a number of &lt;code&gt;ioctl&lt;/code&gt;s. All DRM devices respond to a set
-of common &lt;code&gt;ioctl&lt;/code&gt;s that cover display controller functionality and there are
+of common &lt;code&gt;ioctl&lt;/code&gt;s that cover display controller functionality, and there are
 driver-specific &lt;code&gt;ioctl&lt;/code&gt;s used chiefly by Mesa for rendering operations.&lt;/p&gt;
-&lt;h3 id=&#34;version-and-capabilities&#34;&gt;Version and capabilities&lt;/h3&gt;
+&lt;p&gt;The list of &lt;code&gt;ioctl&lt;/code&gt;s is pretty large, so this post covers only a small subset.&lt;/p&gt;
+&lt;h2 id=&#34;versions&#34;&gt;Versions&lt;/h2&gt;
+&lt;p&gt;&lt;code&gt;ioctl&lt;/code&gt; &lt;code&gt;DRM_IOCTL_VERSION&lt;/code&gt; returns human-readable version, name, description
+and (release?) date of DRM device.&lt;/p&gt;
+&lt;h2 id=&#34;device-capabilities&#34;&gt;Device capabilities&lt;/h2&gt;
+&lt;p&gt;&lt;code&gt;ioctl&lt;/code&gt; &lt;code&gt;DRM_IOCTL_GET_CAP&lt;/code&gt; returns capabilities of a DRM device.&lt;/p&gt;
+&lt;p&gt;Many of these capabilities refer to specific DRM &lt;code&gt;ioctl&lt;/code&gt;s, so they may not
+make much sense yet.&lt;/p&gt;
+&lt;h3 id=&#34;framebuffer-capabilities&#34;&gt;Framebuffer capabilities&lt;/h3&gt;
 &lt;ul&gt;
-&lt;li&gt;&lt;code&gt;DRM_IOCTL_GET_CAP&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;DRM_IOCTL_SET_CLIENT_CAP&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;DRM_IOCTL_SET_VERSION&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;DRM_CAP_ADDFB2_MODIFIERS&lt;/code&gt;. boolean. Framebuffers support pixel format modifiers.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;DRM_CAP_DUMB_BUFFER&lt;/code&gt;. boolean. The device can create dumb framebuffers (&lt;code&gt;DRM_IOCTL_MODE_CREATE_DUMB&lt;/code&gt; et al)&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;DRM_CAP_DUMB_PREFERRED_DEPTH&lt;/code&gt;. integer. The preferred pixel depth of dumb framebuffers.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;DRM_CAP_DUMB_PREFER_SHADOW&lt;/code&gt;. boolean. Non-sequential writes or reading from dumb framebuffer is slow.&lt;/li&gt;
 &lt;/ul&gt;
-&lt;h3 id=&#34;drm-master&#34;&gt;DRM master&lt;/h3&gt;
+&lt;h3 id=&#34;syncobj-capabilities&#34;&gt;Syncobj capabilities&lt;/h3&gt;
 &lt;ul&gt;
-&lt;li&gt;&lt;code&gt;DRM_IOCTL_GET_MAGIC&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;DRM_IOCTL_AUTH_MAGIC&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;DRM_IOCTL_SET_MASTER&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;DRM_IOCTL_DROP_MASTER&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;DRM_IOCTL_MODE_CREATE_LEASE&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;DRM_IOCTL_MODE_GET_LEASE&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;DRM_IOCTL_MODE_LIST_LESSEES&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;DRM_IOCTL_MODE_REVOKE_LEASE&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;DRM_CAP_SYNCOBJ&lt;/code&gt;. boolean. The device supports DRM sync objects.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;DRM_CAP_SYNCOBJ_TIMELINE&lt;/code&gt;. boolean. The device supports DRM timeline sync objects
+(they can signal at specific points in their lifetimes).&lt;/li&gt;
 &lt;/ul&gt;
-&lt;h3 id=&#34;framebuffer-handling&#34;&gt;Framebuffer handling&lt;/h3&gt;
+&lt;h3 id=&#34;page-flipping-capabilities&#34;&gt;Page flipping capabilities&lt;/h3&gt;
 &lt;ul&gt;
-&lt;li&gt;&lt;code&gt;DRM_IOCTL_MODE_ADDFB2&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;DRM_IOCTL_MODE_ADDFB&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;DRM_IOCTL_MODE_GETFB2&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;DRM_IOCTL_MODE_GETFB&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;DRM_IOCTL_MODE_RMFB&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;DRM_IOCTL_MODE_DIRTYFB&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;DRM_CAP_ASYNC_PAGE_FLIP&lt;/code&gt;. boolean. The device can pageflip without delay (tearing pageflip).&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;DRM_CAP_PAGE_FLIP_TARGET&lt;/code&gt;. boolean. The device can pageflip with a specified target
+(&lt;code&gt;DRM_MODE_PAGE_FLIP_TARGET_{ABSOLUTE,RELATIVE}&lt;/code&gt;).&lt;/li&gt;
 &lt;/ul&gt;
-&lt;h3 id=&#34;display-control&#34;&gt;Display control&lt;/h3&gt;
+&lt;h3 id=&#34;other-capabilities&#34;&gt;Other capabilities&lt;/h3&gt;
 &lt;ul&gt;
-&lt;li&gt;&lt;code&gt;DRM_IOCTL_CRTC_GET_SEQUENCE&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;DRM_IOCTL_CRTC_QUEUE_SEQUENCE&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;DRM_IOCTL_WAIT_VBLANK&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;DRM_IOCTL_MODE_PAGE_FLIP&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;DRM_CAP_CURSOR_HEIGHT&lt;/code&gt;, &lt;code&gt;DRM_CAP_CURSOR_WIDTH&lt;/code&gt; integer. return &lt;em&gt;valid&lt;/em&gt; (not necessary the maximum) hardware cursor size.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;DRM_CAP_PRIME&lt;/code&gt;. bitfield. The device can export buffers to other GPUs and/or import buffers from them.&lt;/li&gt;
 &lt;/ul&gt;
-&lt;h3 id=&#34;memory-management&#34;&gt;Memory management&lt;/h3&gt;
+&lt;h3 id=&#34;obsolete-capabilities&#34;&gt;Obsolete capabilities&lt;/h3&gt;
 &lt;ul&gt;
-&lt;li&gt;&lt;code&gt;DRM_IOCTL_MODE_CREATE_DUMB&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;DRM_IOCTL_MODE_DESTROY_DUMB&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;DRM_IOCTL_MODE_MAP_DUMB&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;DRM_IOCTL_GEM_CLOSE&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;DRM_IOCTL_GEM_FLINK&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;DRM_IOCTL_GEM_OPEN&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;DRM_CAP_CRTC_IN_VBLANK_EVENT&lt;/code&gt;. boolean. Always true since Linux 4.12.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;DRM_CAP_TIMESTAP_MONOTONIC&lt;/code&gt;. boolean. Always true since Linux 4.15.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;DRM_CAP_VBLANK_HIGH_CRTC&lt;/code&gt;. boolean. Always true since Linux 2.6.39&lt;/li&gt;
 &lt;/ul&gt;
-&lt;h3 id=&#34;resources-and-properties&#34;&gt;Resources and properties&lt;/h3&gt;
+&lt;h2 id=&#34;client-capabilities&#34;&gt;Client capabilities&lt;/h2&gt;
+&lt;p&gt;DRM client may indicate it has certain capabilites. This is necessary to activate backward-incompatible
+functionality that would otherwise break old clients.&lt;/p&gt;
+&lt;p&gt;Client capabilities are set using &lt;code&gt;ioctl&lt;/code&gt; &lt;code&gt;DRM_IOCTL_SET_CLIENT_CAP&lt;/code&gt;.&lt;/p&gt;
 &lt;ul&gt;
-&lt;li&gt;&lt;code&gt;DRM_IOCTL_MODE_CREATEPROPBLOB&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;DRM_IOCTL_MODE_DESTROYPROPBLOB&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;DRM_IOCTL_MODE_GETPROPBLOB&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;DRM_IOCTL_MODE_GETPROPERTY&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;DRM_IOCTL_MODE_OBJ_GETPROPERTIES&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;DRM_IOCTL_MODE_OBJ_SETPROPERTY&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;DRM_IOCTL_MODE_GETCONNECTOR&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;DRM_IOCTL_MODE_GETCRTC&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;DRM_IOCTL_MODE_GETENCODER&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;DRM_IOCTL_MODE_GETGAMMA&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;DRM_IOCTL_MODE_GETPLANERESOURCES&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;DRM_IOCTL_MODE_GETPLANE&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;DRM_IOCTL_MODE_GETRESOURCES&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;DRM_IOCTL_MODE_SETCRTC&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;DRM_IOCTL_MODE_SETGAMMA&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;DRM_IOCTL_MODE_SETPLANE&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;DRM_IOCTL_MODE_SETPROPERTY&lt;/code&gt;&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h3 id=&#34;modesetting&#34;&gt;Modesetting&lt;/h3&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;code&gt;DRM_IOCTL_MODESET_CTL&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;DRM_IOCTL_MODE_ATOMIC&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;DRM_IOCTL_MODE_CURSOR2&lt;/code&gt; (?pre-atomic?)&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;DRM_IOCTL_MODE_CURSOR&lt;/code&gt; (?pre-atomic?)&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h3 id=&#34;synchronization&#34;&gt;Synchronization&lt;/h3&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;code&gt;DRM_IOCTL_SYNCOBJ_CREATE&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;DRM_IOCTL_SYNCOBJ_DESTROY&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;DRM_IOCTL_SYNCOBJ_FD_TO_HANDLE&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;DRM_IOCTL_SYNCOBJ_HANDLE_TO_FD&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;DRM_IOCTL_SYNCOBJ_QUERY&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;DRM_IOCTL_SYNCOBJ_RESET&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;DRM_IOCTL_SYNCOBJ_SIGNAL&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;DRM_IOCTL_SYNCOBJ_TIMELINE_SIGNAL&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;DRM_IOCTL_SYNCOBJ_TIMELINE_WAIT&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;DRM_IOCTL_SYNCOBJ_TRANSFER&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;DRM_IOCTL_SYNCOBJ_WAIT&lt;/code&gt;&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h3 id=&#34;prime-&#34;&gt;PRIME (?)&lt;/h3&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;code&gt;DRM_IOCTL_PRIME_FD_TO_HANDLE&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;DRM_IOCTL_PRIME_HANDLE_TO_FD&lt;/code&gt;&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h3 id=&#34;misc&#34;&gt;Misc&lt;/h3&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;code&gt;DRM_IOCTL_GET_CLIENT&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;DRM_IOCTL_GET_STATS&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;DRM_IOCTL_VERSION&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;DRM_IOCTL_GET_UNIQUE&lt;/code&gt;&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h3 id=&#34;obsolete&#34;&gt;Obsolete&lt;/h3&gt;
-&lt;p&gt;These &lt;code&gt;ioctl&lt;/code&gt;s are either explicitly marked as legacy, or stubbed out in kernel.&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;code&gt;DRM_IOCTL_SET_UNIQUE&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;DRM_IOCTL_IRQ_BUSID&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;DRM_IOCTL_GET_MAP&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;DRM_IOCTL_ADD_MAP&lt;/code&gt; ??&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;DRM_IOCTL_RM_MAP&lt;/code&gt; ??&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;DRM_IOCTL_GET_SAREA_CTX&lt;/code&gt; ??&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;DRM_IOCTL_SET_SAREA_CTX&lt;/code&gt; ??&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;DRM_IOCTL_ADD_CTX&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;DRM_IOCTL_RM_CTX&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;DRM_IOCTL_MOD_CTX&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;DRM_IOCTL_GET_CTX&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;DRM_IOCTL_SWITCH_CTX&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;DRM_IOCTL_NEW_CTX&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;DRM_IOCTL_RES_CTX&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;DRM_IOCTL_UNLOCK&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;DRM_IOCTL_LOCK&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;DRM_IOCTL_ADD_BUFS&lt;/code&gt; ??&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;DRM_IOCTL_MARK_BUFS&lt;/code&gt; ??&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;DRM_IOCTL_INFO_BUFS&lt;/code&gt; ??&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;DRM_IOCTL_MAP_BUFS&lt;/code&gt; ??&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;DRM_IOCTL_FREE_BUFS&lt;/code&gt; ??&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;DRM_IOCTL_DMA&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;DRM_IOCTL_CONTROL&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;DRM_IOCTL_SG_ALLOC&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;DRM_IOCTL_SG_FREE&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;DRM_IOCTL_FINISH&lt;/code&gt;. Noop.&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;DRM_IOCTL_BLOCK&lt;/code&gt;. Noop.&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;DRM_IOCTL_UNBLOCK&lt;/code&gt;. Noop.&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;DRM_IOCTL_ADD_DRAW&lt;/code&gt;. Noop.&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;DRM_IOCTL_RM_DRAW&lt;/code&gt;. Noop.&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;DRM_IOCTL_UPDATE_DRAW&lt;/code&gt;. Noop.&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;DRM_IOCTL_MODE_ATTACHMODE&lt;/code&gt;. Noop.&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;DRM_IOCTL_MODE_DETACHMODE&lt;/code&gt;. Noop.&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;AGP&lt;sup id=&#34;fnref:1&#34;&gt;&lt;a href=&#34;#fn:1&#34; class=&#34;footnote-ref&#34; role=&#34;doc-noteref&#34;&gt;1&lt;/a&gt;&lt;/sup&gt;-specific &lt;code&gt;ioctl&lt;/code&gt;s:&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;code&gt;DRM_IOCTL_AGP_ACQUIRE&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;DRM_IOCTL_AGP_ALLOC&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;DRM_IOCTL_AGP_BIND&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;DRM_IOCTL_AGP_ENABLE&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;DRM_IOCTL_AGP_FREE&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;DRM_IOCTL_AGP_INFO&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;DRM_IOCTL_AGP_RELEASE&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;DRM_IOCTL_AGP_UNBIND&lt;/code&gt;&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h2 id=&#34;driver-specific-ioctls&#34;&gt;Driver-specific &lt;code&gt;ioctl&lt;/code&gt;s&lt;/h2&gt;
-&lt;p&gt;An an example &lt;code&gt;virtio-gpu&lt;/code&gt; implements the following set:&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;code&gt;DRM_IOCTL_VIRTGPU_MAP&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;DRM_IOCTL_VIRTGPU_EXECBUFFER&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;DRM_IOCTL_VIRTGPU_GETPARAM&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;DRM_IOCTL_VIRTGPU_RESOURCE_CREATE&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;DRM_IOCTL_VIRTGPU_RESOURCE_INFO&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;DRM_IOCTL_VIRTGPU_TRANSFER_FROM_HOST&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;DRM_IOCTL_VIRTGPU_TRANSFER_TO_HOST&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;DRM_IOCTL_VIRTGPU_WAIT&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;DRM_IOCTL_VIRTGPU_GET_GAPS&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;DRM_IOCTL_VIRTGPU_RESOURCE_CREATE_BLOB&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;DRM_IOCTL_VIRGPU_CONTEXT_INIT&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;DRM_CLIENT_CAP_STEREO_3D&lt;/code&gt;. boolean. Client can handle stereo 3D, so show it the corresponding modes in the list of modes.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;DRM_CLIENT_CAP_UNIVERSAL_PLANES&lt;/code&gt;. integer&lt;sup id=&#34;fnref:1&#34;&gt;&lt;a href=&#34;#fn:1&#34; class=&#34;footnote-ref&#34; role=&#34;doc-noteref&#34;&gt;1&lt;/a&gt;&lt;/sup&gt;. If &amp;gt; 0 then client can handle multiple planes, show it planes beyond primary and cursor ones in the list of planes.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;DRM_CLIENT_CAP_ATOMIC&lt;/code&gt;. boolean. Client can use atomic modesetting &lt;code&gt;ioctl&lt;/code&gt;s. Also enables universal planes and aspect ratio.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;DRM_CLIENT_CAP_ASPECT_RATIO&lt;/code&gt;. boolean. Client can handle aspect ratio in modes, so provide it.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;DRM_CLIENT_CAP_WRITEBACK_CONNECTORS&lt;/code&gt;. boolean. Client can handle writeback connectors (connectors that capture output and save it into a framebuffer).&lt;/li&gt;
 &lt;/ul&gt;
 &lt;h2 id=&#34;references&#34;&gt;References&lt;/h2&gt;
 &lt;ul&gt;
-&lt;li&gt;&lt;a href=&#34;https://keithp.com/blogs/DRM-lease/&#34;&gt;https://keithp.com/blogs/DRM-lease/&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://dri.freedesktop.org/docs/drm/gpu/drm-uapi.html&#34;&gt;DRM uAPI&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Linux &lt;code&gt;drivers/gpu/drm/drm_ioctl.c&lt;/code&gt;.&lt;/li&gt;
 &lt;/ul&gt;
 &lt;h2 id=&#34;footnotes&#34;&gt;Footnotes&lt;/h2&gt;
 &lt;div class=&#34;footnotes&#34; role=&#34;doc-endnotes&#34;&gt;
 &lt;hr /&gt;
 &lt;ol&gt;
 &lt;li id=&#34;fn:1&#34; role=&#34;doc-endnote&#34;&gt;
-&lt;p&gt;Does anyone remember AGP nowadays?&amp;#160;&lt;a href=&#34;#fnref:1&#34; class=&#34;footnote-backref&#34; role=&#34;doc-backlink&#34;&gt;&amp;#x21a9;&amp;#xfe0e;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Xserver modesetting DDX is completely broken: it asks for universal planes, but is not ready to
+handle them. To avoid blowing up users&#39; desktops, any process with name starting with &lt;code&gt;X&lt;/code&gt; is
+required to set this capability to 2 to really enable universal planes.
+&lt;a href=&#34;https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/drivers/gpu/drm/drm_ioctl.c?id=723dad977acd1bd37f87e88d430958a833491ff1#n339&#34;&gt;Yes, really&lt;/a&gt;.&amp;#160;&lt;a href=&#34;#fnref:1&#34; class=&#34;footnote-backref&#34; role=&#34;doc-backlink&#34;&gt;&amp;#x21a9;&amp;#xfe0e;&lt;/a&gt;&lt;/p&gt;
 &lt;/li&gt;
 &lt;/ol&gt;
 
@@ -663,6 +558,192 @@ Application developers were disincentivised to use new features because they als
 &lt;/li&gt;
 &lt;li id=&#34;fn:2&#34; role=&#34;doc-endnote&#34;&gt;
 &lt;p&gt;Moreover, a free software license is not a universally sound choice for software authors. This limits the set of applications available for the distributions that insist that the application packaging and testing has to be done by the distribution maintainers.&amp;#160;&lt;a href=&#34;#fnref:2&#34; class=&#34;footnote-backref&#34; role=&#34;doc-backlink&#34;&gt;&amp;#x21a9;&amp;#xfe0e;&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+
+    
+  </content>
+</entry>
+
+<entry>
+  <id>https://dottedmag.net/blog/04-de-drm-ioctl2/</id>
+  <author><name>Mikhail Gusarov</name></author>
+  <title type="html"></title>
+  <published>0001-01-01T00:00:00Z</published>
+  <updated>0001-01-01T00:00:00Z</updated>
+  
+  <link href="https://dottedmag.net/blog/04-de-drm-ioctl2/" rel="alternate"></link>
+  <content type="html">
+    
+      
+  &lt;h3 id=&#34;drm-master&#34;&gt;DRM master&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;DRM_IOCTL_GET_MAGIC&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;DRM_IOCTL_AUTH_MAGIC&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;DRM_IOCTL_SET_MASTER&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;DRM_IOCTL_DROP_MASTER&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;DRM_IOCTL_MODE_CREATE_LEASE&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;DRM_IOCTL_MODE_GET_LEASE&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;DRM_IOCTL_MODE_LIST_LESSEES&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;DRM_IOCTL_MODE_REVOKE_LEASE&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;framebuffer-handling&#34;&gt;Framebuffer handling&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;DRM_IOCTL_MODE_ADDFB2&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;DRM_IOCTL_MODE_ADDFB&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;DRM_IOCTL_MODE_GETFB2&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;DRM_IOCTL_MODE_GETFB&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;DRM_IOCTL_MODE_RMFB&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;DRM_IOCTL_MODE_DIRTYFB&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;display-control&#34;&gt;Display control&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;DRM_IOCTL_CRTC_GET_SEQUENCE&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;DRM_IOCTL_CRTC_QUEUE_SEQUENCE&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;DRM_IOCTL_WAIT_VBLANK&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;DRM_IOCTL_MODE_PAGE_FLIP&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;memory-management&#34;&gt;Memory management&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;DRM_IOCTL_MODE_CREATE_DUMB&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;DRM_IOCTL_MODE_DESTROY_DUMB&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;DRM_IOCTL_MODE_MAP_DUMB&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;DRM_IOCTL_GEM_CLOSE&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;DRM_IOCTL_GEM_FLINK&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;DRM_IOCTL_GEM_OPEN&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;resources-and-properties&#34;&gt;Resources and properties&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;DRM_IOCTL_MODE_CREATEPROPBLOB&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;DRM_IOCTL_MODE_DESTROYPROPBLOB&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;DRM_IOCTL_MODE_GETPROPBLOB&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;DRM_IOCTL_MODE_GETPROPERTY&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;DRM_IOCTL_MODE_OBJ_GETPROPERTIES&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;DRM_IOCTL_MODE_OBJ_SETPROPERTY&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;DRM_IOCTL_MODE_GETCONNECTOR&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;DRM_IOCTL_MODE_GETCRTC&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;DRM_IOCTL_MODE_GETENCODER&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;DRM_IOCTL_MODE_GETGAMMA&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;DRM_IOCTL_MODE_GETPLANERESOURCES&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;DRM_IOCTL_MODE_GETPLANE&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;DRM_IOCTL_MODE_GETRESOURCES&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;DRM_IOCTL_MODE_SETCRTC&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;DRM_IOCTL_MODE_SETGAMMA&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;DRM_IOCTL_MODE_SETPLANE&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;DRM_IOCTL_MODE_SETPROPERTY&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;modesetting&#34;&gt;Modesetting&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;DRM_IOCTL_MODESET_CTL&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;DRM_IOCTL_MODE_ATOMIC&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;DRM_IOCTL_MODE_CURSOR2&lt;/code&gt; (?pre-atomic?)&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;DRM_IOCTL_MODE_CURSOR&lt;/code&gt; (?pre-atomic?)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;synchronization&#34;&gt;Synchronization&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;DRM_IOCTL_SYNCOBJ_CREATE&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;DRM_IOCTL_SYNCOBJ_DESTROY&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;DRM_IOCTL_SYNCOBJ_FD_TO_HANDLE&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;DRM_IOCTL_SYNCOBJ_HANDLE_TO_FD&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;DRM_IOCTL_SYNCOBJ_QUERY&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;DRM_IOCTL_SYNCOBJ_RESET&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;DRM_IOCTL_SYNCOBJ_SIGNAL&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;DRM_IOCTL_SYNCOBJ_TIMELINE_SIGNAL&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;DRM_IOCTL_SYNCOBJ_TIMELINE_WAIT&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;DRM_IOCTL_SYNCOBJ_TRANSFER&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;DRM_IOCTL_SYNCOBJ_WAIT&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;prime-&#34;&gt;PRIME (?)&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;DRM_IOCTL_PRIME_FD_TO_HANDLE&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;DRM_IOCTL_PRIME_HANDLE_TO_FD&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;misc&#34;&gt;Misc&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;DRM_IOCTL_GET_CLIENT&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;DRM_IOCTL_GET_STATS&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;DRM_IOCTL_VERSION&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;DRM_IOCTL_GET_UNIQUE&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;obsolete&#34;&gt;Obsolete&lt;/h3&gt;
+&lt;p&gt;&lt;code&gt;DRM_IOCTL_SET_VERSION&lt;/code&gt; &lt;code&gt;ioctl&lt;/code&gt; sets the version of DRM interface
+to:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;change the value returned by &lt;code&gt;DRM_IOCTL_GET_UINQUE&lt;/code&gt;, however this &lt;code&gt;ioctl&lt;/code&gt;
+exists only for backward compatibility,&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;These &lt;code&gt;ioctl&lt;/code&gt;s are either explicitly marked as legacy, or stubbed out in kernel.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;DRM_IOCTL_SET_UNIQUE&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;DRM_IOCTL_IRQ_BUSID&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;DRM_IOCTL_GET_MAP&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;DRM_IOCTL_ADD_MAP&lt;/code&gt; ??&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;DRM_IOCTL_RM_MAP&lt;/code&gt; ??&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;DRM_IOCTL_GET_SAREA_CTX&lt;/code&gt; ??&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;DRM_IOCTL_SET_SAREA_CTX&lt;/code&gt; ??&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;DRM_IOCTL_ADD_CTX&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;DRM_IOCTL_RM_CTX&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;DRM_IOCTL_MOD_CTX&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;DRM_IOCTL_GET_CTX&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;DRM_IOCTL_SWITCH_CTX&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;DRM_IOCTL_NEW_CTX&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;DRM_IOCTL_RES_CTX&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;DRM_IOCTL_UNLOCK&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;DRM_IOCTL_LOCK&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;DRM_IOCTL_ADD_BUFS&lt;/code&gt; ??&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;DRM_IOCTL_MARK_BUFS&lt;/code&gt; ??&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;DRM_IOCTL_INFO_BUFS&lt;/code&gt; ??&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;DRM_IOCTL_MAP_BUFS&lt;/code&gt; ??&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;DRM_IOCTL_FREE_BUFS&lt;/code&gt; ??&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;DRM_IOCTL_DMA&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;DRM_IOCTL_CONTROL&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;DRM_IOCTL_SG_ALLOC&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;DRM_IOCTL_SG_FREE&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;DRM_IOCTL_FINISH&lt;/code&gt;. Noop.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;DRM_IOCTL_BLOCK&lt;/code&gt;. Noop.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;DRM_IOCTL_UNBLOCK&lt;/code&gt;. Noop.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;DRM_IOCTL_ADD_DRAW&lt;/code&gt;. Noop.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;DRM_IOCTL_RM_DRAW&lt;/code&gt;. Noop.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;DRM_IOCTL_UPDATE_DRAW&lt;/code&gt;. Noop.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;DRM_IOCTL_MODE_ATTACHMODE&lt;/code&gt;. Noop.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;DRM_IOCTL_MODE_DETACHMODE&lt;/code&gt;. Noop.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;AGP&lt;sup id=&#34;fnref:1&#34;&gt;&lt;a href=&#34;#fn:1&#34; class=&#34;footnote-ref&#34; role=&#34;doc-noteref&#34;&gt;1&lt;/a&gt;&lt;/sup&gt;-specific &lt;code&gt;ioctl&lt;/code&gt;s:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;DRM_IOCTL_AGP_ACQUIRE&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;DRM_IOCTL_AGP_ALLOC&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;DRM_IOCTL_AGP_BIND&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;DRM_IOCTL_AGP_ENABLE&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;DRM_IOCTL_AGP_FREE&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;DRM_IOCTL_AGP_INFO&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;DRM_IOCTL_AGP_RELEASE&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;DRM_IOCTL_AGP_UNBIND&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;driver-specific-ioctls&#34;&gt;Driver-specific &lt;code&gt;ioctl&lt;/code&gt;s&lt;/h2&gt;
+&lt;p&gt;An an example &lt;code&gt;virtio-gpu&lt;/code&gt; implements the following set:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;DRM_IOCTL_VIRTGPU_MAP&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;DRM_IOCTL_VIRTGPU_EXECBUFFER&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;DRM_IOCTL_VIRTGPU_GETPARAM&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;DRM_IOCTL_VIRTGPU_RESOURCE_CREATE&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;DRM_IOCTL_VIRTGPU_RESOURCE_INFO&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;DRM_IOCTL_VIRTGPU_TRANSFER_FROM_HOST&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;DRM_IOCTL_VIRTGPU_TRANSFER_TO_HOST&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;DRM_IOCTL_VIRTGPU_WAIT&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;DRM_IOCTL_VIRTGPU_GET_GAPS&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;DRM_IOCTL_VIRTGPU_RESOURCE_CREATE_BLOB&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;DRM_IOCTL_VIRGPU_CONTEXT_INIT&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;references&#34;&gt;References&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://keithp.com/blogs/DRM-lease/&#34;&gt;https://keithp.com/blogs/DRM-lease/&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;footnotes&#34;&gt;Footnotes&lt;/h2&gt;
+&lt;div class=&#34;footnotes&#34; role=&#34;doc-endnotes&#34;&gt;
+&lt;hr /&gt;
+&lt;ol&gt;
+&lt;li id=&#34;fn:1&#34; role=&#34;doc-endnote&#34;&gt;
+&lt;p&gt;Does anyone remember AGP nowadays?&amp;#160;&lt;a href=&#34;#fnref:1&#34; class=&#34;footnote-backref&#34; role=&#34;doc-backlink&#34;&gt;&amp;#x21a9;&amp;#xfe0e;&lt;/a&gt;&lt;/p&gt;
 &lt;/li&gt;
 &lt;/ol&gt;
 
