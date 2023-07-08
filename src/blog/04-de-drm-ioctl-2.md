@@ -1,4 +1,4 @@
-title: DE/compositor developmetn notes - DRM operations (2)
+title: DE/compositor development notes - DRM operations (2)
 date: 2023-07-08
 ----
 Graphics hardware might need to be shared by the compositor and applications.

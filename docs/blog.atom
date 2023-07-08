@@ -61,7 +61,7 @@ names, everything else is hidden from the users and should use the codename.&lt;
 <entry>
   <id>https://dottedmag.net/blog/04-de-drm-ioctl-2/</id>
   <author><name>Mikhail Gusarov</name></author>
-  <title type="html">DE/compositor developmetn notes - DRM operations (2)</title>
+  <title type="html">DE/compositor development notes - DRM operations (2)</title>
   <published>2023-07-08T00:00:00Z</published>
   <updated>2023-07-08T00:00:00Z</updated>
   
