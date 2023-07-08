@@ -11,12 +11,12 @@ The list of `ioctl`s is pretty large, so this post covers only a small subset.
 
 ## Versions
 
-`ioctl` `DRM_IOCTL_VERSION` returns human-readable version, name, description
+`DRM_IOCTL_VERSION` returns human-readable version, name, description
 and (release?) date of DRM device.
 
 ## Device capabilities
 
-`ioctl` `DRM_IOCTL_GET_CAP` returns capabilities of a DRM device.
+`DRM_IOCTL_GET_CAP` returns capabilities of a DRM device.
 
 Many of these capabilities refer to specific DRM `ioctl`s, so they may not
 make much sense yet.
@@ -56,7 +56,7 @@ make much sense yet.
 DRM client may indicate it has certain capabilites. This is necessary to activate backward-incompatible
 functionality that would otherwise break old clients.
 
-Client capabilities are set using `ioctl` `DRM_IOCTL_SET_CLIENT_CAP`.
+Client capabilities are set using `DRM_IOCTL_SET_CLIENT_CAP`.
 
 - `DRM_CLIENT_CAP_STEREO_3D`. boolean. Client can handle stereo 3D, so show it the corresponding modes in the list of modes.
 - `DRM_CLIENT_CAP_UNIVERSAL_PLANES`. integer[^xuni]. If > 0 then client can handle multiple planes, show it planes beyond primary and cursor ones in the list of planes.

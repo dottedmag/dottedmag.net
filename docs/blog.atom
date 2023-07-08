@@ -59,6 +59,61 @@ names, everything else is hidden from the users and should use the codename.&lt;
 </entry>
 
 <entry>
+  <id>https://dottedmag.net/blog/04-de-drm-ioctl-2/</id>
+  <author><name>Mikhail Gusarov</name></author>
+  <title type="html">DE/compositor developmetn notes - DRM operations (2)</title>
+  <published>2023-07-08T00:00:00Z</published>
+  <updated>2023-07-08T00:00:00Z</updated>
+  
+  <link href="https://dottedmag.net/blog/04-de-drm-ioctl-2/" rel="alternate"></link>
+  <content type="html">
+    
+      
+  &lt;p&gt;Graphics hardware might need to be shared by the compositor and applications.&lt;/p&gt;
+&lt;p&gt;Compositor is in charge of display controller as a final arbiter of what goes to screen
+(except leasing, see below), but applications need access to rendering functionality.
+Several compositors need to share hardware too.&lt;/p&gt;
+&lt;h2 id=&#34;giving-application-access-to-the-rendering&#34;&gt;Giving application access to the rendering&lt;/h2&gt;
+&lt;p&gt;Application (actually, usually Mesa on behalf of application) opens rendering device node,
+uses it for rendering. Easy&lt;sup id=&#34;fnref:1&#34;&gt;&lt;a href=&#34;#fn:1&#34; class=&#34;footnote-ref&#34; role=&#34;doc-noteref&#34;&gt;1&lt;/a&gt;&lt;/sup&gt;.&lt;/p&gt;
+&lt;h2 id=&#34;sharing-a-display-controller-between-compositors&#34;&gt;Sharing a display controller between compositors&lt;/h2&gt;
+&lt;p&gt;There is a concept of &amp;ldquo;DRM master&amp;rdquo;: an application that owns the display controller functionality
+in DRM. First process that opens DRM card device becomes master automatically.&lt;/p&gt;
+&lt;p&gt;Whenever a compositor needs to yield access to display controller to another compositor,
+it issues &lt;code&gt;DRM_IOCTL_DROP_MASTER&lt;/code&gt;. Whenever it needs to become a master again, it
+issues &lt;code&gt;DRM_IOCTL_SET_MASTER&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;This dance is typically performed in &lt;a href=&#34;/blog/02-de-vt/&#34;&gt;VT switch sequence&lt;/a&gt;.&lt;/p&gt;
+&lt;h2 id=&#34;handing-over-the-display-controller-to-the-application&#34;&gt;Handing over the display controller to the application&lt;/h2&gt;
+&lt;p&gt;Sometimes an application needs full control over a display controller. Typically it happens
+when a display controller is a part of specialized device, such as VR hardware. In this case
+compositor may &lt;em&gt;lease&lt;/em&gt; a DRM device to an application.&lt;/p&gt;
+&lt;p&gt;Compositor calls &lt;code&gt;DRM_IOCTL_MODE_CREATE_LEASE&lt;/code&gt; with a set of DRM objects it wants to
+lease, gets back a new DRM file descriptor and passes it to the application.&lt;/p&gt;
+&lt;p&gt;Compositor may list the active leases with &lt;code&gt;DRM_IOCTL_LIST_LESSEES&lt;/code&gt;, leased objects
+using &lt;code&gt;DRM_IOCTL_GET_LEASE&lt;/code&gt; and yank control back at any time using &lt;code&gt;DRM_IOCTL_REVOKE_LEASE&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;Application can use new file descriptor as if it is a real DRM master.&lt;/p&gt;
+&lt;h2 id=&#34;references&#34;&gt;References&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.x.org/wiki/Events/XDC2013/XDC2013DavidHerrmannDRMSecurity/slides.pdf&#34;&gt;DRM security&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;wlroots&lt;/code&gt; source code&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://keithp.com/blogs/DRM-lease/&#34;&gt;DRM lease&lt;/a&gt;, &lt;a href=&#34;https://keithp.com/blogs/DRM-lease-2/&#34;&gt;DRM lease-2&lt;/a&gt;, &lt;a href=&#34;https://keithp.com/blogs/DRM-lease-3/&#34;&gt;DRM lease-3&lt;/a&gt; keithp blog posts.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;footnotes&#34;&gt;Footnotes&lt;/h2&gt;
+&lt;div class=&#34;footnotes&#34; role=&#34;doc-endnotes&#34;&gt;
+&lt;hr /&gt;
+&lt;ol&gt;
+&lt;li id=&#34;fn:1&#34; role=&#34;doc-endnote&#34;&gt;
+&lt;p&gt;This used to be much more complicated. Before rendering devices were introduced, applications
+opened card devices, used &lt;code&gt;DRM_IOCTL_GET_MAGIC&lt;/code&gt; to obtain a magic cookie, passed it
+to the compositor that used &lt;code&gt;DRM_IOCTL_AUTH_MAGIC&lt;/code&gt; to allow applications to render.&amp;#160;&lt;a href=&#34;#fnref:1&#34; class=&#34;footnote-backref&#34; role=&#34;doc-backlink&#34;&gt;&amp;#x21a9;&amp;#xfe0e;&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+
+    
+  </content>
+</entry>
+
+<entry>
   <id>https://dottedmag.net/blog/03-de-drm-ioctl/</id>
   <author><name>Mikhail Gusarov</name></author>
   <title type="html">DE/compositor development notes - DRM operations (1)</title>
@@ -75,10 +130,10 @@ of common &lt;code&gt;ioctl&lt;/code&gt;s that cover display controller function
 driver-specific &lt;code&gt;ioctl&lt;/code&gt;s used chiefly by Mesa for rendering operations.&lt;/p&gt;
 &lt;p&gt;The list of &lt;code&gt;ioctl&lt;/code&gt;s is pretty large, so this post covers only a small subset.&lt;/p&gt;
 &lt;h2 id=&#34;versions&#34;&gt;Versions&lt;/h2&gt;
-&lt;p&gt;&lt;code&gt;ioctl&lt;/code&gt; &lt;code&gt;DRM_IOCTL_VERSION&lt;/code&gt; returns human-readable version, name, description
+&lt;p&gt;&lt;code&gt;DRM_IOCTL_VERSION&lt;/code&gt; returns human-readable version, name, description
 and (release?) date of DRM device.&lt;/p&gt;
 &lt;h2 id=&#34;device-capabilities&#34;&gt;Device capabilities&lt;/h2&gt;
-&lt;p&gt;&lt;code&gt;ioctl&lt;/code&gt; &lt;code&gt;DRM_IOCTL_GET_CAP&lt;/code&gt; returns capabilities of a DRM device.&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;DRM_IOCTL_GET_CAP&lt;/code&gt; returns capabilities of a DRM device.&lt;/p&gt;
 &lt;p&gt;Many of these capabilities refer to specific DRM &lt;code&gt;ioctl&lt;/code&gt;s, so they may not
 make much sense yet.&lt;/p&gt;
 &lt;h3 id=&#34;framebuffer-capabilities&#34;&gt;Framebuffer capabilities&lt;/h3&gt;
@@ -114,7 +169,7 @@ make much sense yet.&lt;/p&gt;
 &lt;h2 id=&#34;client-capabilities&#34;&gt;Client capabilities&lt;/h2&gt;
 &lt;p&gt;DRM client may indicate it has certain capabilites. This is necessary to activate backward-incompatible
 functionality that would otherwise break old clients.&lt;/p&gt;
-&lt;p&gt;Client capabilities are set using &lt;code&gt;ioctl&lt;/code&gt; &lt;code&gt;DRM_IOCTL_SET_CLIENT_CAP&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;Client capabilities are set using &lt;code&gt;DRM_IOCTL_SET_CLIENT_CAP&lt;/code&gt;.&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;code&gt;DRM_CLIENT_CAP_STEREO_3D&lt;/code&gt;. boolean. Client can handle stereo 3D, so show it the corresponding modes in the list of modes.&lt;/li&gt;
 &lt;li&gt;&lt;code&gt;DRM_CLIENT_CAP_UNIVERSAL_PLANES&lt;/code&gt;. integer&lt;sup id=&#34;fnref:1&#34;&gt;&lt;a href=&#34;#fn:1&#34; class=&#34;footnote-ref&#34; role=&#34;doc-noteref&#34;&gt;1&lt;/a&gt;&lt;/sup&gt;. If &amp;gt; 0 then client can handle multiple planes, show it planes beyond primary and cursor ones in the list of planes.&lt;/li&gt;

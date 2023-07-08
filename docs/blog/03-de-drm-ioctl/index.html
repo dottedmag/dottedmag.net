@@ -59,10 +59,10 @@ of common <code>ioctl</code>s that cover display controller functionality, and t
 driver-specific <code>ioctl</code>s used chiefly by Mesa for rendering operations.</p>
 <p>The list of <code>ioctl</code>s is pretty large, so this post covers only a small subset.</p>
 <h2 id="versions">Versions</h2>
-<p><code>ioctl</code> <code>DRM_IOCTL_VERSION</code> returns human-readable version, name, description
+<p><code>DRM_IOCTL_VERSION</code> returns human-readable version, name, description
 and (release?) date of DRM device.</p>
 <h2 id="device-capabilities">Device capabilities</h2>
-<p><code>ioctl</code> <code>DRM_IOCTL_GET_CAP</code> returns capabilities of a DRM device.</p>
+<p><code>DRM_IOCTL_GET_CAP</code> returns capabilities of a DRM device.</p>
 <p>Many of these capabilities refer to specific DRM <code>ioctl</code>s, so they may not
 make much sense yet.</p>
 <h3 id="framebuffer-capabilities">Framebuffer capabilities</h3>
@@ -98,7 +98,7 @@ make much sense yet.</p>
 <h2 id="client-capabilities">Client capabilities</h2>
 <p>DRM client may indicate it has certain capabilites. This is necessary to activate backward-incompatible
 functionality that would otherwise break old clients.</p>
-<p>Client capabilities are set using <code>ioctl</code> <code>DRM_IOCTL_SET_CLIENT_CAP</code>.</p>
+<p>Client capabilities are set using <code>DRM_IOCTL_SET_CLIENT_CAP</code>.</p>
 <ul>
 <li><code>DRM_CLIENT_CAP_STEREO_3D</code>. boolean. Client can handle stereo 3D, so show it the corresponding modes in the list of modes.</li>
 <li><code>DRM_CLIENT_CAP_UNIVERSAL_PLANES</code>. integer<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup>. If &gt; 0 then client can handle multiple planes, show it planes beyond primary and cursor ones in the list of planes.</li>
