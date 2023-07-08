@@ -18,7 +18,7 @@ There might be one or two devices for every display controller or GPU[^control]:
 - GPUs typically expose second device named `renderD<N>`. This device
   accepts only rendering operations. However this device not does have the
   concept of "DRM master" as rendering does not involve global operations
-  such as changing the display mode or updating the framebuffer, so there 
+  such as changing the display mode or updating the framebuffer, so there
   is no need to limit concurrent access.
 
 Matching `card<N>` and `renderD<N>` devices used to be awkward: the numbers

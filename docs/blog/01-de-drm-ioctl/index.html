@@ -8,10 +8,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   <meta name="author" content="Mikhail Gusarov">
-  <title>Mikhail Gusarov</title>
+  <title>DE/compositor development notes - common DRM device operatins</title>
 
   <link rel="stylesheet" href="/styles/main.css">
-  <link rel="alternate" type="application/atom+xml" title="Mikhail Gusarov feed" href="./blog.atom">
+  <link rel="alternate" type="application/atom+xml" title="Mikhail Gusarov feed" href="../../blog.atom">
 
   <script async="" src="https://www.googletagmanager.com/gtag/js?id=UA-120900398-1">
   </script>
@@ -37,7 +37,7 @@
         </svg>
       </span>
       <div class="trigger">
-        <a class="page-link " href="/">Blog</a>
+        <a class="page-link active-page-link" href="/">Blog</a>
         <a class="page-link " href="/cv">CV</a>
         <a class="page-link " href="/keys">Keys</a>
         <a class="page-link " href="/software">Software</a>
@@ -51,68 +51,44 @@
     <div class="wrapper">
       
 <article class="post">
-  
-  <div style="float:right; margin: 10px;">
-    <img src="/pics/me.jpg">
-  </div>
-  
+  <h1>DE/compositor development notes - common DRM device operatins</h1>
   <div class="post-content">
-    
-  
+  <p>What can compositor do with DRM devices once it <a href="/blog/01-de-drm/">has found</a> them?</p>
+<p>These devices respond to a number of <code>ioctl</code>s. All DRM devices respond to a set
+of common <code>ioctl</code>s that cover display controller functionality. There are also
+driver-specific <code>ioctl</code>s used chiefly by Mesa for rendering operations.</p>
+<p>DRM master:</p>
+<ul>
+<li><code>DRM_IOCTL_GET_MAGIC</code></li>
+</ul>
+<p>??:</p>
+<ul>
+<li><code>DRM_IOCTL_ADD_MAP</code> ??</li>
+<li><code>DRM_IOCTL_RM_MAP</code> ??</li>
+<li><code>DRM_IOCTL_ADD_BUFS</code> ??</li>
+<li><code>DRM_IOCTL_MARK_BUFS</code> ??</li>
+<li><code>DRM_IOCTL_INFO_BUFS</code> ??</li>
+<li><code>DRM_IOCTL_MAP_BUFS</code> ??</li>
+<li><code>DRM_IOCTL_FREE_BUFS</code> ??</li>
+<li><code>DRM_IOCTL_SET_SAREA_CTX</code> ??</li>
+<li><code>DRM_IOCTL_GET_SAREA_CTX</code> ??</li>
+</ul>
+<p>Various:</p>
+<ul>
+<li><code>DRM_IOCTL_VERSION</code> returns some (useless) metadata about driver.</li>
+</ul>
+<p>Obsolete:</p>
+<ul>
+<li><code>DRM_IOCTL_GET_UNIQUE</code> returns some ID for card. Long-time unused except to avoid <code>libdrm</code> breakage.</li>
+<li><code>DRM_IOCTL_IRQ_BUSID</code> returns IRQ number of of device with given PCI bus ID.</li>
+</ul>
 
-  <ul>
+  </div>
+  <div class="post-meta">
     
-      
-        
-<li>
 <time datetime="2023-07-07T00:00:00Z">
   2023-07-07
 </time>
- <a href="blog/03-de-drm-ioctl/">DE/compositor development notes - common DRM device operatins</a></li>
-
-      
-        
-<li>
-<time datetime="2023-07-07T00:00:00Z">
-  2023-07-07
-</time>
- <a href="blog/02-de-vt/">DE/compositor development notes - Linux VT</a></li>
-
-      
-        
-<li>
-<time datetime="2023-07-06T00:00:00Z">
-  2023-07-06
-</time>
- <a href="blog/01-de-drm/">DE/compositor development notes - Linux DRM devices</a></li>
-
-      
-        
-<li>
-<time datetime="2022-12-01T00:00:00Z">
-  2022-12-01
-</time>
- <a href="blog/dependencies/">Dependencies</a></li>
-
-      
-        
-<li>
-<time datetime="2021-12-26T00:00:00Z">
-  2021-12-26
-</time>
- <a href="blog/new-de/">New Linux desktop environment</a></li>
-
-      
-        
-<li>
-<time datetime="2021-10-18T00:00:00Z">
-  2021-10-18
-</time>
- <a href="blog/linux-is-not-os/">Linux is not OS</a></li>
-
-      
-    
-  </ul>
 
   </div>
 </article>

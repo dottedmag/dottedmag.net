@@ -1,0 +1,165 @@
+
+<!doctype html>
+<html>
+<head>
+  
+  <meta charset="utf-8">
+  <!-- Still needed? -->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <meta name="author" content="Mikhail Gusarov">
+  <title>DE/compositor development notes - Linux VT</title>
+
+  <link rel="stylesheet" href="/styles/main.css">
+  <link rel="alternate" type="application/atom+xml" title="Mikhail Gusarov feed" href="../../blog.atom">
+
+  <script async="" src="https://www.googletagmanager.com/gtag/js?id=UA-120900398-1">
+  </script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'UA-120900398-1');
+  </script>
+
+</head>
+<body>
+  
+<header class="site-header" role="banner">
+  <div class="wrapper">
+    <a class="site-title" href="/">Mikhail Gusarov</a>
+    <nav class="site-nav">
+      <span class="menu-icon">
+        <svg viewBox="0 0 18 15" width="18px" height="15px">
+          <path fill="#424242" d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.031C17.335,0,18,0.665,18,1.484L18,1.484z"/>
+          <path fill="#424242" d="M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0c0-0.82,0.665-1.484,1.484-1.484 h15.031C17.335,6.031,18,6.696,18,7.516L18,7.516z"/>
+          <path fill="#424242" d="M18,13.516C18,14.335,17.335,15,16.516,15H1.484C0.665,15,0,14.335,0,13.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.031C17.335,12.031,18,12.696,18,13.516L18,13.516z"/>
+        </svg>
+      </span>
+      <div class="trigger">
+        <a class="page-link active-page-link" href="/">Blog</a>
+        <a class="page-link " href="/cv">CV</a>
+        <a class="page-link " href="/keys">Keys</a>
+        <a class="page-link " href="/software">Software</a>
+        <a class="page-link " href="/contacts">Contacts</a>
+      </div>
+    </nav>
+  </div>
+</header>
+
+  <main class="page-content">
+    <div class="wrapper">
+      
+<article class="post">
+  <h1>DE/compositor development notes - Linux VT</h1>
+  <div class="post-content">
+  <p>Before drawing anything on screen compositor should ensure it
+owns the screen it wants to draw on, or the results won&rsquo;t look
+good: several processes or kernel may draw over whatever compositor
+has drawn<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup>.</p>
+<p>Under Linux, VT subsystem draws terminals on various screens
+attached to computer<sup id="fnref:2"><a href="#fn:2" class="footnote-ref" role="doc-noteref">2</a></sup>, so the compositor has to cooperate
+with it. VT subsystem simulates several physical consoles on a single
+display, providing functionality to create, destroy and switch between
+several consoles.</p>
+<p>Consoles are named from 1 upwards and represented as character devices
+<code>/dev/ttyN</code>. One of them is active at any time. <code>/dev/tty0</code> is alias
+for the currently active console.</p>
+<h2 id="textgraphics-mode">Text/graphics mode</h2>
+<p>Every console might be in text or graphics mode. In text mode VT
+subsystem draws the text, the cursor and handles idle blanking.
+In graphics mode VT subsystem does not do anything. To draw anything
+to screen, compositor should pick a console and switch it to graphics
+mode. On exit it should restore the previous mode, or text console
+won&rsquo;t be redrawn<sup id="fnref:3"><a href="#fn:3" class="footnote-ref" role="doc-noteref">3</a></sup>.</p>
+<p>Text/graphic mode is activated by <code>ioctl</code> <code>KDSETMODE</code>.</p>
+<h2 id="vt-switching">VT switching</h2>
+<p>Switching between consoles is started by by pressing a special
+key<sup id="fnref:4"><a href="#fn:4" class="footnote-ref" role="doc-noteref">4</a></sup> (handled by kernel itself), or by issuing <code>ioctl</code>
+<code>VT_ACTIVATE</code><sup id="fnref:5"><a href="#fn:5" class="footnote-ref" role="doc-noteref">5</a></sup>.</p>
+<p>For consoles in text mode kernel handles saving and restoring content
+on switch, for graphics consoles kernel expects applications to redraw
+themselves.</p>
+<h2 id="autoprocess-controlled-vt-switching">Auto/process-controlled VT switching</h2>
+<p>Every console might be in one of two modes:</p>
+<ul>
+<li>auto VT switching,</li>
+<li>process-controlled VT switching.</li>
+</ul>
+<p>This mode is set by <code>ioctl</code> <code>VT_SETMODE</code> that takes three parameters:</p>
+<ul>
+<li>the mode: auto/process-controlled<sup id="fnref:6"><a href="#fn:6" class="footnote-ref" role="doc-noteref">6</a></sup>,</li>
+<li>the signal to send on console deactivation</li>
+<li>the signal to send on console activation (see below).</li>
+</ul>
+<p>If console is in auto mode nothing happens if it is activated
+(switched to) or deactivated (switched from).</p>
+<p>If console is in process-controlled mode then both activating
+and deactivating console is coordinated with the process that
+owns the console:</p>
+<ul>
+<li>on console deactivation kernel sends the process that owns the
+console being switched from a signal and awaits that process to
+call <code>ioctl</code> <code>VT_RELDISP</code> to mark the console as released.</li>
+<li>on console activation the same happens on console being
+switched to.</li>
+</ul>
+<p>How kernel knows which process to send the signal to? It sends
+the signal to the process that called <code>VT_SETMODE</code>.</p>
+<h2 id="references">References</h2>
+<ul>
+<li><code>console_ioctl(4)</code></li>
+<li><code>seatd</code> source code</li>
+<li><code>Xfree86</code> source code</li>
+</ul>
+<h2 id="footnotes">Footnotes</h2>
+<div class="footnotes" role="doc-endnotes">
+<hr />
+<ol>
+<li id="fn:1" role="doc-endnote">
+<p>For example, if compositor is started from the virtual console and uses
+it instead of switching to a new one and without telling VT to stop
+drawing, its own stdout and stderr will be written over the its own
+output.&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+<li id="fn:2" role="doc-endnote">
+<p>If not compiled with <code>CONFIG_VT=n</code>.&#160;<a href="#fnref:2" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+<li id="fn:3" role="doc-endnote">
+<p>Actually, Linux contains a kludge to work around it: on console switch
+Linux checks if the process that was supposed to draw on the console
+died, and switches the console to text mode if it did.&#160;<a href="#fnref:3" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+<li id="fn:4" role="doc-endnote">
+<p>Linux console input map contains actions &ldquo;switch to console N&rdquo;, &ldquo;switch
+to next console&rdquo;, &ldquo;switch to previous console&rdquo;. In most console keymaps
+these are bound to [Ctrl+]Alt+FnX, [Ctrl+]Alt+{Left,Right}.&#160;<a href="#fnref:4" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+<li id="fn:5" role="doc-endnote">
+<p>That&rsquo;s how X server and Wayland compositors implement switching to
+another VT. They disable VT console input, so they have to handle the
+keys themselves.&#160;<a href="#fnref:5" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+<li id="fn:6" role="doc-endnote">
+<p><code>ioctl_console(2)</code> manpage also lists <code>VT_ACKACQ</code>, but that&rsquo;s not a mode,
+it&rsquo;s an argument for <code>VT_RELDISP</code>.&#160;<a href="#fnref:6" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+</ol>
+</div>
+
+  </div>
+  <div class="post-meta">
+    
+<time datetime="2023-07-07T00:00:00Z">
+  2023-07-07
+</time>
+
+  </div>
+</article>
+
+    </div>
+  </main>
+  
+
+</body>
+</html>

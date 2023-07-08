@@ -3,13 +3,311 @@
   <id>https://dottedmag.net/</id>
   <title>Mikhail Gusarov</title>
   
-  <updated>2023-07-06T00:00:00Z</updated>
+  <updated>2023-07-07T00:00:00Z</updated>
   
   <author><name>Mikhail Gusarov</name></author>
   <link href="https://dottedmag.net/" rel="alternate"></link>
   <link href="https://dottedmag.net/blog.atom" rel="self"></link>
 
 
+
+<entry>
+  <id>https://dottedmag.net/blog/03-de-drm-ioctl/</id>
+  <author><name>Mikhail Gusarov</name></author>
+  <title type="html">DE/compositor development notes - common DRM device operatins</title>
+  <published>2023-07-07T00:00:00Z</published>
+  <updated>2023-07-07T00:00:00Z</updated>
+  
+  <link href="https://dottedmag.net/blog/03-de-drm-ioctl/" rel="alternate"></link>
+  <content type="html">
+    
+      
+  &lt;p&gt;What can compositor do with DRM devices once it &lt;a href=&#34;/blog/01-de-drm/&#34;&gt;has found&lt;/a&gt; them?&lt;/p&gt;
+&lt;p&gt;These devices respond to a number of &lt;code&gt;ioctl&lt;/code&gt;s. All DRM devices respond to a set
+of common &lt;code&gt;ioctl&lt;/code&gt;s that cover display controller functionality and there are
+driver-specific &lt;code&gt;ioctl&lt;/code&gt;s used chiefly by Mesa for rendering operations.&lt;/p&gt;
+&lt;h3 id=&#34;version-and-capabilities&#34;&gt;Version and capabilities&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;DRM_IOCTL_GET_CAP&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;DRM_IOCTL_SET_CLIENT_CAP&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;DRM_IOCTL_SET_VERSION&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;drm-master&#34;&gt;DRM master&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;DRM_IOCTL_GET_MAGIC&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;DRM_IOCTL_AUTH_MAGIC&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;DRM_IOCTL_SET_MASTER&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;DRM_IOCTL_DROP_MASTER&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;DRM_IOCTL_MODE_CREATE_LEASE&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;DRM_IOCTL_MODE_GET_LEASE&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;DRM_IOCTL_MODE_LIST_LESSEES&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;DRM_IOCTL_MODE_REVOKE_LEASE&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;framebuffer-handling&#34;&gt;Framebuffer handling&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;DRM_IOCTL_MODE_ADDFB2&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;DRM_IOCTL_MODE_ADDFB&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;DRM_IOCTL_MODE_GETFB2&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;DRM_IOCTL_MODE_GETFB&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;DRM_IOCTL_MODE_RMFB&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;DRM_IOCTL_MODE_DIRTYFB&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;display-control&#34;&gt;Display control&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;DRM_IOCTL_CRTC_GET_SEQUENCE&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;DRM_IOCTL_CRTC_QUEUE_SEQUENCE&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;DRM_IOCTL_WAIT_VBLANK&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;DRM_IOCTL_MODE_PAGE_FLIP&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;memory-management&#34;&gt;Memory management&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;DRM_IOCTL_MODE_CREATE_DUMB&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;DRM_IOCTL_MODE_DESTROY_DUMB&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;DRM_IOCTL_MODE_MAP_DUMB&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;DRM_IOCTL_GEM_CLOSE&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;DRM_IOCTL_GEM_FLINK&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;DRM_IOCTL_GEM_OPEN&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;resources-and-properties&#34;&gt;Resources and properties&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;DRM_IOCTL_MODE_CREATEPROPBLOB&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;DRM_IOCTL_MODE_DESTROYPROPBLOB&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;DRM_IOCTL_MODE_GETPROPBLOB&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;DRM_IOCTL_MODE_GETPROPERTY&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;DRM_IOCTL_MODE_OBJ_GETPROPERTIES&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;DRM_IOCTL_MODE_OBJ_SETPROPERTY&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;DRM_IOCTL_MODE_GETCONNECTOR&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;DRM_IOCTL_MODE_GETCRTC&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;DRM_IOCTL_MODE_GETENCODER&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;DRM_IOCTL_MODE_GETGAMMA&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;DRM_IOCTL_MODE_GETPLANERESOURCES&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;DRM_IOCTL_MODE_GETPLANE&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;DRM_IOCTL_MODE_GETRESOURCES&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;DRM_IOCTL_MODE_SETCRTC&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;DRM_IOCTL_MODE_SETGAMMA&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;DRM_IOCTL_MODE_SETPLANE&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;DRM_IOCTL_MODE_SETPROPERTY&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;modesetting&#34;&gt;Modesetting&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;DRM_IOCTL_MODESET_CTL&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;DRM_IOCTL_MODE_ATOMIC&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;DRM_IOCTL_MODE_CURSOR2&lt;/code&gt; (?pre-atomic?)&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;DRM_IOCTL_MODE_CURSOR&lt;/code&gt; (?pre-atomic?)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;synchronization&#34;&gt;Synchronization&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;DRM_IOCTL_SYNCOBJ_CREATE&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;DRM_IOCTL_SYNCOBJ_DESTROY&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;DRM_IOCTL_SYNCOBJ_FD_TO_HANDLE&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;DRM_IOCTL_SYNCOBJ_HANDLE_TO_FD&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;DRM_IOCTL_SYNCOBJ_QUERY&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;DRM_IOCTL_SYNCOBJ_RESET&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;DRM_IOCTL_SYNCOBJ_SIGNAL&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;DRM_IOCTL_SYNCOBJ_TIMELINE_SIGNAL&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;DRM_IOCTL_SYNCOBJ_TIMELINE_WAIT&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;DRM_IOCTL_SYNCOBJ_TRANSFER&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;DRM_IOCTL_SYNCOBJ_WAIT&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;prime-&#34;&gt;PRIME (?)&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;DRM_IOCTL_PRIME_FD_TO_HANDLE&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;DRM_IOCTL_PRIME_HANDLE_TO_FD&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;misc&#34;&gt;Misc&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;DRM_IOCTL_GET_CLIENT&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;DRM_IOCTL_GET_STATS&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;DRM_IOCTL_VERSION&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;DRM_IOCTL_GET_UNIQUE&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;obsolete&#34;&gt;Obsolete&lt;/h3&gt;
+&lt;p&gt;These &lt;code&gt;ioctl&lt;/code&gt;s are either explicitly marked as legacy, or stubbed out in kernel.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;DRM_IOCTL_SET_UNIQUE&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;DRM_IOCTL_IRQ_BUSID&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;DRM_IOCTL_GET_MAP&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;DRM_IOCTL_ADD_MAP&lt;/code&gt; ??&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;DRM_IOCTL_RM_MAP&lt;/code&gt; ??&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;DRM_IOCTL_GET_SAREA_CTX&lt;/code&gt; ??&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;DRM_IOCTL_SET_SAREA_CTX&lt;/code&gt; ??&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;DRM_IOCTL_ADD_CTX&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;DRM_IOCTL_RM_CTX&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;DRM_IOCTL_MOD_CTX&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;DRM_IOCTL_GET_CTX&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;DRM_IOCTL_SWITCH_CTX&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;DRM_IOCTL_NEW_CTX&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;DRM_IOCTL_RES_CTX&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;DRM_IOCTL_UNLOCK&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;DRM_IOCTL_LOCK&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;DRM_IOCTL_ADD_BUFS&lt;/code&gt; ??&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;DRM_IOCTL_MARK_BUFS&lt;/code&gt; ??&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;DRM_IOCTL_INFO_BUFS&lt;/code&gt; ??&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;DRM_IOCTL_MAP_BUFS&lt;/code&gt; ??&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;DRM_IOCTL_FREE_BUFS&lt;/code&gt; ??&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;DRM_IOCTL_DMA&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;DRM_IOCTL_CONTROL&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;DRM_IOCTL_SG_ALLOC&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;DRM_IOCTL_SG_FREE&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;DRM_IOCTL_FINISH&lt;/code&gt;. Noop.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;DRM_IOCTL_BLOCK&lt;/code&gt;. Noop.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;DRM_IOCTL_UNBLOCK&lt;/code&gt;. Noop.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;DRM_IOCTL_ADD_DRAW&lt;/code&gt;. Noop.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;DRM_IOCTL_RM_DRAW&lt;/code&gt;. Noop.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;DRM_IOCTL_UPDATE_DRAW&lt;/code&gt;. Noop.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;DRM_IOCTL_MODE_ATTACHMODE&lt;/code&gt;. Noop.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;DRM_IOCTL_MODE_DETACHMODE&lt;/code&gt;. Noop.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;AGP&lt;sup id=&#34;fnref:1&#34;&gt;&lt;a href=&#34;#fn:1&#34; class=&#34;footnote-ref&#34; role=&#34;doc-noteref&#34;&gt;1&lt;/a&gt;&lt;/sup&gt;-specific &lt;code&gt;ioctl&lt;/code&gt;s:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;DRM_IOCTL_AGP_ACQUIRE&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;DRM_IOCTL_AGP_ALLOC&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;DRM_IOCTL_AGP_BIND&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;DRM_IOCTL_AGP_ENABLE&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;DRM_IOCTL_AGP_FREE&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;DRM_IOCTL_AGP_INFO&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;DRM_IOCTL_AGP_RELEASE&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;DRM_IOCTL_AGP_UNBIND&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;driver-specific-ioctls&#34;&gt;Driver-specific &lt;code&gt;ioctl&lt;/code&gt;s&lt;/h2&gt;
+&lt;p&gt;An an example &lt;code&gt;virtio-gpu&lt;/code&gt; implements the following set:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;DRM_IOCTL_VIRTGPU_MAP&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;DRM_IOCTL_VIRTGPU_EXECBUFFER&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;DRM_IOCTL_VIRTGPU_GETPARAM&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;DRM_IOCTL_VIRTGPU_RESOURCE_CREATE&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;DRM_IOCTL_VIRTGPU_RESOURCE_INFO&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;DRM_IOCTL_VIRTGPU_TRANSFER_FROM_HOST&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;DRM_IOCTL_VIRTGPU_TRANSFER_TO_HOST&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;DRM_IOCTL_VIRTGPU_WAIT&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;DRM_IOCTL_VIRTGPU_GET_GAPS&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;DRM_IOCTL_VIRTGPU_RESOURCE_CREATE_BLOB&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;DRM_IOCTL_VIRGPU_CONTEXT_INIT&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;references&#34;&gt;References&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://keithp.com/blogs/DRM-lease/&#34;&gt;https://keithp.com/blogs/DRM-lease/&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;footnotes&#34;&gt;Footnotes&lt;/h2&gt;
+&lt;div class=&#34;footnotes&#34; role=&#34;doc-endnotes&#34;&gt;
+&lt;hr /&gt;
+&lt;ol&gt;
+&lt;li id=&#34;fn:1&#34; role=&#34;doc-endnote&#34;&gt;
+&lt;p&gt;Does anyone remember AGP nowadays?&amp;#160;&lt;a href=&#34;#fnref:1&#34; class=&#34;footnote-backref&#34; role=&#34;doc-backlink&#34;&gt;&amp;#x21a9;&amp;#xfe0e;&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+
+    
+  </content>
+</entry>
+
+<entry>
+  <id>https://dottedmag.net/blog/02-de-vt/</id>
+  <author><name>Mikhail Gusarov</name></author>
+  <title type="html">DE/compositor development notes - Linux VT</title>
+  <published>2023-07-07T00:00:00Z</published>
+  <updated>2023-07-07T00:00:00Z</updated>
+  
+  <link href="https://dottedmag.net/blog/02-de-vt/" rel="alternate"></link>
+  <content type="html">
+    
+      
+  &lt;p&gt;Before drawing anything on screen compositor should ensure it
+owns the screen it wants to draw on, or the results won&amp;rsquo;t look
+good: several processes or kernel may draw over whatever compositor
+has drawn&lt;sup id=&#34;fnref:1&#34;&gt;&lt;a href=&#34;#fn:1&#34; class=&#34;footnote-ref&#34; role=&#34;doc-noteref&#34;&gt;1&lt;/a&gt;&lt;/sup&gt;.&lt;/p&gt;
+&lt;p&gt;Under Linux, VT subsystem draws terminals on various screens
+attached to computer&lt;sup id=&#34;fnref:2&#34;&gt;&lt;a href=&#34;#fn:2&#34; class=&#34;footnote-ref&#34; role=&#34;doc-noteref&#34;&gt;2&lt;/a&gt;&lt;/sup&gt;, so the compositor has to cooperate
+with it. VT subsystem simulates several physical consoles on a single
+display, providing functionality to create, destroy and switch between
+several consoles.&lt;/p&gt;
+&lt;p&gt;Consoles are named from 1 upwards and represented as character devices
+&lt;code&gt;/dev/ttyN&lt;/code&gt;. One of them is active at any time. &lt;code&gt;/dev/tty0&lt;/code&gt; is alias
+for the currently active console.&lt;/p&gt;
+&lt;h2 id=&#34;textgraphics-mode&#34;&gt;Text/graphics mode&lt;/h2&gt;
+&lt;p&gt;Every console might be in text or graphics mode. In text mode VT
+subsystem draws the text, the cursor and handles idle blanking.
+In graphics mode VT subsystem does not do anything. To draw anything
+to screen, compositor should pick a console and switch it to graphics
+mode. On exit it should restore the previous mode, or text console
+won&amp;rsquo;t be redrawn&lt;sup id=&#34;fnref:3&#34;&gt;&lt;a href=&#34;#fn:3&#34; class=&#34;footnote-ref&#34; role=&#34;doc-noteref&#34;&gt;3&lt;/a&gt;&lt;/sup&gt;.&lt;/p&gt;
+&lt;p&gt;Text/graphic mode is activated by &lt;code&gt;ioctl&lt;/code&gt; &lt;code&gt;KDSETMODE&lt;/code&gt;.&lt;/p&gt;
+&lt;h2 id=&#34;vt-switching&#34;&gt;VT switching&lt;/h2&gt;
+&lt;p&gt;Switching between consoles is started by by pressing a special
+key&lt;sup id=&#34;fnref:4&#34;&gt;&lt;a href=&#34;#fn:4&#34; class=&#34;footnote-ref&#34; role=&#34;doc-noteref&#34;&gt;4&lt;/a&gt;&lt;/sup&gt; (handled by kernel itself), or by issuing &lt;code&gt;ioctl&lt;/code&gt;
+&lt;code&gt;VT_ACTIVATE&lt;/code&gt;&lt;sup id=&#34;fnref:5&#34;&gt;&lt;a href=&#34;#fn:5&#34; class=&#34;footnote-ref&#34; role=&#34;doc-noteref&#34;&gt;5&lt;/a&gt;&lt;/sup&gt;.&lt;/p&gt;
+&lt;p&gt;For consoles in text mode kernel handles saving and restoring content
+on switch, for graphics consoles kernel expects applications to redraw
+themselves.&lt;/p&gt;
+&lt;h2 id=&#34;autoprocess-controlled-vt-switching&#34;&gt;Auto/process-controlled VT switching&lt;/h2&gt;
+&lt;p&gt;Every console might be in one of two modes:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;auto VT switching,&lt;/li&gt;
+&lt;li&gt;process-controlled VT switching.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;This mode is set by &lt;code&gt;ioctl&lt;/code&gt; &lt;code&gt;VT_SETMODE&lt;/code&gt; that takes three parameters:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;the mode: auto/process-controlled&lt;sup id=&#34;fnref:6&#34;&gt;&lt;a href=&#34;#fn:6&#34; class=&#34;footnote-ref&#34; role=&#34;doc-noteref&#34;&gt;6&lt;/a&gt;&lt;/sup&gt;,&lt;/li&gt;
+&lt;li&gt;the signal to send on console deactivation&lt;/li&gt;
+&lt;li&gt;the signal to send on console activation (see below).&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;If console is in auto mode nothing happens if it is activated
+(switched to) or deactivated (switched from).&lt;/p&gt;
+&lt;p&gt;If console is in process-controlled mode then both activating
+and deactivating console is coordinated with the process that
+owns the console:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;on console deactivation kernel sends the process that owns the
+console being switched from a signal and awaits that process to
+call &lt;code&gt;ioctl&lt;/code&gt; &lt;code&gt;VT_RELDISP&lt;/code&gt; to mark the console as released.&lt;/li&gt;
+&lt;li&gt;on console activation the same happens on console being
+switched to.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;How kernel knows which process to send the signal to? It sends
+the signal to the process that called &lt;code&gt;VT_SETMODE&lt;/code&gt;.&lt;/p&gt;
+&lt;h2 id=&#34;references&#34;&gt;References&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;console_ioctl(4)&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;seatd&lt;/code&gt; source code&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;Xfree86&lt;/code&gt; source code&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;footnotes&#34;&gt;Footnotes&lt;/h2&gt;
+&lt;div class=&#34;footnotes&#34; role=&#34;doc-endnotes&#34;&gt;
+&lt;hr /&gt;
+&lt;ol&gt;
+&lt;li id=&#34;fn:1&#34; role=&#34;doc-endnote&#34;&gt;
+&lt;p&gt;For example, if compositor is started from the virtual console and uses
+it instead of switching to a new one and without telling VT to stop
+drawing, its own stdout and stderr will be written over the its own
+output.&amp;#160;&lt;a href=&#34;#fnref:1&#34; class=&#34;footnote-backref&#34; role=&#34;doc-backlink&#34;&gt;&amp;#x21a9;&amp;#xfe0e;&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li id=&#34;fn:2&#34; role=&#34;doc-endnote&#34;&gt;
+&lt;p&gt;If not compiled with &lt;code&gt;CONFIG_VT=n&lt;/code&gt;.&amp;#160;&lt;a href=&#34;#fnref:2&#34; class=&#34;footnote-backref&#34; role=&#34;doc-backlink&#34;&gt;&amp;#x21a9;&amp;#xfe0e;&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li id=&#34;fn:3&#34; role=&#34;doc-endnote&#34;&gt;
+&lt;p&gt;Actually, Linux contains a kludge to work around it: on console switch
+Linux checks if the process that was supposed to draw on the console
+died, and switches the console to text mode if it did.&amp;#160;&lt;a href=&#34;#fnref:3&#34; class=&#34;footnote-backref&#34; role=&#34;doc-backlink&#34;&gt;&amp;#x21a9;&amp;#xfe0e;&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li id=&#34;fn:4&#34; role=&#34;doc-endnote&#34;&gt;
+&lt;p&gt;Linux console input map contains actions &amp;ldquo;switch to console N&amp;rdquo;, &amp;ldquo;switch
+to next console&amp;rdquo;, &amp;ldquo;switch to previous console&amp;rdquo;. In most console keymaps
+these are bound to [Ctrl+]Alt+FnX, [Ctrl+]Alt+{Left,Right}.&amp;#160;&lt;a href=&#34;#fnref:4&#34; class=&#34;footnote-backref&#34; role=&#34;doc-backlink&#34;&gt;&amp;#x21a9;&amp;#xfe0e;&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li id=&#34;fn:5&#34; role=&#34;doc-endnote&#34;&gt;
+&lt;p&gt;That&amp;rsquo;s how X server and Wayland compositors implement switching to
+another VT. They disable VT console input, so they have to handle the
+keys themselves.&amp;#160;&lt;a href=&#34;#fnref:5&#34; class=&#34;footnote-backref&#34; role=&#34;doc-backlink&#34;&gt;&amp;#x21a9;&amp;#xfe0e;&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li id=&#34;fn:6&#34; role=&#34;doc-endnote&#34;&gt;
+&lt;p&gt;&lt;code&gt;ioctl_console(2)&lt;/code&gt; manpage also lists &lt;code&gt;VT_ACKACQ&lt;/code&gt;, but that&amp;rsquo;s not a mode,
+it&amp;rsquo;s an argument for &lt;code&gt;VT_RELDISP&lt;/code&gt;.&amp;#160;&lt;a href=&#34;#fnref:6&#34; class=&#34;footnote-backref&#34; role=&#34;doc-backlink&#34;&gt;&amp;#x21a9;&amp;#xfe0e;&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+
+    
+  </content>
+</entry>
 
 <entry>
   <id>https://dottedmag.net/blog/01-de-drm/</id>
