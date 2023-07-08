@@ -36,7 +36,7 @@ where internal identifiers are needed, starting from the name of VCS repository.
 
 Use codenames as much as you can. Don't leak them to the users though.
 
-P.S: If you develop desktop software, more details of your software leaks
+P.S: If you develop desktop software, more details of your software leak
 to the users: configuration files or main executables should be named
 after marketing name. The life is much easier for SaaS or mobile apps:
 user-facing domains, UIs, marketplace entries and APIs have to use marketing
