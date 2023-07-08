@@ -15,7 +15,7 @@ out: the product might (and probably will) change its the target audience,
 format and may metamorphose completely.
 
 You can guess what happens in this case: public-facing identifiers will
-be changed quickly, but internal ones will lag: the ones that are easy to
+be changed quickly, but internal ones will linger: the ones that are easy to
 change will be changed eventually, the ones that are hard will get stuck.
 
 Now imagine the public name changing several times over the lifetime of the
