@@ -209,59 +209,56 @@ required to set this capability to 2 to really enable universal planes.
   <content type="html">
     
       
-  &lt;p&gt;Before drawing anything on screen compositor should ensure it
-owns the screen it wants to draw on, or the results won&amp;rsquo;t look
-good: several processes or kernel may draw over whatever compositor
-has drawn&lt;sup id=&#34;fnref:1&#34;&gt;&lt;a href=&#34;#fn:1&#34; class=&#34;footnote-ref&#34; role=&#34;doc-noteref&#34;&gt;1&lt;/a&gt;&lt;/sup&gt;.&lt;/p&gt;
-&lt;p&gt;Under Linux, VT subsystem draws terminals on various screens
-attached to computer&lt;sup id=&#34;fnref:2&#34;&gt;&lt;a href=&#34;#fn:2&#34; class=&#34;footnote-ref&#34; role=&#34;doc-noteref&#34;&gt;2&lt;/a&gt;&lt;/sup&gt;, so the compositor has to cooperate
-with it. VT subsystem simulates several physical consoles on a single
-display, providing functionality to create, destroy and switch between
-several consoles.&lt;/p&gt;
-&lt;p&gt;Consoles are named from 1 upwards and represented as character devices
-&lt;code&gt;/dev/ttyN&lt;/code&gt;. One of them is active at any time. &lt;code&gt;/dev/tty0&lt;/code&gt; is alias
-for the currently active console.&lt;/p&gt;
+  &lt;p&gt;Before drawing any visuals on screen, the compositor must ensure it
+owns the screen it wishes to draw on. If it doesn&amp;rsquo;t, the results
+won&amp;rsquo;t look good, as multiple processes or the kernel may draw over
+the compositor&amp;rsquo;s output&lt;sup id=&#34;fnref:1&#34;&gt;&lt;a href=&#34;#fn:1&#34; class=&#34;footnote-ref&#34; role=&#34;doc-noteref&#34;&gt;1&lt;/a&gt;&lt;/sup&gt;.&lt;/p&gt;
+&lt;p&gt;In Linux, VT subsystem draws terminals across multiple screens
+attached to computer&lt;sup id=&#34;fnref:2&#34;&gt;&lt;a href=&#34;#fn:2&#34; class=&#34;footnote-ref&#34; role=&#34;doc-noteref&#34;&gt;2&lt;/a&gt;&lt;/sup&gt;, so the compositor needs to cooperate
+with it. The VT subsystem emulates multiple physical consoles on a single
+display, providing functionality to add, destroy and switch between
+these consoles.&lt;/p&gt;
+&lt;p&gt;Consoles are numbered beginning from 1 and represented as character
+devices &lt;code&gt;/dev/ttyN&lt;/code&gt;. Only one of them is active at a time. &lt;code&gt;/dev/tty0&lt;/code&gt; is
+an alias for the currently active console.&lt;/p&gt;
 &lt;h2 id=&#34;textgraphics-mode&#34;&gt;Text/graphics mode&lt;/h2&gt;
-&lt;p&gt;Every console might be in text or graphics mode. In text mode VT
-subsystem draws the text, the cursor and handles idle blanking.
-In graphics mode VT subsystem does not do anything. To draw anything
-to screen, compositor should pick a console and switch it to graphics
-mode. On exit it should restore the previous mode, or text console
-won&amp;rsquo;t be redrawn&lt;sup id=&#34;fnref:3&#34;&gt;&lt;a href=&#34;#fn:3&#34; class=&#34;footnote-ref&#34; role=&#34;doc-noteref&#34;&gt;3&lt;/a&gt;&lt;/sup&gt;.&lt;/p&gt;
-&lt;p&gt;Text/graphic mode is activated by &lt;code&gt;ioctl&lt;/code&gt; &lt;code&gt;KDSETMODE&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;Every console can be in text or graphics mode. In text mode, the VT
+subsystem manages text rendering, cursor display and idle blanking.
+In graphics mode, the VT subsystem does not do anything. To draw anything
+on the screen, the compositor must pick a console and switch it to graphics
+mode. On exit, it must restore the previous mode; otherwise the text console
+will not be redrawn&lt;sup id=&#34;fnref:3&#34;&gt;&lt;a href=&#34;#fn:3&#34; class=&#34;footnote-ref&#34; role=&#34;doc-noteref&#34;&gt;3&lt;/a&gt;&lt;/sup&gt;.&lt;/p&gt;
+&lt;p&gt;The text/graphic mode is selected by &lt;code&gt;ioctl&lt;/code&gt; &lt;code&gt;KDSETMODE&lt;/code&gt;.&lt;/p&gt;
 &lt;h2 id=&#34;vt-switching&#34;&gt;VT switching&lt;/h2&gt;
-&lt;p&gt;Switching between consoles is started by by pressing a special
-key&lt;sup id=&#34;fnref:4&#34;&gt;&lt;a href=&#34;#fn:4&#34; class=&#34;footnote-ref&#34; role=&#34;doc-noteref&#34;&gt;4&lt;/a&gt;&lt;/sup&gt; (handled by kernel itself), or by issuing &lt;code&gt;ioctl&lt;/code&gt;
+&lt;p&gt;Switching between consoles begins by pressing a special
+key&lt;sup id=&#34;fnref:4&#34;&gt;&lt;a href=&#34;#fn:4&#34; class=&#34;footnote-ref&#34; role=&#34;doc-noteref&#34;&gt;4&lt;/a&gt;&lt;/sup&gt; (managed by the kernel itself), or by issuing &lt;code&gt;ioctl&lt;/code&gt;
 &lt;code&gt;VT_ACTIVATE&lt;/code&gt;&lt;sup id=&#34;fnref:5&#34;&gt;&lt;a href=&#34;#fn:5&#34; class=&#34;footnote-ref&#34; role=&#34;doc-noteref&#34;&gt;5&lt;/a&gt;&lt;/sup&gt;.&lt;/p&gt;
-&lt;p&gt;For consoles in text mode kernel handles saving and restoring content
-on switch, for graphics consoles kernel expects applications to redraw
-themselves.&lt;/p&gt;
+&lt;p&gt;The kernel manages the saving and restoring of content for consoles in text mode.
+For graphics consoles, the kernel expects applications to self-redraw.&lt;/p&gt;
 &lt;h2 id=&#34;autoprocess-controlled-vt-switching&#34;&gt;Auto/process-controlled VT switching&lt;/h2&gt;
-&lt;p&gt;Every console might be in one of two modes:&lt;/p&gt;
+&lt;p&gt;Every console can be in one of two modes:&lt;/p&gt;
 &lt;ul&gt;
-&lt;li&gt;auto VT switching,&lt;/li&gt;
+&lt;li&gt;automatic VT switching,&lt;/li&gt;
 &lt;li&gt;process-controlled VT switching.&lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;This mode is set by &lt;code&gt;ioctl&lt;/code&gt; &lt;code&gt;VT_SETMODE&lt;/code&gt; that takes three parameters:&lt;/p&gt;
+&lt;p&gt;The mode is selected by &lt;code&gt;ioctl&lt;/code&gt; &lt;code&gt;VT_SETMODE&lt;/code&gt; that takes three parameters:&lt;/p&gt;
 &lt;ul&gt;
-&lt;li&gt;the mode: auto/process-controlled&lt;sup id=&#34;fnref:6&#34;&gt;&lt;a href=&#34;#fn:6&#34; class=&#34;footnote-ref&#34; role=&#34;doc-noteref&#34;&gt;6&lt;/a&gt;&lt;/sup&gt;,&lt;/li&gt;
-&lt;li&gt;the signal to send on console deactivation&lt;/li&gt;
-&lt;li&gt;the signal to send on console activation (see below).&lt;/li&gt;
+&lt;li&gt;the mode: auto or process-controlled&lt;sup id=&#34;fnref:6&#34;&gt;&lt;a href=&#34;#fn:6&#34; class=&#34;footnote-ref&#34; role=&#34;doc-noteref&#34;&gt;6&lt;/a&gt;&lt;/sup&gt;,&lt;/li&gt;
+&lt;li&gt;the signal sent on console deactivation (release signal)&lt;/li&gt;
+&lt;li&gt;the signal sent on console activation (acquire signal).&lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;If console is in auto mode nothing happens if it is activated
-(switched to) or deactivated (switched from).&lt;/p&gt;
-&lt;p&gt;If console is in process-controlled mode then both activating
-and deactivating console is coordinated with the process that
-owns the console:&lt;/p&gt;
+&lt;p&gt;The process that called this &lt;code&gt;ioctl&lt;/code&gt; becomes the console owner.&lt;/p&gt;
+&lt;p&gt;If the console is in auto mode, nothing happens when it is activated
+(switched to) or deactivated (swiched from).&lt;/p&gt;
+&lt;p&gt;If the console is in process-controlled mode, both its activation
+and deactivation are coordinated with the owning process:&lt;/p&gt;
 &lt;ul&gt;
-&lt;li&gt;on console deactivation kernel sends the process that owns the
-console being switched from a signal and awaits that process to
-call &lt;code&gt;ioctl&lt;/code&gt; &lt;code&gt;VT_RELDISP&lt;/code&gt; to mark the console as released.&lt;/li&gt;
-&lt;li&gt;on console activation the same happens on console being
-switched to.&lt;/li&gt;
+&lt;li&gt;on deactivation, the kernel sends the release signal to the owning process.
+The kernel then waits for that process to call &lt;code&gt;ioctl&lt;/code&gt; &lt;code&gt;VT_RELDISP&lt;/code&gt;,
+marking the console as released.&lt;/li&gt;
+&lt;li&gt;The same procedure occurs on console activation: the acquire signal is
+sent to the owner of the console being switched to.&lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;How kernel knows which process to send the signal to? It sends
-the signal to the process that called &lt;code&gt;VT_SETMODE&lt;/code&gt;.&lt;/p&gt;
 &lt;h2 id=&#34;references&#34;&gt;References&lt;/h2&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;code&gt;console_ioctl(4)&lt;/code&gt;&lt;/li&gt;
@@ -273,32 +270,32 @@ the signal to the process that called &lt;code&gt;VT_SETMODE&lt;/code&gt;.&lt;/p
 &lt;hr /&gt;
 &lt;ol&gt;
 &lt;li id=&#34;fn:1&#34; role=&#34;doc-endnote&#34;&gt;
-&lt;p&gt;For example, if compositor is started from the virtual console and uses
-it instead of switching to a new one and without telling VT to stop
-drawing, its own stdout and stderr will be written over the its own
-output.&amp;#160;&lt;a href=&#34;#fnref:1&#34; class=&#34;footnote-backref&#34; role=&#34;doc-backlink&#34;&gt;&amp;#x21a9;&amp;#xfe0e;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;For instance, if compositor is started from the virtual console, using
+it directly instead of switching to a new one, and without compositor
+telling VT to stop drawing, its own stdout and stderr will overwrite
+its output.&amp;#160;&lt;a href=&#34;#fnref:1&#34; class=&#34;footnote-backref&#34; role=&#34;doc-backlink&#34;&gt;&amp;#x21a9;&amp;#xfe0e;&lt;/a&gt;&lt;/p&gt;
 &lt;/li&gt;
 &lt;li id=&#34;fn:2&#34; role=&#34;doc-endnote&#34;&gt;
-&lt;p&gt;If not compiled with &lt;code&gt;CONFIG_VT=n&lt;/code&gt;.&amp;#160;&lt;a href=&#34;#fnref:2&#34; class=&#34;footnote-backref&#34; role=&#34;doc-backlink&#34;&gt;&amp;#x21a9;&amp;#xfe0e;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;If it is not compiled with &lt;code&gt;CONFIG_VT=n&lt;/code&gt;.&amp;#160;&lt;a href=&#34;#fnref:2&#34; class=&#34;footnote-backref&#34; role=&#34;doc-backlink&#34;&gt;&amp;#x21a9;&amp;#xfe0e;&lt;/a&gt;&lt;/p&gt;
 &lt;/li&gt;
 &lt;li id=&#34;fn:3&#34; role=&#34;doc-endnote&#34;&gt;
-&lt;p&gt;Actually, Linux contains a kludge to work around it: on console switch
-Linux checks if the process that was supposed to draw on the console
-died, and switches the console to text mode if it did.&amp;#160;&lt;a href=&#34;#fnref:3&#34; class=&#34;footnote-backref&#34; role=&#34;doc-backlink&#34;&gt;&amp;#x21a9;&amp;#xfe0e;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Actually, Linux includes a kludge for this situation: whenever console
+switch occurs, it checks whether the owning process has died. If it did,
+Linux switches the console back to text mode.&amp;#160;&lt;a href=&#34;#fnref:3&#34; class=&#34;footnote-backref&#34; role=&#34;doc-backlink&#34;&gt;&amp;#x21a9;&amp;#xfe0e;&lt;/a&gt;&lt;/p&gt;
 &lt;/li&gt;
 &lt;li id=&#34;fn:4&#34; role=&#34;doc-endnote&#34;&gt;
-&lt;p&gt;Linux console input map contains actions &amp;ldquo;switch to console N&amp;rdquo;, &amp;ldquo;switch
-to next console&amp;rdquo;, &amp;ldquo;switch to previous console&amp;rdquo;. In most console keymaps
-these are bound to [Ctrl+]Alt+FnX, [Ctrl+]Alt+{Left,Right}.&amp;#160;&lt;a href=&#34;#fnref:4&#34; class=&#34;footnote-backref&#34; role=&#34;doc-backlink&#34;&gt;&amp;#x21a9;&amp;#xfe0e;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;The Linux console input map provides actions &amp;ldquo;switch to console N&amp;rdquo;, &amp;ldquo;switch
+to next console&amp;rdquo; and &amp;ldquo;switch to previous console&amp;rdquo;. Typcially, these actions
+are bound to key combinations [Ctrl+]Alt+FnX, [Ctrl+]Alt+{Left,Right}.&amp;#160;&lt;a href=&#34;#fnref:4&#34; class=&#34;footnote-backref&#34; role=&#34;doc-backlink&#34;&gt;&amp;#x21a9;&amp;#xfe0e;&lt;/a&gt;&lt;/p&gt;
 &lt;/li&gt;
 &lt;li id=&#34;fn:5&#34; role=&#34;doc-endnote&#34;&gt;
 &lt;p&gt;That&amp;rsquo;s how X server and Wayland compositors implement switching to
-another VT. They disable VT console input, so they have to handle the
+another VT. They disable the VT console input, so they must handle the
 keys themselves.&amp;#160;&lt;a href=&#34;#fnref:5&#34; class=&#34;footnote-backref&#34; role=&#34;doc-backlink&#34;&gt;&amp;#x21a9;&amp;#xfe0e;&lt;/a&gt;&lt;/p&gt;
 &lt;/li&gt;
 &lt;li id=&#34;fn:6&#34; role=&#34;doc-endnote&#34;&gt;
-&lt;p&gt;&lt;code&gt;ioctl_console(2)&lt;/code&gt; manpage also lists &lt;code&gt;VT_ACKACQ&lt;/code&gt;, but that&amp;rsquo;s not a mode,
-it&amp;rsquo;s an argument for &lt;code&gt;VT_RELDISP&lt;/code&gt;.&amp;#160;&lt;a href=&#34;#fnref:6&#34; class=&#34;footnote-backref&#34; role=&#34;doc-backlink&#34;&gt;&amp;#x21a9;&amp;#xfe0e;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;ioctl_console(2)&lt;/code&gt; manpage also mentions &lt;code&gt;VT_ACKACQ&lt;/code&gt;, but it&amp;rsquo;s not a mode;
+instead, it&amp;rsquo;s an argument for &lt;code&gt;VT_RELDISP&lt;/code&gt;.&amp;#160;&lt;a href=&#34;#fnref:6&#34; class=&#34;footnote-backref&#34; role=&#34;doc-backlink&#34;&gt;&amp;#x21a9;&amp;#xfe0e;&lt;/a&gt;&lt;/p&gt;
 &lt;/li&gt;
 &lt;/ol&gt;
 
@@ -317,33 +314,22 @@ it&amp;rsquo;s an argument for &lt;code&gt;VT_RELDISP&lt;/code&gt;.&amp;#160;&lt
   <content type="html">
     
       
-  &lt;p&gt;To draw anything on screen compositor should be able to communicate with display
+  &lt;p&gt;To draw on the screen, the compositor needs to communicate with the display
 controller and GPU&lt;sup id=&#34;fnref:1&#34;&gt;&lt;a href=&#34;#fn:1&#34; class=&#34;footnote-ref&#34; role=&#34;doc-noteref&#34;&gt;1&lt;/a&gt;&lt;/sup&gt;&lt;sup id=&#34;fnref:2&#34;&gt;&lt;a href=&#34;#fn:2&#34; class=&#34;footnote-ref&#34; role=&#34;doc-noteref&#34;&gt;2&lt;/a&gt;&lt;/sup&gt;.&lt;/p&gt;
-&lt;p&gt;Linux exposes them to userspace via DRM subsystem&lt;sup id=&#34;fnref:3&#34;&gt;&lt;a href=&#34;#fn:3&#34; class=&#34;footnote-ref&#34; role=&#34;doc-noteref&#34;&gt;3&lt;/a&gt;&lt;/sup&gt;, as
-character devices in &lt;code&gt;/dev/dri&lt;/code&gt;&lt;sup id=&#34;fnref:4&#34;&gt;&lt;a href=&#34;#fn:4&#34; class=&#34;footnote-ref&#34; role=&#34;doc-noteref&#34;&gt;4&lt;/a&gt;&lt;/sup&gt;&lt;sup id=&#34;fnref:5&#34;&gt;&lt;a href=&#34;#fn:5&#34; class=&#34;footnote-ref&#34; role=&#34;doc-noteref&#34;&gt;5&lt;/a&gt;&lt;/sup&gt;.&lt;/p&gt;
-&lt;p&gt;There might be one or two devices for every display controller or GPU&lt;sup id=&#34;fnref:6&#34;&gt;&lt;a href=&#34;#fn:6&#34; class=&#34;footnote-ref&#34; role=&#34;doc-noteref&#34;&gt;6&lt;/a&gt;&lt;/sup&gt;:&lt;/p&gt;
+&lt;p&gt;Linux exposes them to userspace via DRM subsystem&lt;sup id=&#34;fnref:3&#34;&gt;&lt;a href=&#34;#fn:3&#34; class=&#34;footnote-ref&#34; role=&#34;doc-noteref&#34;&gt;3&lt;/a&gt;&lt;/sup&gt;, which presents them
+as character devices in &lt;code&gt;/dev/dri&lt;/code&gt;&lt;sup id=&#34;fnref:4&#34;&gt;&lt;a href=&#34;#fn:4&#34; class=&#34;footnote-ref&#34; role=&#34;doc-noteref&#34;&gt;4&lt;/a&gt;&lt;/sup&gt;&lt;sup id=&#34;fnref:5&#34;&gt;&lt;a href=&#34;#fn:5&#34; class=&#34;footnote-ref&#34; role=&#34;doc-noteref&#34;&gt;5&lt;/a&gt;&lt;/sup&gt;.&lt;/p&gt;
+&lt;p&gt;There could be one or two devices per display controller or GPU&lt;sup id=&#34;fnref:6&#34;&gt;&lt;a href=&#34;#fn:6&#34; class=&#34;footnote-ref&#34; role=&#34;doc-noteref&#34;&gt;6&lt;/a&gt;&lt;/sup&gt;:&lt;/p&gt;
 &lt;ul&gt;
-&lt;li&gt;there is always a device named &lt;code&gt;card&amp;lt;N&amp;gt;&lt;/code&gt;. It accepts all requests:
-for controlling the display (KMS&lt;sup id=&#34;fnref:7&#34;&gt;&lt;a href=&#34;#fn:7&#34; class=&#34;footnote-ref&#34; role=&#34;doc-noteref&#34;&gt;7&lt;/a&gt;&lt;/sup&gt;) and for rendering operations.
-If &lt;code&gt;card&amp;lt;N&amp;gt;&lt;/code&gt; belongs to a pure display controller, then it won&amp;rsquo;t accept
-any rendering operations, of course. This device has a concept of
-&amp;ldquo;DRM master&amp;rdquo;&amp;amp;mdash: only one process can control it at any time,
-as allowing several processes change resolution, reconfigure outputs
-or update screen at the same time won&amp;rsquo;t bring any useful results.&lt;/li&gt;
-&lt;li&gt;GPUs typically expose second device named &lt;code&gt;renderD&amp;lt;N&amp;gt;&lt;/code&gt;. This device
-accepts only rendering operations. However this device not does have the
-concept of &amp;ldquo;DRM master&amp;rdquo; as rendering does not involve global operations
-such as changing the display mode or updating the framebuffer, so there
-is no need to limit concurrent access.&lt;/li&gt;
+&lt;li&gt;there is always a device named &lt;code&gt;card&amp;lt;N&amp;gt;&lt;/code&gt; that accepts all requests
+for controlling the display (KMS&lt;sup id=&#34;fnref:7&#34;&gt;&lt;a href=&#34;#fn:7&#34; class=&#34;footnote-ref&#34; role=&#34;doc-noteref&#34;&gt;7&lt;/a&gt;&lt;/sup&gt;) and rendering operations.
+If &lt;code&gt;card&amp;lt;N&amp;gt;&lt;/code&gt; belongs to a pure display controller, it won&amp;rsquo;t accept
+rendering operations.&lt;/li&gt;
+&lt;li&gt;GPUs typically have a second device called &lt;code&gt;renderD&amp;lt;N&amp;gt;&lt;/code&gt;. It is dedicated
+to rendering operations only.&lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;Matching &lt;code&gt;card&amp;lt;N&amp;gt;&lt;/code&gt; and &lt;code&gt;renderD&amp;lt;N&amp;gt;&lt;/code&gt; devices used to be awkward: the numbers
-are not the same for the devices of one card. The algorithm was bus-dependent:
-PCI/USB cards were matched by PCI/USB bus info, platform devices were matched
-using device tree info. To find this information one had to scrounge around
-in &lt;code&gt;/sys/dev/char/&amp;lt;N&amp;gt;/device/subystem&lt;/code&gt;. All of this is implemented in &lt;code&gt;libdrm&lt;/code&gt;.&lt;/p&gt;
-&lt;p&gt;Fortunately, &lt;code&gt;udev&lt;/code&gt; nowadays creates symlinks in &lt;code&gt;/dev/dri/by-path&lt;/code&gt; of form
-&lt;code&gt;&amp;lt;unique-id-for-card&amp;gt;-{card,render}&lt;/code&gt;, so userspace does not care about device
-matching anymore.&lt;/p&gt;
+&lt;p&gt;Card and render devices for one card do not have the same number in the name.
+To match them, use symlinks in &lt;code&gt;/dev/dri/by-path&lt;/code&gt;, which are of the format
+&lt;code&gt;&amp;lt;unique-id-for-card-&amp;gt;{card,render}&lt;/code&gt;&lt;sup id=&#34;fnref:8&#34;&gt;&lt;a href=&#34;#fn:8&#34; class=&#34;footnote-ref&#34; role=&#34;doc-noteref&#34;&gt;8&lt;/a&gt;&lt;/sup&gt;&lt;sup id=&#34;fnref:9&#34;&gt;&lt;a href=&#34;#fn:9&#34; class=&#34;footnote-ref&#34; role=&#34;doc-noteref&#34;&gt;9&lt;/a&gt;&lt;/sup&gt;.&lt;/p&gt;
 &lt;h2 id=&#34;references&#34;&gt;References&lt;/h2&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;a href=&#34;https://cgit.freedesktop.org/drm/libdrm/tree/xf86drm.c&#34;&gt;libdrm&amp;rsquo;s x86drm.c&lt;/a&gt;&lt;/li&gt;
@@ -354,37 +340,49 @@ matching anymore.&lt;/p&gt;
 &lt;hr /&gt;
 &lt;ol&gt;
 &lt;li id=&#34;fn:1&#34; role=&#34;doc-endnote&#34;&gt;
-&lt;p&gt;Display controller is a hardware block that takes bitmaps and displays them
-somewhere. It cares about outputs, links, modes etc. GPU takes a number of
-rendering commands and produces a bitmap based on these commands. It cares
-about triangles, shaders, textures and pixels. In PCs these two components
-are usually colocated in a &amp;ldquo;graphic card&amp;rdquo;, display controller may require
-bitmaps to be placed in a specialized on-card memory, and GPU may produce
+&lt;p&gt;A display controller is a hardware component that takes bitmaps and displays them.
+It handles outputs, links, and modes. A GPU is a hardware component that receives
+(3D) rendering commands and creates bitmaps based on these commands. It deals
+with triangles, shaders, textures and pixels. In PCs, these two components
+are usually colocated in a graphics card. The display controller may need
+the bitmaps to be placed in a specialized on-card memory, and the GPU may produce
 bitmaps in that specialized memory.&amp;#160;&lt;a href=&#34;#fnref:1&#34; class=&#34;footnote-backref&#34; role=&#34;doc-backlink&#34;&gt;&amp;#x21a9;&amp;#xfe0e;&lt;/a&gt;&lt;/p&gt;
 &lt;/li&gt;
 &lt;li id=&#34;fn:2&#34; role=&#34;doc-endnote&#34;&gt;
-&lt;p&gt;There exists &lt;a href=&#34;https://cgit.freedesktop.org/drm/libdrm/&#34;&gt;libdrm&lt;/a&gt; library that
-hides low-level details from the applications, but it is not a transparent
-wrapper, so it makes sense to understand what it actually does and what
-it actually calls.&amp;#160;&lt;a href=&#34;#fnref:2&#34; class=&#34;footnote-backref&#34; role=&#34;doc-backlink&#34;&gt;&amp;#x21a9;&amp;#xfe0e;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;The &lt;a href=&#34;https://cgit.freedesktop.org/drm/libdrm/&#34;&gt;libdrm&lt;/a&gt; library exists to
+hide low-level details from applications. However, it is not a transparent
+wrapper, so it is important to understand what it actually does and the
+specific syscalls it makes.&amp;#160;&lt;a href=&#34;#fnref:2&#34; class=&#34;footnote-backref&#34; role=&#34;doc-backlink&#34;&gt;&amp;#x21a9;&amp;#xfe0e;&lt;/a&gt;&lt;/p&gt;
 &lt;/li&gt;
 &lt;li id=&#34;fn:3&#34; role=&#34;doc-endnote&#34;&gt;
 &lt;p&gt;Direct rendering manager, not digital rights management.&amp;#160;&lt;a href=&#34;#fnref:3&#34; class=&#34;footnote-backref&#34; role=&#34;doc-backlink&#34;&gt;&amp;#x21a9;&amp;#xfe0e;&lt;/a&gt;&lt;/p&gt;
 &lt;/li&gt;
 &lt;li id=&#34;fn:4&#34; role=&#34;doc-endnote&#34;&gt;
-&lt;p&gt;DRI stands for &amp;ldquo;direct rendering interface&amp;rdquo;. Historical reasons.&amp;#160;&lt;a href=&#34;#fnref:4&#34; class=&#34;footnote-backref&#34; role=&#34;doc-backlink&#34;&gt;&amp;#x21a9;&amp;#xfe0e;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;DRI stands for &amp;ldquo;direct rendering interface&amp;rdquo;. Linux uses directory &lt;code&gt;/dev/dri&lt;/code&gt;
+for historical reasons. FreeBSD has changed it to &lt;code&gt;/dev/drm&lt;/code&gt;.&amp;#160;&lt;a href=&#34;#fnref:4&#34; class=&#34;footnote-backref&#34; role=&#34;doc-backlink&#34;&gt;&amp;#x21a9;&amp;#xfe0e;&lt;/a&gt;&lt;/p&gt;
 &lt;/li&gt;
 &lt;li id=&#34;fn:5&#34; role=&#34;doc-endnote&#34;&gt;
-&lt;p&gt;These devices used to be also exposed as &lt;code&gt;/proc/dri&lt;/code&gt;. It is no longer the case.&amp;#160;&lt;a href=&#34;#fnref:5&#34; class=&#34;footnote-backref&#34; role=&#34;doc-backlink&#34;&gt;&amp;#x21a9;&amp;#xfe0e;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;These devices used to also be exposed as &lt;code&gt;/proc/dri&lt;/code&gt;, but that is no longer the case.&amp;#160;&lt;a href=&#34;#fnref:5&#34; class=&#34;footnote-backref&#34; role=&#34;doc-backlink&#34;&gt;&amp;#x21a9;&amp;#xfe0e;&lt;/a&gt;&lt;/p&gt;
 &lt;/li&gt;
 &lt;li id=&#34;fn:6&#34; role=&#34;doc-endnote&#34;&gt;
-&lt;p&gt;There used to be a third kind of device, &lt;code&gt;controlD&amp;lt;N&amp;gt;&lt;/code&gt;, but it did nothing
-and was eliminated.&amp;#160;&lt;a href=&#34;#fnref:6&#34; class=&#34;footnote-backref&#34; role=&#34;doc-backlink&#34;&gt;&amp;#x21a9;&amp;#xfe0e;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;There used to be a third type of device called &lt;code&gt;controlD&amp;lt;N&amp;gt;&lt;/code&gt;, but it was removed because
+it did nothing.&amp;#160;&lt;a href=&#34;#fnref:6&#34; class=&#34;footnote-backref&#34; role=&#34;doc-backlink&#34;&gt;&amp;#x21a9;&amp;#xfe0e;&lt;/a&gt;&lt;/p&gt;
 &lt;/li&gt;
 &lt;li id=&#34;fn:7&#34; role=&#34;doc-endnote&#34;&gt;
-&lt;p&gt;Kernel modesetting, a generic API to setup display controllers. Named
-to contrast with userland modesetting, where userland poked hardware
-directly to set the configuration of display controller.&amp;#160;&lt;a href=&#34;#fnref:7&#34; class=&#34;footnote-backref&#34; role=&#34;doc-backlink&#34;&gt;&amp;#x21a9;&amp;#xfe0e;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Kernel modesetting is a generic kernel API to configure display controllers,
+contrasting with userland modesetting which involves userland poking hardware
+directly for display controller configuration.&amp;#160;&lt;a href=&#34;#fnref:7&#34; class=&#34;footnote-backref&#34; role=&#34;doc-backlink&#34;&gt;&amp;#x21a9;&amp;#xfe0e;&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li id=&#34;fn:8&#34; role=&#34;doc-endnote&#34;&gt;
+&lt;p&gt;It&amp;rsquo;s &lt;code&gt;udev&lt;/code&gt; that creates these symlinks.&amp;#160;&lt;a href=&#34;#fnref:8&#34; class=&#34;footnote-backref&#34; role=&#34;doc-backlink&#34;&gt;&amp;#x21a9;&amp;#xfe0e;&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li id=&#34;fn:9&#34; role=&#34;doc-endnote&#34;&gt;
+&lt;p&gt;The matching of &lt;code&gt;card&amp;lt;N&amp;gt;&lt;/code&gt; and &lt;code&gt;renderD&amp;lt;N&amp;gt;&lt;/code&gt; devices used to be cumbersome because
+their numbers do not correspond. The algorithm for matching was dependent on bus
+type, with PCI/USB being matched by PCI/USB bus information, and platform devices
+being matched using device tree information. This required searching for the necessary
+information in &lt;code&gt;/sys/dev/char/&amp;lt;N&amp;gt;/device/subystem&lt;/code&gt;. All of this functionality is
+is implemented in &lt;code&gt;libdrm&lt;/code&gt;.&amp;#160;&lt;a href=&#34;#fnref:9&#34; class=&#34;footnote-backref&#34; role=&#34;doc-backlink&#34;&gt;&amp;#x21a9;&amp;#xfe0e;&lt;/a&gt;&lt;/p&gt;
 &lt;/li&gt;
 &lt;/ol&gt;
 
@@ -403,22 +401,22 @@ directly to set the configuration of display controller.&amp;#160;&lt;a href=&#3
   <content type="html">
     
       
-  &lt;p&gt;This is a set of blog posts about implementation of a &lt;a href=&#34;/new-de/&#34;&gt;new desktop environment&lt;/a&gt;.&lt;/p&gt;
-&lt;p&gt;The posts are not meant to be the exhaustive documentation of the topics raised.
-They are working notes for me to ensure I understand the topics well enough.&lt;/p&gt;
-&lt;p&gt;I limit the scope of the posts in the following way:&lt;/p&gt;
+  &lt;p&gt;This blog post initiates a series on implementation of a &lt;a href=&#34;/new-de/&#34;&gt;new desktop environment&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;The posts are not intended as comprehensvie documentation of the topics.
+They serve as working notes for me to ensure my understanding of the topics.&lt;/p&gt;
+&lt;p&gt;I limit the scope of the posts in the following ways:&lt;/p&gt;
 &lt;ul&gt;
-&lt;li&gt;I only describe Linux. I am not interested in portability at this point.&lt;/li&gt;
-&lt;li&gt;I only describe &lt;em&gt;modern&lt;/em&gt; Linux. Historical information is demoted to footnotes,
-and I won&amp;rsquo;t spend time explaining how historical interfaces work if they are
-fully replaced by modern ones.&lt;/li&gt;
-&lt;li&gt;I only describe desktop/laptop environment. The DE in progress does not try to
-scretch itself to cover embedded, handhelds and other environments.&lt;/li&gt;
-&lt;li&gt;I only describe modern hardware. The main platform for the DE is Apple M1/M2,
-the secondary platform is modern PC with Intel graphics card. I won&amp;rsquo;t talk about
-big-endian processors, exotic buses and compositing without a GPU.&lt;/li&gt;
+&lt;li&gt;I only describe Linux. I am not currently focused on portability.&lt;/li&gt;
+&lt;li&gt;I only describe &lt;em&gt;modern&lt;/em&gt; Linux. Historical information is relegated to footnotes,
+and I won&amp;rsquo;t delve into explaining how outdated interfaces function if they have
+been completely replaced by modern ones.&lt;/li&gt;
+&lt;li&gt;I only describe the desktop/laptop environment. The DE I am working on does not
+attempt to support embedded, handhelds, and other environments.&lt;/li&gt;
+&lt;li&gt;I focus on describing modern hardware. The primary platform for the DE is Apple M1/M2,
+and the secondary platform is a modern PC with Intel graphics card. I won&amp;rsquo;t cover
+big-endian processors, exotic buses, or compositing without a GPU.&lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;The posts will be updated over time as I expand and correct them.&lt;/p&gt;
+&lt;p&gt;The posts will be updated as I expand and correct them.&lt;/p&gt;
 &lt;ol&gt;
 &lt;li&gt;&lt;a href=&#34;/01-de-drm/&#34;&gt;Linux DRM devices&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href=&#34;/02-de-vt/&#34;&gt;Linux VT&lt;/a&gt;&lt;/li&gt;

@@ -1,67 +1,64 @@
 title: DE/compositor development notes - Linux VT
 date: 2023-07-07
 ----
-Before drawing anything on screen compositor should ensure it
-owns the screen it wants to draw on, or the results won't look
-good: several processes or kernel may draw over whatever compositor
-has drawn[^example].
+Before drawing any visuals on screen, the compositor must ensure it
+owns the screen it wishes to draw on. If it doesn't, the results
+won't look good, as multiple processes or the kernel may draw over
+the compositor's output[^example].
 
-Under Linux, VT subsystem draws terminals on various screens
-attached to computer[^novt], so the compositor has to cooperate
-with it. VT subsystem simulates several physical consoles on a single
-display, providing functionality to create, destroy and switch between
-several consoles.
+In Linux, VT subsystem draws terminals across multiple screens
+attached to computer[^novt], so the compositor needs to cooperate
+with it. The VT subsystem emulates multiple physical consoles on a single
+display, providing functionality to add, destroy and switch between
+these consoles.
 
-Consoles are named from 1 upwards and represented as character devices
-`/dev/ttyN`. One of them is active at any time. `/dev/tty0` is alias
-for the currently active console.
+Consoles are numbered beginning from 1 and represented as character
+devices `/dev/ttyN`. Only one of them is active at a time. `/dev/tty0` is
+an alias for the currently active console.
 
 ## Text/graphics mode
 
-Every console might be in text or graphics mode. In text mode VT
-subsystem draws the text, the cursor and handles idle blanking.
-In graphics mode VT subsystem does not do anything. To draw anything
-to screen, compositor should pick a console and switch it to graphics
-mode. On exit it should restore the previous mode, or text console
-won't be redrawn[^exit].
+Every console can be in text or graphics mode. In text mode, the VT
+subsystem manages text rendering, cursor display and idle blanking.
+In graphics mode, the VT subsystem does not do anything. To draw anything
+on the screen, the compositor must pick a console and switch it to graphics
+mode. On exit, it must restore the previous mode; otherwise the text console
+will not be redrawn[^exit].
 
-Text/graphic mode is activated by `ioctl` `KDSETMODE`.
+The text/graphic mode is selected by `ioctl` `KDSETMODE`.
 
 ## VT switching
 
-Switching between consoles is started by by pressing a special
-key[^kmap] (handled by kernel itself), or by issuing `ioctl`
+Switching between consoles begins by pressing a special
+key[^kmap] (managed by the kernel itself), or by issuing `ioctl`
 `VT_ACTIVATE`[^gfxkmap].
 
-For consoles in text mode kernel handles saving and restoring content
-on switch, for graphics consoles kernel expects applications to redraw
-themselves.
+The kernel manages the saving and restoring of content for consoles in text mode.
+For graphics consoles, the kernel expects applications to self-redraw.
 
 ## Auto/process-controlled VT switching
 
-Every console might be in one of two modes:
-- auto VT switching,
+Every console can be in one of two modes:
+- automatic VT switching,
 - process-controlled VT switching.
 
-This mode is set by `ioctl` `VT_SETMODE` that takes three parameters:
-- the mode: auto/process-controlled[^ackacq],
-- the signal to send on console deactivation
-- the signal to send on console activation (see below).
+The mode is selected by `ioctl` `VT_SETMODE` that takes three parameters:
+- the mode: auto or process-controlled[^ackacq],
+- the signal sent on console deactivation (release signal)
+- the signal sent on console activation (acquire signal).
 
-If console is in auto mode nothing happens if it is activated
-(switched to) or deactivated (switched from).
+The process that called this `ioctl` becomes the console owner.
 
-If console is in process-controlled mode then both activating
-and deactivating console is coordinated with the process that
-owns the console:
-- on console deactivation kernel sends the process that owns the
-  console being switched from a signal and awaits that process to
-  call `ioctl` `VT_RELDISP` to mark the console as released.
-- on console activation the same happens on console being
-  switched to.
+If the console is in auto mode, nothing happens when it is activated
+(switched to) or deactivated (swiched from).
 
-How kernel knows which process to send the signal to? It sends
-the signal to the process that called `VT_SETMODE`.
+If the console is in process-controlled mode, both its activation
+and deactivation are coordinated with the owning process:
+- on deactivation, the kernel sends the release signal to the owning process.
+  The kernel then waits for that process to call `ioctl` `VT_RELDISP`,
+  marking the console as released.
+- The same procedure occurs on console activation: the acquire signal is
+  sent to the owner of the console being switched to.
 
 ## References
 
@@ -72,24 +69,24 @@ the signal to the process that called `VT_SETMODE`.
 ## Footnotes
 
 [^example]:
-	For example, if compositor is started from the virtual console and uses
-	it instead of switching to a new one and without telling VT to stop
-	drawing, its own stdout and stderr will be written over the its own
-	output.
+	For instance, if compositor is started from the virtual console, using
+	it directly instead of switching to a new one, and without compositor
+	telling VT to stop drawing, its own stdout and stderr will overwrite
+	its output.
 [^novt]:
-	If not compiled with `CONFIG_VT=n`.
+	If it is not compiled with `CONFIG_VT=n`.
 [^exit]:
-	Actually, Linux contains a kludge to work around it: on console switch
-	Linux checks if the process that was supposed to draw on the console
-	died, and switches the console to text mode if it did.
+	Actually, Linux includes a kludge for this situation: whenever console
+	switch occurs, it checks whether the owning process has died. If it did,
+	Linux switches the console back to text mode.
 [^kmap]:
-	Linux console input map contains actions "switch to console N", "switch
-	to next console", "switch to previous console". In most console keymaps
-	these are bound to [Ctrl+]Alt+FnX, [Ctrl+]Alt+{Left,Right}.
+	The Linux console input map provides actions "switch to console N", "switch
+	to next console" and "switch to previous console". Typcially, these actions
+	are bound to key combinations [Ctrl+]Alt+FnX, [Ctrl+]Alt+{Left,Right}.
 [^gfxkmap]:
 	That's how X server and Wayland compositors implement switching to
-	another VT. They disable VT console input, so they have to handle the
+	another VT. They disable the VT console input, so they must handle the
 	keys themselves.
 [^ackacq]:
-	`ioctl_console(2)` manpage also lists `VT_ACKACQ`, but that's not a mode,
-	it's an argument for `VT_RELDISP`.
+	`ioctl_console(2)` manpage also mentions `VT_ACKACQ`, but it's not a mode;
+	instead, it's an argument for `VT_RELDISP`.

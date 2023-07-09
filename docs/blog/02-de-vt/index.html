@@ -53,59 +53,56 @@
 <article class="post">
   <h1>DE/compositor development notes - Linux VT</h1>
   <div class="post-content">
-  <p>Before drawing anything on screen compositor should ensure it
-owns the screen it wants to draw on, or the results won&rsquo;t look
-good: several processes or kernel may draw over whatever compositor
-has drawn<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup>.</p>
-<p>Under Linux, VT subsystem draws terminals on various screens
-attached to computer<sup id="fnref:2"><a href="#fn:2" class="footnote-ref" role="doc-noteref">2</a></sup>, so the compositor has to cooperate
-with it. VT subsystem simulates several physical consoles on a single
-display, providing functionality to create, destroy and switch between
-several consoles.</p>
-<p>Consoles are named from 1 upwards and represented as character devices
-<code>/dev/ttyN</code>. One of them is active at any time. <code>/dev/tty0</code> is alias
-for the currently active console.</p>
+  <p>Before drawing any visuals on screen, the compositor must ensure it
+owns the screen it wishes to draw on. If it doesn&rsquo;t, the results
+won&rsquo;t look good, as multiple processes or the kernel may draw over
+the compositor&rsquo;s output<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup>.</p>
+<p>In Linux, VT subsystem draws terminals across multiple screens
+attached to computer<sup id="fnref:2"><a href="#fn:2" class="footnote-ref" role="doc-noteref">2</a></sup>, so the compositor needs to cooperate
+with it. The VT subsystem emulates multiple physical consoles on a single
+display, providing functionality to add, destroy and switch between
+these consoles.</p>
+<p>Consoles are numbered beginning from 1 and represented as character
+devices <code>/dev/ttyN</code>. Only one of them is active at a time. <code>/dev/tty0</code> is
+an alias for the currently active console.</p>
 <h2 id="textgraphics-mode">Text/graphics mode</h2>
-<p>Every console might be in text or graphics mode. In text mode VT
-subsystem draws the text, the cursor and handles idle blanking.
-In graphics mode VT subsystem does not do anything. To draw anything
-to screen, compositor should pick a console and switch it to graphics
-mode. On exit it should restore the previous mode, or text console
-won&rsquo;t be redrawn<sup id="fnref:3"><a href="#fn:3" class="footnote-ref" role="doc-noteref">3</a></sup>.</p>
-<p>Text/graphic mode is activated by <code>ioctl</code> <code>KDSETMODE</code>.</p>
+<p>Every console can be in text or graphics mode. In text mode, the VT
+subsystem manages text rendering, cursor display and idle blanking.
+In graphics mode, the VT subsystem does not do anything. To draw anything
+on the screen, the compositor must pick a console and switch it to graphics
+mode. On exit, it must restore the previous mode; otherwise the text console
+will not be redrawn<sup id="fnref:3"><a href="#fn:3" class="footnote-ref" role="doc-noteref">3</a></sup>.</p>
+<p>The text/graphic mode is selected by <code>ioctl</code> <code>KDSETMODE</code>.</p>
 <h2 id="vt-switching">VT switching</h2>
-<p>Switching between consoles is started by by pressing a special
-key<sup id="fnref:4"><a href="#fn:4" class="footnote-ref" role="doc-noteref">4</a></sup> (handled by kernel itself), or by issuing <code>ioctl</code>
+<p>Switching between consoles begins by pressing a special
+key<sup id="fnref:4"><a href="#fn:4" class="footnote-ref" role="doc-noteref">4</a></sup> (managed by the kernel itself), or by issuing <code>ioctl</code>
 <code>VT_ACTIVATE</code><sup id="fnref:5"><a href="#fn:5" class="footnote-ref" role="doc-noteref">5</a></sup>.</p>
-<p>For consoles in text mode kernel handles saving and restoring content
-on switch, for graphics consoles kernel expects applications to redraw
-themselves.</p>
+<p>The kernel manages the saving and restoring of content for consoles in text mode.
+For graphics consoles, the kernel expects applications to self-redraw.</p>
 <h2 id="autoprocess-controlled-vt-switching">Auto/process-controlled VT switching</h2>
-<p>Every console might be in one of two modes:</p>
+<p>Every console can be in one of two modes:</p>
 <ul>
-<li>auto VT switching,</li>
+<li>automatic VT switching,</li>
 <li>process-controlled VT switching.</li>
 </ul>
-<p>This mode is set by <code>ioctl</code> <code>VT_SETMODE</code> that takes three parameters:</p>
+<p>The mode is selected by <code>ioctl</code> <code>VT_SETMODE</code> that takes three parameters:</p>
 <ul>
-<li>the mode: auto/process-controlled<sup id="fnref:6"><a href="#fn:6" class="footnote-ref" role="doc-noteref">6</a></sup>,</li>
-<li>the signal to send on console deactivation</li>
-<li>the signal to send on console activation (see below).</li>
+<li>the mode: auto or process-controlled<sup id="fnref:6"><a href="#fn:6" class="footnote-ref" role="doc-noteref">6</a></sup>,</li>
+<li>the signal sent on console deactivation (release signal)</li>
+<li>the signal sent on console activation (acquire signal).</li>
 </ul>
-<p>If console is in auto mode nothing happens if it is activated
-(switched to) or deactivated (switched from).</p>
-<p>If console is in process-controlled mode then both activating
-and deactivating console is coordinated with the process that
-owns the console:</p>
+<p>The process that called this <code>ioctl</code> becomes the console owner.</p>
+<p>If the console is in auto mode, nothing happens when it is activated
+(switched to) or deactivated (swiched from).</p>
+<p>If the console is in process-controlled mode, both its activation
+and deactivation are coordinated with the owning process:</p>
 <ul>
-<li>on console deactivation kernel sends the process that owns the
-console being switched from a signal and awaits that process to
-call <code>ioctl</code> <code>VT_RELDISP</code> to mark the console as released.</li>
-<li>on console activation the same happens on console being
-switched to.</li>
+<li>on deactivation, the kernel sends the release signal to the owning process.
+The kernel then waits for that process to call <code>ioctl</code> <code>VT_RELDISP</code>,
+marking the console as released.</li>
+<li>The same procedure occurs on console activation: the acquire signal is
+sent to the owner of the console being switched to.</li>
 </ul>
-<p>How kernel knows which process to send the signal to? It sends
-the signal to the process that called <code>VT_SETMODE</code>.</p>
 <h2 id="references">References</h2>
 <ul>
 <li><code>console_ioctl(4)</code></li>
@@ -117,32 +114,32 @@ the signal to the process that called <code>VT_SETMODE</code>.</p>
 <hr />
 <ol>
 <li id="fn:1" role="doc-endnote">
-<p>For example, if compositor is started from the virtual console and uses
-it instead of switching to a new one and without telling VT to stop
-drawing, its own stdout and stderr will be written over the its own
-output.&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+<p>For instance, if compositor is started from the virtual console, using
+it directly instead of switching to a new one, and without compositor
+telling VT to stop drawing, its own stdout and stderr will overwrite
+its output.&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
 </li>
 <li id="fn:2" role="doc-endnote">
-<p>If not compiled with <code>CONFIG_VT=n</code>.&#160;<a href="#fnref:2" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+<p>If it is not compiled with <code>CONFIG_VT=n</code>.&#160;<a href="#fnref:2" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
 </li>
 <li id="fn:3" role="doc-endnote">
-<p>Actually, Linux contains a kludge to work around it: on console switch
-Linux checks if the process that was supposed to draw on the console
-died, and switches the console to text mode if it did.&#160;<a href="#fnref:3" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+<p>Actually, Linux includes a kludge for this situation: whenever console
+switch occurs, it checks whether the owning process has died. If it did,
+Linux switches the console back to text mode.&#160;<a href="#fnref:3" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
 </li>
 <li id="fn:4" role="doc-endnote">
-<p>Linux console input map contains actions &ldquo;switch to console N&rdquo;, &ldquo;switch
-to next console&rdquo;, &ldquo;switch to previous console&rdquo;. In most console keymaps
-these are bound to [Ctrl+]Alt+FnX, [Ctrl+]Alt+{Left,Right}.&#160;<a href="#fnref:4" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+<p>The Linux console input map provides actions &ldquo;switch to console N&rdquo;, &ldquo;switch
+to next console&rdquo; and &ldquo;switch to previous console&rdquo;. Typcially, these actions
+are bound to key combinations [Ctrl+]Alt+FnX, [Ctrl+]Alt+{Left,Right}.&#160;<a href="#fnref:4" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
 </li>
 <li id="fn:5" role="doc-endnote">
 <p>That&rsquo;s how X server and Wayland compositors implement switching to
-another VT. They disable VT console input, so they have to handle the
+another VT. They disable the VT console input, so they must handle the
 keys themselves.&#160;<a href="#fnref:5" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
 </li>
 <li id="fn:6" role="doc-endnote">
-<p><code>ioctl_console(2)</code> manpage also lists <code>VT_ACKACQ</code>, but that&rsquo;s not a mode,
-it&rsquo;s an argument for <code>VT_RELDISP</code>.&#160;<a href="#fnref:6" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+<p><code>ioctl_console(2)</code> manpage also mentions <code>VT_ACKACQ</code>, but it&rsquo;s not a mode;
+instead, it&rsquo;s an argument for <code>VT_RELDISP</code>.&#160;<a href="#fnref:6" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
 </li>
 </ol>
 </div>
