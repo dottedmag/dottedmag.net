@@ -416,7 +416,8 @@ attempt to support embedded, handhelds, and other environments.&lt;/li&gt;
 and the secondary platform is a modern PC with Intel graphics card. I won&amp;rsquo;t cover
 big-endian processors, exotic buses, or compositing without a GPU.&lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;The posts will be updated as I expand and correct them.&lt;/p&gt;
+&lt;p&gt;The posts will be updated as I expand and correct them. I welcome corrections,
+please send them to &lt;a href=&#34;mailto:dottedmag@dottedmag.net&#34;&gt;my e-mail&lt;/a&gt;.&lt;/p&gt;
 &lt;ol&gt;
 &lt;li&gt;&lt;a href=&#34;/01-de-drm/&#34;&gt;Linux DRM devices&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href=&#34;/02-de-vt/&#34;&gt;Linux VT&lt;/a&gt;&lt;/li&gt;
