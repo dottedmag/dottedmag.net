@@ -12,13 +12,13 @@
 
 
 <entry>
-  <id>https://dottedmag.net/blog/05-de-drm-ioctl-3/</id>
+  <id>https://dottedmag.net/blog/05-de-drm-pipeline/</id>
   <author><name>Mikhail Gusarov</name></author>
   <title type="html">DE/compositor development notes - DRM pipeline</title>
   <published>2023-07-09T00:00:00Z</published>
   <updated>2023-07-09T00:00:00Z</updated>
   
-  <link href="https://dottedmag.net/blog/05-de-drm-ioctl-3/" rel="alternate"></link>
+  <link href="https://dottedmag.net/blog/05-de-drm-pipeline/" rel="alternate"></link>
   <content type="html">
     
       
@@ -480,10 +480,11 @@ big-endian processors, exotic buses, or compositing without a GPU.&lt;/li&gt;
 &lt;p&gt;The posts will be updated as I expand and correct them. I welcome corrections,
 please send them to &lt;a href=&#34;mailto:dottedmag@dottedmag.net&#34;&gt;my e-mail&lt;/a&gt;.&lt;/p&gt;
 &lt;ol&gt;
-&lt;li&gt;&lt;a href=&#34;/01-de-drm/&#34;&gt;Linux DRM devices&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;/02-de-vt/&#34;&gt;Linux VT&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;/03-de-drm-ioctl/&#34;&gt;DRM operations - capabilities&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;/04-de-drm-ioctl-2/&#34;&gt;DRM operations - resource sharing&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;/blog/01-de-drm/&#34;&gt;Linux DRM devices&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;/blog/02-de-vt/&#34;&gt;Linux VT&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;/blog/03-de-drm-ioctl/&#34;&gt;DRM operations - capabilities&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;/blog/04-de-drm-ioctl-2/&#34;&gt;DRM operations - resource sharing&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;/blog/05-de-drm-pipeline/&#34;&gt;DRM pipeline&lt;/a&gt;&lt;/li&gt;
 &lt;/ol&gt;
 
   
