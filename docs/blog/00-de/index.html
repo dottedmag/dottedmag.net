@@ -8,10 +8,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   <meta name="author" content="Mikhail Gusarov">
-  <title>Mikhail Gusarov</title>
+  <title>DE/compositor development notes - introduction</title>
 
   <link rel="stylesheet" href="/styles/main.css">
-  <link rel="alternate" type="application/atom+xml" title="Mikhail Gusarov feed" href="./blog.atom">
+  <link rel="alternate" type="application/atom+xml" title="Mikhail Gusarov feed" href="../../blog.atom">
 
   <script async="" src="https://www.googletagmanager.com/gtag/js?id=UA-120900398-1">
   </script>
@@ -37,7 +37,7 @@
         </svg>
       </span>
       <div class="trigger">
-        <a class="page-link " href="/">Blog</a>
+        <a class="page-link active-page-link" href="/">Blog</a>
         <a class="page-link " href="/cv">CV</a>
         <a class="page-link " href="/keys">Keys</a>
         <a class="page-link " href="/software">Software</a>
@@ -51,92 +51,37 @@
     <div class="wrapper">
       
 <article class="post">
-  
-  <div style="float:right; margin: 10px;">
-    <img src="/pics/me.jpg">
-  </div>
-  
+  <h1>DE/compositor development notes - introduction</h1>
   <div class="post-content">
+  <p>This is a set of blog posts about implementation of a <a href="/new-de/">new desktop environment</a>.</p>
+<p>The posts are not meant to be the exhaustive documentation of the topics raised.
+They are working notes for me to ensure I understand the topics well enough.</p>
+<p>I limit the scope of the posts in the following way:</p>
+<ul>
+<li>I only describe Linux. I am not interested in portability at this point.</li>
+<li>I only describe <em>modern</em> Linux. Historical information is demoted to footnotes,
+and I won&rsquo;t spend time explaining how historical interfaces work if they are
+fully replaced by modern ones.</li>
+<li>I only describe desktop/laptop environment. The DE in progress does not try to
+scretch itself to cover embedded, handhelds and other environments.</li>
+<li>I only describe modern hardware. The main platform for the DE is Apple M1/M2,
+the secondary platform is modern PC with Intel graphics card. I won&rsquo;t talk about
+big-endian processors, exotic buses and compositing without a GPU.</li>
+</ul>
+<p>The posts will be updated over time as I expand and correct them.</p>
+<ol>
+<li><a href="/01-de-drm/">Linux DRM devices</a></li>
+<li><a href="/02-de-vt/">Linux VT</a></li>
+<li><a href="/03-de-drm-ioctl/">DRM operations - capabilities</a></li>
+<li><a href="/04-de-drm-ioctl-2/">DRM operations - resource sharing</a></li>
+</ol>
+
+  </div>
+  <div class="post-meta">
     
-  
-
-  <ul>
-    
-      
-        
-<li>
-<time datetime="2023-07-08T00:00:00Z">
-  2023-07-08
-</time>
- <a href="blog/principle-codenames/">Codenames</a></li>
-
-      
-        
-<li>
-<time datetime="2023-07-08T00:00:00Z">
-  2023-07-08
-</time>
- <a href="blog/04-de-drm-ioctl-2/">DE/compositor development notes - DRM operations - resource sharing</a></li>
-
-      
-        
-<li>
-<time datetime="2023-07-08T00:00:00Z">
-  2023-07-08
-</time>
- <a href="blog/03-de-drm-ioctl/">DE/compositor development notes - DRM operations - capabilites</a></li>
-
-      
-        
-<li>
-<time datetime="2023-07-07T00:00:00Z">
-  2023-07-07
-</time>
- <a href="blog/02-de-vt/">DE/compositor development notes - Linux VT</a></li>
-
-      
-        
-<li>
-<time datetime="2023-07-06T00:00:00Z">
-  2023-07-06
-</time>
- <a href="blog/01-de-drm/">DE/compositor development notes - Linux DRM devices</a></li>
-
-      
-        
-<li>
 <time datetime="2023-07-05T00:00:00Z">
   2023-07-05
 </time>
- <a href="blog/00-de/">DE/compositor development notes - introduction</a></li>
-
-      
-        
-<li>
-<time datetime="2022-12-01T00:00:00Z">
-  2022-12-01
-</time>
- <a href="blog/dependencies/">Dependencies</a></li>
-
-      
-        
-<li>
-<time datetime="2021-12-26T00:00:00Z">
-  2021-12-26
-</time>
- <a href="blog/new-de/">New Linux desktop environment</a></li>
-
-      
-        
-<li>
-<time datetime="2021-10-18T00:00:00Z">
-  2021-10-18
-</time>
- <a href="blog/linux-is-not-os/">Linux is not OS</a></li>
-
-      
-    
-  </ul>
 
   </div>
 </article>

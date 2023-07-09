@@ -1,4 +1,4 @@
-title: DE/compositor development notes - DRM operations (1)
+title: DE/compositor development notes - DRM operations - capabilites
 date: 2023-07-08
 ----
 What can compositor do with DRM devices once it [has found](/blog/01-de-drm/) them?

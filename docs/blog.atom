@@ -61,7 +61,7 @@ names, everything else is hidden from the users and should use the codename.&lt;
 <entry>
   <id>https://dottedmag.net/blog/04-de-drm-ioctl-2/</id>
   <author><name>Mikhail Gusarov</name></author>
-  <title type="html">DE/compositor development notes - DRM operations (2)</title>
+  <title type="html">DE/compositor development notes - DRM operations - resource sharing</title>
   <published>2023-07-08T00:00:00Z</published>
   <updated>2023-07-08T00:00:00Z</updated>
   
@@ -116,7 +116,7 @@ to the compositor that used &lt;code&gt;DRM_IOCTL_AUTH_MAGIC&lt;/code&gt; to all
 <entry>
   <id>https://dottedmag.net/blog/03-de-drm-ioctl/</id>
   <author><name>Mikhail Gusarov</name></author>
-  <title type="html">DE/compositor development notes - DRM operations (1)</title>
+  <title type="html">DE/compositor development notes - DRM operations - capabilites</title>
   <published>2023-07-08T00:00:00Z</published>
   <updated>2023-07-08T00:00:00Z</updated>
   
@@ -388,6 +388,45 @@ directly to set the configuration of display controller.&amp;#160;&lt;a href=&#3
 &lt;/li&gt;
 &lt;/ol&gt;
 
+    
+  </content>
+</entry>
+
+<entry>
+  <id>https://dottedmag.net/blog/00-de/</id>
+  <author><name>Mikhail Gusarov</name></author>
+  <title type="html">DE/compositor development notes - introduction</title>
+  <published>2023-07-05T00:00:00Z</published>
+  <updated>2023-07-05T00:00:00Z</updated>
+  
+  <link href="https://dottedmag.net/blog/00-de/" rel="alternate"></link>
+  <content type="html">
+    
+      
+  &lt;p&gt;This is a set of blog posts about implementation of a &lt;a href=&#34;/new-de/&#34;&gt;new desktop environment&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;The posts are not meant to be the exhaustive documentation of the topics raised.
+They are working notes for me to ensure I understand the topics well enough.&lt;/p&gt;
+&lt;p&gt;I limit the scope of the posts in the following way:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;I only describe Linux. I am not interested in portability at this point.&lt;/li&gt;
+&lt;li&gt;I only describe &lt;em&gt;modern&lt;/em&gt; Linux. Historical information is demoted to footnotes,
+and I won&amp;rsquo;t spend time explaining how historical interfaces work if they are
+fully replaced by modern ones.&lt;/li&gt;
+&lt;li&gt;I only describe desktop/laptop environment. The DE in progress does not try to
+scretch itself to cover embedded, handhelds and other environments.&lt;/li&gt;
+&lt;li&gt;I only describe modern hardware. The main platform for the DE is Apple M1/M2,
+the secondary platform is modern PC with Intel graphics card. I won&amp;rsquo;t talk about
+big-endian processors, exotic buses and compositing without a GPU.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;The posts will be updated over time as I expand and correct them.&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;a href=&#34;/01-de-drm/&#34;&gt;Linux DRM devices&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;/02-de-vt/&#34;&gt;Linux VT&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;/03-de-drm-ioctl/&#34;&gt;DRM operations - capabilities&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;/04-de-drm-ioctl-2/&#34;&gt;DRM operations - resource sharing&lt;/a&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+  
     
   </content>
 </entry>
