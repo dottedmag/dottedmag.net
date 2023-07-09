@@ -1,0 +1,118 @@
+
+<!doctype html>
+<html>
+<head>
+  
+  <meta charset="utf-8">
+  <!-- Still needed? -->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <meta name="author" content="Mikhail Gusarov">
+  <title>DE/compositor development notes - DRM pipeline</title>
+
+  <link rel="stylesheet" href="/styles/main.css">
+  <link rel="alternate" type="application/atom+xml" title="Mikhail Gusarov feed" href="../../blog.atom">
+
+  <script async="" src="https://www.googletagmanager.com/gtag/js?id=UA-120900398-1">
+  </script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'UA-120900398-1');
+  </script>
+
+</head>
+<body>
+  
+<header class="site-header" role="banner">
+  <div class="wrapper">
+    <a class="site-title" href="/">Mikhail Gusarov</a>
+    <nav class="site-nav">
+      <span class="menu-icon">
+        <svg viewBox="0 0 18 15" width="18px" height="15px">
+          <path fill="#424242" d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.031C17.335,0,18,0.665,18,1.484L18,1.484z"/>
+          <path fill="#424242" d="M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0c0-0.82,0.665-1.484,1.484-1.484 h15.031C17.335,6.031,18,6.696,18,7.516L18,7.516z"/>
+          <path fill="#424242" d="M18,13.516C18,14.335,17.335,15,16.516,15H1.484C0.665,15,0,14.335,0,13.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.031C17.335,12.031,18,12.696,18,13.516L18,13.516z"/>
+        </svg>
+      </span>
+      <div class="trigger">
+        <a class="page-link active-page-link" href="/">Blog</a>
+        <a class="page-link " href="/cv">CV</a>
+        <a class="page-link " href="/keys">Keys</a>
+        <a class="page-link " href="/software">Software</a>
+        <a class="page-link " href="/contacts">Contacts</a>
+      </div>
+    </nav>
+  </div>
+</header>
+
+  <main class="page-content">
+    <div class="wrapper">
+      
+<article class="post">
+  <h1>DE/compositor development notes - DRM pipeline</h1>
+  <div class="post-content">
+  <p>Once compositor has obtained the control over graphics hardware, it needs to find
+out what&rsquo;s available for use.</p>
+<p>DRM exposes display controllers using the following objects: framebuffers, planes, CRTCs, connectors and encoders.</p>
+<h2 id="framebuffers">Framebuffers</h2>
+<p>Framebuffer is a bunch of pixels in memory with metadata (size, pixel format, memory layout).</p>
+<p>Framebuffers are typically an output of rendering, either GPU or CPU.</p>
+<h2 id="crtcs-and-planes">CRTCs and planes</h2>
+<p>Display controllers combine several framebuffers into one picture and display this picture
+on physical displays.</p>
+<p>CRTC<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup> is an abstraction of a display controller: it takes a number of framebuffers using
+<em>planes</em>, global display propeties, such as display mode, gamma and VRR; and a number of
+<em>connectors</em> that represent hardware outputs.</p>
+<p>Plane is a slot for a framebuffer, plus information needed for combining several planes into a
+picture: position, rotation and scaling of framebuffer, blend mode, Z-position and color information.</p>
+<p>Planes traditionally have roles: &ldquo;primary&rdquo;, &ldquo;cursor&rdquo; and &ldquo;overlay&rdquo;. DRM is role-agnostic, but
+these roles hint on their expected uses (e.g. cursor planes may be limited in size and overlay
+planes may support YUV pixel fomats).</p>
+<p>A set of CRTCs and planes is fixed, and they may be matched many-to-many, though in many cards
+a plane is compatible with only one CRTC. When a plane is compatible with multiple CRTCs, it
+is typically an overlay plane compatible with any of them. For some devices all planes are
+compatible with all CRTCs.</p>
+<p>Planes and CRTCs are bound to one DRM device: a plane from one device cannot be compatible with
+CRTC from another device.</p>
+<h2 id="connectors-and-encoders">Connectors and encoders</h2>
+<p>Connector is a hardware output port of a display controller (think VGA or DisplayPort output).
+Some connectors are wired permanently, some come and go (e.g. connecting a USB-C hub with
+DisplayPort outputs causes new connectors to appear).</p>
+<p>Connectors store output information (state of the link, DPMS state, EDID, tiling information
+for tiled displays and so on).</p>
+<p>Encoder represents a piece of hardware inside a display controller that converts pixels into
+the electrical signals of a display protocol (e.g. TMDS encoder provides signals for HDMI,
+DAC encoder for VGA or S-Video). Encoders are static.</p>
+<p>Not all CRTCs are wired to supply all encoders, and not all encoders can supply all connectors,
+so compositors should solve the constraints to properly select CRTCs for outputs.</p>
+<h3 id="writeback-connectors">Writeback connectors</h3>
+<p>Connectors of &ldquo;writeback&rdquo; type are special: instead of displaying the picture on a display,
+they copy it into associated framebuffer.</p>
+<h2 id="footnotes">Footnotes</h2>
+<div class="footnotes" role="doc-endnotes">
+<hr />
+<ol>
+<li id="fn:1" role="doc-endnote">
+<p>Cathode-ray tube controller. Yeah.&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+</ol>
+</div>
+
+  </div>
+  <div class="post-meta">
+    
+<time datetime="2023-07-09T00:00:00Z">
+  2023-07-09
+</time>
+
+  </div>
+</article>
+
+    </div>
+  </main>
+  
+
+</body>
+</html>
