@@ -1,5 +1,5 @@
 title: DE/compositor development notes - DRM framebuffers (1)
-date 2023-07-09
+date: 2023-07-10
 ----
 [Display controller pipeline](/blog/05-de-drm-pipeline/) takes framebuffers as input.
 

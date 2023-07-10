@@ -3,13 +3,102 @@
   <id>https://dottedmag.net/</id>
   <title>Mikhail Gusarov</title>
   
-  <updated>2023-07-09T00:00:00Z</updated>
+  <updated>2023-07-10T00:00:00Z</updated>
   
   <author><name>Mikhail Gusarov</name></author>
   <link href="https://dottedmag.net/" rel="alternate"></link>
   <link href="https://dottedmag.net/blog.atom" rel="self"></link>
 
 
+
+<entry>
+  <id>https://dottedmag.net/blog/06-de-drm-framebuffer/</id>
+  <author><name>Mikhail Gusarov</name></author>
+  <title type="html">DE/compositor development notes - DRM framebuffers (1)</title>
+  <published>2023-07-10T00:00:00Z</published>
+  <updated>2023-07-10T00:00:00Z</updated>
+  
+  <link href="https://dottedmag.net/blog/06-de-drm-framebuffer/" rel="alternate"></link>
+  <content type="html">
+    
+      
+  &lt;p&gt;&lt;a href=&#34;/blog/05-de-drm-pipeline/&#34;&gt;Display controller pipeline&lt;/a&gt; takes framebuffers as input.&lt;/p&gt;
+&lt;p&gt;Framebuffer in DRM is a raster picture. Graphics display hardware is very particular
+about location and layout of that memory, and the details vary significantly between
+cards, so DRM provides some common functionality and leaves the rest to drivers.&lt;/p&gt;
+&lt;p&gt;A framebuffer consists of:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;a chunk of memory (may be several chunks for pictures that are composed of several planes&lt;sup id=&#34;fnref:1&#34;&gt;&lt;a href=&#34;#fn:1&#34; class=&#34;footnote-ref&#34; role=&#34;doc-noteref&#34;&gt;1&lt;/a&gt;&lt;/sup&gt;)&lt;/li&gt;
+&lt;li&gt;width, height information, in pixels&lt;/li&gt;
+&lt;li&gt;pitch (also known as stride): number of bytes between successive lines of picture&lt;/li&gt;
+&lt;li&gt;pixel format and modifier (see below)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Display controllers are very particular about data format as they have to be able to scan
+and combine several megabytes&#39; worth of data fast enough to generate video signal for every frame,
+so DRM planes have restrictions on pixel formats they accept.&lt;/p&gt;
+&lt;h2 id=&#34;memory-handles&#34;&gt;Memory handles&lt;/h2&gt;
+&lt;p&gt;Display controller or GPU might have their own memory space, so DRM uses &lt;em&gt;handles&lt;/em&gt; to allocated
+memory. Some of these handles may be &lt;code&gt;mmap&lt;/code&gt;ed to obtain memory pointers though it might be very
+slow.&lt;/p&gt;
+&lt;h2 id=&#34;framebuffer-formats-and-modifiers&#34;&gt;Framebuffer formats and modifiers&lt;/h2&gt;
+&lt;p&gt;Display controller needs to know how data in framebuffer is laid aout to know how to interpret
+it. This is indicated by pixel format and optional modifier. There are lots of formats and
+modifiers specified in &lt;code&gt;drm/drm_fourcc.h&lt;/code&gt;. Formats are four-letter codes, modifiers are 32-bit
+integers.&lt;/p&gt;
+&lt;p&gt;Pixel formats typically specify how one pixel is laid out: single-planar/multi-planar layout,
+order of components within a pixel, width and interpretation of every component.&lt;/p&gt;
+&lt;p&gt;Pixel formats also can be classified as single-plane and multi-plane. Single-plane store all
+information for a pixel in one place, multi-plane formats store components of the pixel
+separately, with every plane (chunk of memory) laying out components of pixels in the same order.&lt;/p&gt;
+&lt;p&gt;For example, &lt;code&gt;DRM_FORMAT_ABGR1555&lt;/code&gt; is defined as &lt;code&gt;[15:0] B:G:R:x 5:5:5:1 little endian&lt;/code&gt;:
+single-planar, RGB, one pixel occupies 16 bits, 5 bits of blue, green, red components
+and 1 bit of alpha.&lt;/p&gt;
+&lt;p&gt;Some formats are more cryptic: &lt;code&gt;DRM_FORMAT_YUV444&lt;/code&gt; is &lt;code&gt;non-subsampled Cr (1) and Cb (2) planes&lt;/code&gt;:
+YCbCr, 3 planes, 8 bit Y plane, 8 bit Cr plane, 8 bit Cb plane.&lt;/p&gt;
+&lt;p&gt;Pixel format modifiers typically specify how multiple pixels are laid out in memory: there
+is &lt;code&gt;DRM_FORMAT_MOD_LINEAR&lt;/code&gt; to force linear layout (pixels are laid out in memory one after
+another, left-to-right, top-to-bottom, with a possible padding between rows), and a number
+of modifiers to specify various tiling layouts (clumps of nearby pixels are stored
+in memory together) and framebuffer compression algorithms.&lt;/p&gt;
+&lt;p&gt;Every DRM plane exposes supported formats, so it&amp;rsquo;s up to userspace to pick one for best
+performance. Some DRM planes are specifically created to speedup frequent operations: it is
+common to see overlay planes that support YUV pixel formats for video playback: many video
+formats encode picture in YUV, so it allows decoding video directly into a framebuffer and
+skipping YUV-&amp;gt;RGB conversion.&lt;/p&gt;
+&lt;h2 id=&#34;dumb-buffers&#34;&gt;Dumb buffers&lt;/h2&gt;
+&lt;p&gt;Display controllers differ wildly in their requirements for memory allocation, so DRM drivers
+expose driver-specific &lt;code&gt;ioctl&lt;/code&gt;s for that, and rely on userspace to properly drive the hardware.
+However, requiring full Mesa to draw anything at all is a bit excessive, so DRM drivers also
+expose &lt;em&gt;dumb buffers&lt;/em&gt;: a limited API for allocating memory. Dumb buffers are allowed to be
+very slow, so they are provided mainly for diagnostic messages, splash screens and similar
+circumstances where speed is not a concern.&lt;/p&gt;
+&lt;p&gt;A dumb buffer is allocated using &lt;code&gt;DRM_IOCTL_MODE_CREATE_DUMB&lt;/code&gt; that takes width, height, and bpp
+of the buffer to be allocated. Buffer handle and pitch is returned. Dumb buffers can always
+be passed to DRM to draw images with (other types of buffers may not be, e.g. if they are
+GPU-only).&lt;/p&gt;
+&lt;p&gt;Dumb buffers may be &lt;code&gt;mmap&lt;/code&gt;ed using &lt;code&gt;DRM_IOCTL_MODE_MAP_DUMB&lt;/code&gt; and destroyed using
+&lt;code&gt;DRM_IOCTL_MODE_DESTROY_DUMB&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;DRM driver indicates dumb buffer support by &lt;code&gt;DRM_CAP_DUMB_BUFFER&lt;/code&gt; capability.&lt;/p&gt;
+&lt;p&gt;These drivers also expose &lt;code&gt;DRM_CAP_DUMB_PREFERRED_DEPTH&lt;/code&gt; capability for preferred depth
+(some drivers are unable to allocate dumb buffer of depth different from preferred),
+and &lt;code&gt;DRM_CAP_DUMB_PREFER_SHADOW&lt;/code&gt; to indicate that random access to dumb buffers is very slow,
+and applications should render somewhere else and batch-copy data to dumb buffer once done.&lt;/p&gt;
+&lt;h2 id=&#34;non-dumb-buffers&#34;&gt;Non-dumb buffers&lt;/h2&gt;
+&lt;p&gt;Non-dumb buffers are complicated and will be discussed in another post.&lt;/p&gt;
+&lt;h2 id=&#34;footnotes&#34;&gt;Footnotes&lt;/h2&gt;
+&lt;div class=&#34;footnotes&#34; role=&#34;doc-endnotes&#34;&gt;
+&lt;hr /&gt;
+&lt;ol&gt;
+&lt;li id=&#34;fn:1&#34; role=&#34;doc-endnote&#34;&gt;
+&lt;p&gt;Framebuffer planes are unrelated to DRM planes, even though the idea is similar: take several
+memory buffers and produce a combined picture. Plane image formats actually precede modern
+display controllers by a significant margin: NES used planar graphics back in 1983.&amp;#160;&lt;a href=&#34;#fnref:1&#34; class=&#34;footnote-backref&#34; role=&#34;doc-backlink&#34;&gt;&amp;#x21a9;&amp;#xfe0e;&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+
+    
+  </content>
+</entry>
 
 <entry>
   <id>https://dottedmag.net/blog/05-de-drm-pipeline/</id>
@@ -760,95 +849,6 @@ Application developers were disincentivised to use new features because they als
 &lt;/li&gt;
 &lt;li id=&#34;fn:2&#34; role=&#34;doc-endnote&#34;&gt;
 &lt;p&gt;Moreover, a free software license is not a universally sound choice for software authors. This limits the set of applications available for the distributions that insist that the application packaging and testing has to be done by the distribution maintainers.&amp;#160;&lt;a href=&#34;#fnref:2&#34; class=&#34;footnote-backref&#34; role=&#34;doc-backlink&#34;&gt;&amp;#x21a9;&amp;#xfe0e;&lt;/a&gt;&lt;/p&gt;
-&lt;/li&gt;
-&lt;/ol&gt;
-
-    
-  </content>
-</entry>
-
-<entry>
-  <id>https://dottedmag.net/blog/06-de-drm-framebuffer/</id>
-  <author><name>Mikhail Gusarov</name></author>
-  <title type="html">DE/compositor development notes - DRM framebuffers (1)</title>
-  <published>0001-01-01T00:00:00Z</published>
-  <updated>0001-01-01T00:00:00Z</updated>
-  
-  <link href="https://dottedmag.net/blog/06-de-drm-framebuffer/" rel="alternate"></link>
-  <content type="html">
-    
-      
-  &lt;p&gt;&lt;a href=&#34;/blog/05-de-drm-pipeline/&#34;&gt;Display controller pipeline&lt;/a&gt; takes framebuffers as input.&lt;/p&gt;
-&lt;p&gt;Framebuffer in DRM is a raster picture. Graphics display hardware is very particular
-about location and layout of that memory, and the details vary significantly between
-cards, so DRM provides some common functionality and leaves the rest to drivers.&lt;/p&gt;
-&lt;p&gt;A framebuffer consists of:&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;a chunk of memory (may be several chunks for pictures that are composed of several planes&lt;sup id=&#34;fnref:1&#34;&gt;&lt;a href=&#34;#fn:1&#34; class=&#34;footnote-ref&#34; role=&#34;doc-noteref&#34;&gt;1&lt;/a&gt;&lt;/sup&gt;)&lt;/li&gt;
-&lt;li&gt;width, height information, in pixels&lt;/li&gt;
-&lt;li&gt;pitch (also known as stride): number of bytes between successive lines of picture&lt;/li&gt;
-&lt;li&gt;pixel format and modifier (see below)&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;Display controllers are very particular about data format as they have to be able to scan
-and combine several megabytes&#39; worth of data fast enough to generate video signal for every frame,
-so DRM planes have restrictions on pixel formats they accept.&lt;/p&gt;
-&lt;h2 id=&#34;memory-handles&#34;&gt;Memory handles&lt;/h2&gt;
-&lt;p&gt;Display controller or GPU might have their own memory space, so DRM uses &lt;em&gt;handles&lt;/em&gt; to allocated
-memory. Some of these handles may be &lt;code&gt;mmap&lt;/code&gt;ed to obtain memory pointers though it might be very
-slow.&lt;/p&gt;
-&lt;h2 id=&#34;framebuffer-formats-and-modifiers&#34;&gt;Framebuffer formats and modifiers&lt;/h2&gt;
-&lt;p&gt;Display controller needs to know how data in framebuffer is laid aout to know how to interpret
-it. This is indicated by pixel format and optional modifier. There are lots of formats and
-modifiers specified in &lt;code&gt;drm/drm_fourcc.h&lt;/code&gt;. Formats are four-letter codes, modifiers are 32-bit
-integers.&lt;/p&gt;
-&lt;p&gt;Pixel formats typically specify how one pixel is laid out: single-planar/multi-planar layout,
-order of components within a pixel, width and interpretation of every component.&lt;/p&gt;
-&lt;p&gt;Pixel formats also can be classified as single-plane and multi-plane. Single-plane store all
-information for a pixel in one place, multi-plane formats store components of the pixel
-separately, with every plane (chunk of memory) laying out components of pixels in the same order.&lt;/p&gt;
-&lt;p&gt;For example, &lt;code&gt;DRM_FORMAT_ABGR1555&lt;/code&gt; is defined as &lt;code&gt;[15:0] B:G:R:x 5:5:5:1 little endian&lt;/code&gt;:
-single-planar, RGB, one pixel occupies 16 bits, 5 bits of blue, green, red components
-and 1 bit of alpha.&lt;/p&gt;
-&lt;p&gt;Some formats are more cryptic: &lt;code&gt;DRM_FORMAT_YUV444&lt;/code&gt; is &lt;code&gt;non-subsampled Cr (1) and Cb (2) planes&lt;/code&gt;:
-YCbCr, 3 planes, 8 bit Y plane, 8 bit Cr plane, 8 bit Cb plane.&lt;/p&gt;
-&lt;p&gt;Pixel format modifiers typically specify how multiple pixels are laid out in memory: there
-is &lt;code&gt;DRM_FORMAT_MOD_LINEAR&lt;/code&gt; to force linear layout (pixels are laid out in memory one after
-another, left-to-right, top-to-bottom, with a possible padding between rows), and a number
-of modifiers to specify various tiling layouts (clumps of nearby pixels are stored
-in memory together) and framebuffer compression algorithms.&lt;/p&gt;
-&lt;p&gt;Every DRM plane exposes supported formats, so it&amp;rsquo;s up to userspace to pick one for best
-performance. Some DRM planes are specifically created to speedup frequent operations: it is
-common to see overlay planes that support YUV pixel formats for video playback: many video
-formats encode picture in YUV, so it allows decoding video directly into a framebuffer and
-skipping YUV-&amp;gt;RGB conversion.&lt;/p&gt;
-&lt;h2 id=&#34;dumb-buffers&#34;&gt;Dumb buffers&lt;/h2&gt;
-&lt;p&gt;Display controllers differ wildly in their requirements for memory allocation, so DRM drivers
-expose driver-specific &lt;code&gt;ioctl&lt;/code&gt;s for that, and rely on userspace to properly drive the hardware.
-However, requiring full Mesa to draw anything at all is a bit excessive, so DRM drivers also
-expose &lt;em&gt;dumb buffers&lt;/em&gt;: a limited API for allocating memory. Dumb buffers are allowed to be
-very slow, so they are provided mainly for diagnostic messages, splash screens and similar
-circumstances where speed is not a concern.&lt;/p&gt;
-&lt;p&gt;A dumb buffer is allocated using &lt;code&gt;DRM_IOCTL_MODE_CREATE_DUMB&lt;/code&gt; that takes width, height, and bpp
-of the buffer to be allocated. Buffer handle and pitch is returned. Dumb buffers can always
-be passed to DRM to draw images with (other types of buffers may not be, e.g. if they are
-GPU-only).&lt;/p&gt;
-&lt;p&gt;Dumb buffers may be &lt;code&gt;mmap&lt;/code&gt;ed using &lt;code&gt;DRM_IOCTL_MODE_MAP_DUMB&lt;/code&gt; and destroyed using
-&lt;code&gt;DRM_IOCTL_MODE_DESTROY_DUMB&lt;/code&gt;.&lt;/p&gt;
-&lt;p&gt;DRM driver indicates dumb buffer support by &lt;code&gt;DRM_CAP_DUMB_BUFFER&lt;/code&gt; capability.&lt;/p&gt;
-&lt;p&gt;These drivers also expose &lt;code&gt;DRM_CAP_DUMB_PREFERRED_DEPTH&lt;/code&gt; capability for preferred depth
-(some drivers are unable to allocate dumb buffer of depth different from preferred),
-and &lt;code&gt;DRM_CAP_DUMB_PREFER_SHADOW&lt;/code&gt; to indicate that random access to dumb buffers is very slow,
-and applications should render somewhere else and batch-copy data to dumb buffer once done.&lt;/p&gt;
-&lt;h2 id=&#34;non-dumb-buffers&#34;&gt;Non-dumb buffers&lt;/h2&gt;
-&lt;p&gt;Non-dumb buffers are complicated and will be discussed in another post.&lt;/p&gt;
-&lt;h2 id=&#34;footnotes&#34;&gt;Footnotes&lt;/h2&gt;
-&lt;div class=&#34;footnotes&#34; role=&#34;doc-endnotes&#34;&gt;
-&lt;hr /&gt;
-&lt;ol&gt;
-&lt;li id=&#34;fn:1&#34; role=&#34;doc-endnote&#34;&gt;
-&lt;p&gt;Framebuffer planes are unrelated to DRM planes, even though the idea is similar: take several
-memory buffers and produce a combined picture. Plane image formats actually precede modern
-display controllers by a significant margin: NES used planar graphics back in 1983.&amp;#160;&lt;a href=&#34;#fnref:1&#34; class=&#34;footnote-backref&#34; role=&#34;doc-backlink&#34;&gt;&amp;#x21a9;&amp;#xfe0e;&lt;/a&gt;&lt;/p&gt;
 &lt;/li&gt;
 &lt;/ol&gt;
 
