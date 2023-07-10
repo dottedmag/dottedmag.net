@@ -1,3 +1,2 @@
-pic: /pics/me.jpg
 ----
 
