@@ -1,0 +1,146 @@
+
+<!doctype html>
+<html>
+<head>
+  
+  <meta charset="utf-8">
+  <!-- Still needed? -->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <meta name="author" content="Mikhail Gusarov">
+  <title>DE/compositor development notes - DRM framebuffers (1)</title>
+
+  <link rel="stylesheet" href="/styles/main.css">
+  <link rel="alternate" type="application/atom+xml" title="Mikhail Gusarov feed" href="../../blog.atom">
+
+  <script async="" src="https://www.googletagmanager.com/gtag/js?id=UA-120900398-1">
+  </script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'UA-120900398-1');
+  </script>
+
+</head>
+<body>
+  
+<header class="site-header" role="banner">
+  <div class="wrapper">
+    <a class="site-title" href="/">Mikhail Gusarov</a>
+    <nav class="site-nav">
+      <span class="menu-icon">
+        <svg viewBox="0 0 18 15" width="18px" height="15px">
+          <path fill="#424242" d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.031C17.335,0,18,0.665,18,1.484L18,1.484z"/>
+          <path fill="#424242" d="M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0c0-0.82,0.665-1.484,1.484-1.484 h15.031C17.335,6.031,18,6.696,18,7.516L18,7.516z"/>
+          <path fill="#424242" d="M18,13.516C18,14.335,17.335,15,16.516,15H1.484C0.665,15,0,14.335,0,13.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.031C17.335,12.031,18,12.696,18,13.516L18,13.516z"/>
+        </svg>
+      </span>
+      <div class="trigger">
+        <a class="page-link active-page-link" href="/">Blog</a>
+        <a class="page-link " href="/cv">CV</a>
+        <a class="page-link " href="/keys">Keys</a>
+        <a class="page-link " href="/software">Software</a>
+        <a class="page-link " href="/contacts">Contacts</a>
+      </div>
+    </nav>
+  </div>
+</header>
+
+  <main class="page-content">
+    <div class="wrapper">
+      
+<article class="post">
+  <h1>DE/compositor development notes - DRM framebuffers (1)</h1>
+  <div class="post-content">
+  <p><a href="/blog/05-de-drm-pipeline/">Display controller pipeline</a> takes framebuffers as input.</p>
+<p>Framebuffer in DRM is a raster picture. Graphics display hardware is very particular
+about location and layout of that memory, and the details vary significantly between
+cards, so DRM provides some common functionality and leaves the rest to drivers.</p>
+<p>A framebuffer consists of:</p>
+<ul>
+<li>a chunk of memory (may be several chunks for pictures that are composed of several planes<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup>)</li>
+<li>width, height information, in pixels</li>
+<li>pitch (also known as stride): number of bytes between successive lines of picture</li>
+<li>pixel format and modifier (see below)</li>
+</ul>
+<p>Display controllers are very particular about data format as they have to be able to scan
+and combine several megabytes' worth of data fast enough to generate video signal for every frame,
+so DRM planes have restrictions on pixel formats they accept.</p>
+<h2 id="memory-handles">Memory handles</h2>
+<p>Display controller or GPU might have their own memory space, so DRM uses <em>handles</em> to allocated
+memory. Some of these handles may be <code>mmap</code>ed to obtain memory pointers though it might be very
+slow.</p>
+<h2 id="framebuffer-formats-and-modifiers">Framebuffer formats and modifiers</h2>
+<p>Display controller needs to know how data in framebuffer is laid aout to know how to interpret
+it. This is indicated by pixel format and optional modifier. There are lots of formats and
+modifiers specified in <code>drm/drm_fourcc.h</code>. Formats are four-letter codes, modifiers are 32-bit
+integers.</p>
+<p>Pixel formats typically specify how one pixel is laid out: single-planar/multi-planar layout,
+order of components within a pixel, width and interpretation of every component.</p>
+<p>Pixel formats also can be classified as single-plane and multi-plane. Single-plane store all
+information for a pixel in one place, multi-plane formats store components of the pixel
+separately, with every plane (chunk of memory) laying out components of pixels in the same order.</p>
+<p>For example, <code>DRM_FORMAT_ABGR1555</code> is defined as <code>[15:0] B:G:R:x 5:5:5:1 little endian</code>:
+single-planar, RGB, one pixel occupies 16 bits, 5 bits of blue, green, red components
+and 1 bit of alpha.</p>
+<p>Some formats are more cryptic: <code>DRM_FORMAT_YUV444</code> is <code>non-subsampled Cr (1) and Cb (2) planes</code>:
+YCbCr, 3 planes, 8 bit Y plane, 8 bit Cr plane, 8 bit Cb plane.</p>
+<p>Pixel format modifiers typically specify how multiple pixels are laid out in memory: there
+is <code>DRM_FORMAT_MOD_LINEAR</code> to force linear layout (pixels are laid out in memory one after
+another, left-to-right, top-to-bottom, with a possible padding between rows), and a number
+of modifiers to specify various tiling layouts (clumps of nearby pixels are stored
+in memory together) and framebuffer compression algorithms.</p>
+<p>Every DRM plane exposes supported formats, so it&rsquo;s up to userspace to pick one for best
+performance. Some DRM planes are specifically created to speedup frequent operations: it is
+common to see overlay planes that support YUV pixel formats for video playback: many video
+formats encode picture in YUV, so it allows decoding video directly into a framebuffer and
+skipping YUV-&gt;RGB conversion.</p>
+<h2 id="dumb-buffers">Dumb buffers</h2>
+<p>Display controllers differ wildly in their requirements for memory allocation, so DRM drivers
+expose driver-specific <code>ioctl</code>s for that, and rely on userspace to properly drive the hardware.
+However, requiring full Mesa to draw anything at all is a bit excessive, so DRM drivers also
+expose <em>dumb buffers</em>: a limited API for allocating memory. Dumb buffers are allowed to be
+very slow, so they are provided mainly for diagnostic messages, splash screens and similar
+circumstances where speed is not a concern.</p>
+<p>A dumb buffer is allocated using <code>DRM_IOCTL_MODE_CREATE_DUMB</code> that takes width, height, and bpp
+of the buffer to be allocated. Buffer handle and pitch is returned. Dumb buffers can always
+be passed to DRM to draw images with (other types of buffers may not be, e.g. if they are
+GPU-only).</p>
+<p>Dumb buffers may be <code>mmap</code>ed using <code>DRM_IOCTL_MODE_MAP_DUMB</code> and destroyed using
+<code>DRM_IOCTL_MODE_DESTROY_DUMB</code>.</p>
+<p>DRM driver indicates dumb buffer support by <code>DRM_CAP_DUMB_BUFFER</code> capability.</p>
+<p>These drivers also expose <code>DRM_CAP_DUMB_PREFERRED_DEPTH</code> capability for preferred depth
+(some drivers are unable to allocate dumb buffer of depth different from preferred),
+and <code>DRM_CAP_DUMB_PREFER_SHADOW</code> to indicate that random access to dumb buffers is very slow,
+and applications should render somewhere else and batch-copy data to dumb buffer once done.</p>
+<h2 id="non-dumb-buffers">Non-dumb buffers</h2>
+<p>Non-dumb buffers are complicated and will be discussed in another post.</p>
+<h2 id="footnotes">Footnotes</h2>
+<div class="footnotes" role="doc-endnotes">
+<hr />
+<ol>
+<li id="fn:1" role="doc-endnote">
+<p>Framebuffer planes are unrelated to DRM planes, even though the idea is similar: take several
+memory buffers and produce a combined picture. Plane image formats actually precede modern
+display controllers by a significant margin: NES used planar graphics back in 1983.&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+</ol>
+</div>
+
+  </div>
+  <div class="post-meta">
+    
+<time datetime="0001-01-01T00:00:00Z">
+  0001-01-01
+</time>
+
+  </div>
+</article>
+
+    </div>
+  </main>
+  
+
+</body>
+</html>
