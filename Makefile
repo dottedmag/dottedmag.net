@@ -11,3 +11,6 @@ w:
 	mkdir -p docs
 	touch docs/.nojekyll
 	$(GS) -w config
+
+deploy: compile
+	rsync -az --delete docs/ tea:/srv/www/dottedmag.net/htdocs/
