@@ -1,4 +1,4 @@
-title: DE/compositor development notes - properties and atomic interface
+title: DE/compositor development notes - DRM properties and atomic interface
 date: 2023-07-16
 ----
 As explained in [DRM pipeline](/blog/05-de-drm-pipeline), DRM is configured
