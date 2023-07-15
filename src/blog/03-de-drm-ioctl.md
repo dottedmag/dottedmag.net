@@ -5,7 +5,9 @@ What can compositor do with DRM devices once it [has found](/blog/01-de-drm/) th
 
 These devices respond to a number of `ioctl`s. All DRM devices respond to a set
 of common `ioctl`s that cover display controller functionality, and there are
-driver-specific `ioctl`s used chiefly by Mesa for rendering operations.
+driver-specific `ioctl`s used chiefly by Mesa for rendering operations. In addition,
+kernel writes data to open DRM file descriptors whenever an
+[event happened](/blog/08-de-drm-atomic) and userspace has requested to know about it.
 
 The list of `ioctl`s is pretty large, so this post covers only a small subset.
 
