@@ -47,7 +47,7 @@ Property metadata (name, type, enum values) can be read using `DRM_IOCTL_MODE_GE
 Blobs are a bit different from other properties, as they are not set directly. Instead,
 one creates a blob value using `DRM_IOCTL_MODE_CREATEPROPBLOB`, and uses returned ID as a value.
 
-When a blob is no longer needed, it is removed using `DRM_IOCTL_MODE_DESTROYPROPBLOB`. Current
+When a blob is no longer needed, it can removed using `DRM_IOCTL_MODE_DESTROYPROPBLOB`. Current
 value can be retrieved using `DRM_IOCTL_MODE_GETPROPBLOB`.
 
 ## CRTC
