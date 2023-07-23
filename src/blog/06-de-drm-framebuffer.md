@@ -25,7 +25,7 @@ DRM framebuffers are manipulated using the following `ioctls`:
 (width/height/pixel format+modifier/flags, handles/pitches(strides) of planes), and
 returns framebuffer ID.
 
-`DRM_IOCTL_MODE_RMFB` remvoves a framebuffer.
+`DRM_IOCTL_MODE_RMFB` removes a framebuffer.
 
 `DRM_IOCTL_MODE_GETFB2` retrieves framebuffer metadata: everything one has supplied to `ADDFB2`.
 
