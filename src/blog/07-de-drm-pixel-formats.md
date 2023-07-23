@@ -9,7 +9,7 @@ integers.
 Pixel formats typically specify how one pixel is laid out: single-planar/multi-planar layout,
 order of components within a pixel, width and interpretation of every component.
 
-Pixel formats also can be classified as single-plane and multi-plane. Single-plane store all
+Pixel formats can be classified as single-plane and multi-plane. Single-plane store all
 information for a pixel in one place, multi-plane formats store components of the pixel
 separately, with every plane (chunk of memory) laying out components of pixels in the same order.
 
