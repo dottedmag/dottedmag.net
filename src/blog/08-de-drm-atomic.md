@@ -28,6 +28,7 @@ via properties.
 
 CRTCs, planes and connectors have properties: mapping of string to value. Some values are
 read/only, some are read/write. Values of properties may be of several types:
+- integer
 - range (two unsigned integers)
 - enum (one of several string values)
 - blob (a bag of bytes)
