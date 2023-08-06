@@ -65,10 +65,6 @@ project.
 
 <div style="page-break-before: always;"></div>
 
-## Work preferences
-
-I am seeking remote work opportunity that offers a reasonably flexible schedule.
-
 ## Professional Experience
 
 ## [Ridge](https://ridge.co) (2018—Present)
