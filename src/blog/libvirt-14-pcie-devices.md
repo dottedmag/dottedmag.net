@@ -148,7 +148,7 @@ it's simply a matter of adding another option to the libvirt domain definition.
 
 It already supports a number of obscure options (you can make QEMU claim to
 support a CPU feature regardless of whether the host CPU supports it, really?), so
-adding one more woild fit in just fine.
+adding one more would fit in just fine.
 
 Nope. ["there are no plans to address it further or fix it in an upcoming release"](https://bugzilla.redhat.com/show_bug.cgi?id=1408810).
 
