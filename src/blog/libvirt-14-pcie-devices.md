@@ -1,6 +1,11 @@
 title: Why does libvirt support only 14 PCIe hotplugged devices on x86-64?
 date: 2023-08-06
 ----
+You might have used `libvirt`, a service that provides an abstraction
+and management layer for virtualization software. This service allows you
+to submit an XML file containing a description of a VM, disk image or network.
+`libvirt` is then able to configure, start it and keep it running.
+
 There is a peculiar limitation in VMs started by `libvirt`:
 [they can only support up to 14 hotpluggable PCIe slots](https://bugzilla.redhat.com/show_bug.cgi?id=1408810).
 Attempting to start a VM with 15 PCIe slots will fail.
