@@ -17,6 +17,8 @@ have demonstrated technical leadership and product management skills.
 I am a contributor to various open-source projects, including
 prominent ones like BusyBox, fontconfig, GNOME, Linux, and VLC.
 
+I'm open to contract and full-time opportunities.
+
 ## Areas of Expertise
 
 ### Software design, Development & Operations
