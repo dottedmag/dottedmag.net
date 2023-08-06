@@ -130,7 +130,7 @@ I'm at loss as to why it's off by default. Could there be configurations where
 this is not going to work, such as PCI device plugged into PCIe->PCI bridge?
 
 Anyway, the option is available, and if used, the amount of PCIe slots
-in the QEMU machine won't not limited to 16 (it will instead be limited by the number
+in the QEMU machine won't be limited to 16 (it will instead be limited by the number
 of PCI bus numbers, as each PCI bridge uses one number, but that's a different
 story).
 
