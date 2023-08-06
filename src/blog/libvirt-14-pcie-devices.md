@@ -74,7 +74,7 @@ range had to be continuous.
 I can only guess why the new bus has such an x86-specific feature. It might have
 been a design decision made to simplify the adaptation of hardware peripherals
 that utilize I/O ports to a new bus. Or it might have been the result of Intel
-engineers designing the specification match Intel hardware.
+engineers designing the specification to match Intel hardware.
 
 ## PCI bridges
 
