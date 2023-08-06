@@ -87,7 +87,7 @@ However, engineers working on the PCI specification developed
 as a way to increase the address space of the bus, as a PCI bus without bridges
 can only contain 63 devices.
 
-To to handle PCI devices that request ranges of I/O ports, a PCI bridge
+To handle PCI devices that request ranges of I/O ports, a PCI bridge
 must reserve I/O ports for itself. PCI does not support dynamic port allocation,
 so every bridge must reserve I/O ports upon powering on.
 
