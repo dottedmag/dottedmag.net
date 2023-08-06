@@ -141,7 +141,7 @@ story).
 
 ## libvirt
 
-![libvirt logo](libvirt.svg)
+![libvirt logo](libvirt.png)
 
 Given that QEMU has provided this option for some time, one might think
 it's simply a matter of adding another option to the libvirt domain definition.
