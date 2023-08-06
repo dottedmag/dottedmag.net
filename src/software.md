@@ -3,7 +3,7 @@ title: Software
 
 # My projects
 
-* [OpenInkpot](https://openinkpot.org/)
+* [OpenInkpot](https://wiki.mobileread.com/wiki/Openinkpot)
 
 # My contributions
 
