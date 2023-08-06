@@ -104,7 +104,9 @@
   <ul>
     {{ with .Site.Pages.Children "blog/" }}
       {{ range . }}
-        {{ template "postlink" . }}
+        {{ if ends ".md" .Source }}
+          {{ template "postlink" . }}
+        {{ end }}
       {{ end }}
     {{ end }}
   </ul>
