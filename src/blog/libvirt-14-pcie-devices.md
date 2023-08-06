@@ -1,4 +1,4 @@
-title: Why does libvirt support only 14 PCIe hotplugged devices on x86-64?
+title: Why does libvirt support only 14 hot-plugged PCIe devices on x86-64?
 date: 2023-08-06
 ----
 You might have used `libvirt`, a Linux daemon that provides an abstraction
