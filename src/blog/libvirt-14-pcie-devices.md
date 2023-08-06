@@ -21,7 +21,7 @@ In June 1970, the Computer Terminal Corporation announced
 the [Datapoint 2200](https://en.wikipedia.org/wiki/Datapoint_2200), a programmable
 computer terminal.
 
-The Datapoint 2020 contained a primitive CPU, two of its instructions being `INP`/`OUT`.
+The Datapoint 2200 contained a primitive CPU, two of its instructions being `INP`/`OUT`.
 These instructions were designed to read or write one byte of data from one
 of 8 input/output ports.
 
