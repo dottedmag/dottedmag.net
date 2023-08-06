@@ -67,7 +67,7 @@ eventually known as PCI.
 This bus acknowledged the need of peripherals to communicate with host via shared
 memory, however it also provides the option for a PCI device to [reserve a range
 of I/O ports](https://en.wikipedia.org/wiki/Peripheral_Component_Interconnect#PCI_address_spaces). This reservation is not fixed unlike original PC, but the reserved
-range ha to be continuous.
+range has to be continuous.
 
 I can only guess why the new bus has got such a x86-specific feature. It might be
 the design decision to ease adapting hardware peripherals utilizing I/O ports
@@ -89,9 +89,9 @@ To be able to handle PCI devices requesting ranges of I/O ports, a PCI bridge
 has to reserve I/O ports for itself. There is no dynamic range allocation in
 PCI, so any bridge has to reserve the I/O ports on power on.
 
-Moreover, PCI bridge specification says that I/O ports granularity is 4K, so
-every bridge has to allocate at least 4K of I/O ports to be able to handle a
-PCI card that requests as little as 1 port.
+Moreover, PCI bridge specification says that I/O ports reservation granularity
+is 4K, so every bridge has to allocate at least 4K of I/O ports to be able to
+handle a PCI card that requests as little as 1 port.
 
 PCI bridges were quite static hardware, so this was not a large consideration
 when the bridges were introduced. Several 4096 blocks were allocated out of 65536
@@ -104,7 +104,7 @@ I/O address space, and unless the PCI bus was enormous it all worked out quite w
 In 2003, PCI Express bus has been created to replace and simultaneously be
 backwards-compatible with PCI.
 
-Due to compatibility considerations any root PCIe port is represented in PCI
+Due to compatibility considerations any PCIe slot is represented in PCI
 hierarchy as a PCI bridge.
 
 You can see where it is going:
@@ -116,7 +116,7 @@ You can see where it is going:
   in virtualized environment.
 
 The designers of PCIe has recognized this limitation and stipulated that any
-PCIe hardware must be functional if I/O port request was not fulfilled.
+PCIe hardware must still be functional if its I/O port request is not fulfilled.
 
 ## QEMU
 
@@ -136,13 +136,13 @@ story).
 ![libvirt logo](libvirt.svg)
 
 Given that QEMU has exposed this option for some time, one would think
-it's just a matter of adding another option in libvirt domain definition.
+it's just a matter of adding another option to libvirt domain definition.
 
 It already supports a number of obscure options (you can make QEMU claim to
 support a CPU feature no matter if the host CPU supports it, really?), so
 yet another one woild fit in just fine.
 
-Nope. [there are no plans to address it further or fix it in an upcoming release](https://bugzilla.redhat.com/show_bug.cgi?id=1408810).
+Nope. ["there are no plans to address it further or fix it in an upcoming release"](https://bugzilla.redhat.com/show_bug.cgi?id=1408810).
 
 So if you wish to have more than 14 PCIe slots in your VM, you'll have to use
 QEMU directly.
