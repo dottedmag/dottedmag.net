@@ -43,8 +43,8 @@ instruction set.
 
 When Intel engineers had set out to develop a new product that eventually became
 known as the Intel 8080, they were definitely inspired by the 8008 instruction set,
-so the 8080 ISA contains the `IN`/`OUT` instructions, though they extended to 256
-addresses.
+so the 8080 ISA contains the `IN`/`OUT` instructions, though they were extended to address 256
+I/O ports.
 
 I'm not a hardware engineer, so I'm not entirely sure why this CPU retained the
 separate I/O address space instead of using memory-mapped peripherals like other CPUs.
