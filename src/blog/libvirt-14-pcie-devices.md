@@ -102,9 +102,9 @@ To handle PCI devices that request ranges of I/O ports, a PCI bridge
 must reserve I/O ports for itself. PCI does not support dynamic port allocation,
 so every bridge must reserve I/O ports upon powering on.
 
-Moreover, PCI bridge specification states that the reservation granularity
-of I/O ports is 4K, so every bridge must allocate a minimum of 4K of I/O ports
-to handle a PCI card that requests as few as one port.
+Moreover, PCI bridge specification states that the reservation granularity and
+alignment of I/O ports is 4K, so every bridge must allocate a minimum of 4K of
+I/O ports to handle a PCI card that requests as few as one port.
 
 PCI bridges were quite static hardware, so this was not a major consideration
 when the bridges were introduced. Several 4096 I/O port blocks were allocated
@@ -144,6 +144,21 @@ Anyway, the option is available, and if used, the amount of PCIe slots
 in the QEMU machine won't be limited to 16 (it will instead be limited by the number
 of PCI bus numbers, as each PCI bridge uses one number, but that's a different
 story).
+
+So, why is the limit 14 and not 16? Remember, the bridge I/O ports allocation has
+to be aligned to 4K. Apparently, PCIe hotplug is unable to allocate two 4K blocks,
+which implies that other devices are likely using them.
+
+Indeed, if one looks at `/proc/ioports` in QEMU, there are a number of ancient
+devices hogging I/O ports in the `0x0000` - `0x0fff` range. This explains the 1 slot
+discrepancy.
+
+Where did the final slot go? Q35 machine type, which is the modern x86-64 machine
+emulated by QEMU, [has a non-removable SATA AHCI controller](https://libvirt-users.redhat.narkive.com/PaT3J6El/machine-pc-q35-2-1-and-sata-controller).
+This controller, sitting on a PCI bus, requests 64 I/O ports. I don't know why
+this&mdash;quite modern&mdash;controller needs I/O ports, and I don't know why
+QEMU cannot allocate these ports below `0x0fff`, but it accounts for the final
+unavailable slot.
 
 ## libvirt
 
