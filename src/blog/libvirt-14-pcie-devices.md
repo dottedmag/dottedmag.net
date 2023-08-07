@@ -1,6 +1,12 @@
 title: Why does libvirt support only 14 hot-plugged PCIe devices on x86-64?
 date: 2023-08-06
 ----
+<hr>
+
+*See the discussion of this blog post on [Hacker News](https://news.ycombinator.com/item?id=37023885)*
+
+<hr>
+
 You might have used `libvirt`, a Linux daemon that provides an abstraction
 and management layer for virtualization software. This daemon allows you
 to submit an XML file containing a description of a VM, disk image or network.
