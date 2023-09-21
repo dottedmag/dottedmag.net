@@ -10,76 +10,30 @@ title: Mikhail Gusarov - CV
 
 ## Professional Summary
 
-I am experienced technical leader in the field software engineering, with the deep
+I am an experienced technical leader in the field of software engineering, with deep
 expertise in the following areas:
 - setting up full cycle development process, from requirements gathering to operations,
-- technical guidance/governance,
-- organizational and technical complexity management.
+- providing technical guidance/governance,
+- managing organizational and technical complexity.
 
 My background is in software engineering, and I keep my engineering
-skills honed: I keep designing, developing, maintaining, and
-operating software systems emphasizing long-term maintainability.
+skills sharp: I am constantly involved in designing, maintaining,
+and operating software systems with an emphasis on long-term maintainability.
 
-I am a contributor to various open-source projects, including
-prominent ones like Linux, GNOME, VLC and Busybox.
-
-I'm open to contract and full-time opportunities.
-
-## Areas of Expertise
-
-### Technical leadership
-
-I have experience in introducing, setting up and fine-tuning software
-development, testing, and deployment processes. I established engineering
-processes for software design, development, code review, continuous
-integration, and testing in Ridge, CFEngine and OpenInkpot.
-
-### Product management
-
-At Ridge, I have defined product requirements based on customers needs,
-aiming to make the product appealing to various roles within our customers'
-organizations.
-
-In OpenInkpot, I determined the product scope, gathered information about
-customer needs, and translated them into specific product requirements.
-
-### Project management
-
-I have managed small, volunteer-based teams, including the the distributed team
-responsible for producing software for the Azbooka e-reader of the OpenInkpot
-project.
-
-### Software design, Development & Operations
-
-At Ridge, my responsibilities inlcude software architecture,
-component design and the development of development tools
-and procedures. Additionally, I have implemented a significant portion
-of the system.
-
-At Luminati, I designed and implemented an application-level metrics and
-logging system to improve the visibility of application behavior. Moreover
-I created a custom database system to address a performance bottleneck
-that could not be resolved with off-the-shelf databases.
-
-In the OpenInkpot project, I steered the development of an embedded
-Linux distribution specifically designed for eBook readers, encompassing
-everything from the kernel to a custom UI optimized for e-Ink screens.
-
-Some of my code can be found on most Linux machines. If you are using a
-desktop Linux system, you might consider executing `man 1 unshare` and
-referring to the `AUTHORS` section.
-
-<div style="page-break-before: always;"></div>
+I'm open to both contract and full-time opportunities.
 
 ## Professional Experience
 
 ## [Ridge](https://ridge.co) (2018—Present)
 
+Distributed IaaS, PaaS cloud.
+
 Head of Engineering.
 
-* Responsible for creating product requirements, software architecture,
-internal tools and development procedures.
-* Code reviewer and individual contributor.
+* Requriements development and management.
+* Software development, testing and operations proceses setup, fine-tuning.
+* Software architecture, component design, design review.
+* Individual contributor.
 
 ## [Hola!](https://hola.org) / [Luminati](https://luminati.io) (2013—2018)
 
@@ -95,14 +49,15 @@ Staff software engineer.
 
 ## [CFEngine](https://cfengine.com) (2011-2013)
 
+Server automation suite.
+
 Senior software engineer.
 
 ## [OpenInkpot](https://wiki.mobileread.com/wiki/Openinkpot) (2007-2012)
 
-Founder, software developer, product manager, project manager.
+Open source Linux distribution for eBook readers.
 
-* Developed a Linux distribution for eBook readers, building infrastructure,
-and implementing low-level code.
+Founder, software developer, product manager, project manager.
 
 ## [Parallels](https://parallels.com) (2004-2007)
 
@@ -117,7 +72,14 @@ and implementing low-level code.
 
 * Developed a Web applications packaging format [Web applications packaging format](https://en.wikipedia.org/wiki/Application_Packaging_Standard).
 
-<div style="page-break-before: always;"></div>
+## Open source contributions
+
+I contribute to various open-source projects, including
+notable ones such as Linux, GNOME, VLC and Busybox.
+
+Some of my code can be found on most Linux machines. If you are using a
+desktop Linux system, you might consider executing `man 1 unshare` and
+referring to the `AUTHORS` section.
 
 ## Other Professional Experiences
 
