@@ -10,16 +10,44 @@ title: Mikhail Gusarov - CV
 
 ## Professional Summary
 
-I am a software engineer who specializes in the design, development,
-maintenance, and operation software systems emphasizing long-term
-maintainability. My experience includes leading small teams, and I
-have demonstrated technical leadership and product management skills.
+I am experienced technical leader in the field software engineering, with the deep
+expertise in the following areas:
+- setting up full cycle development process, from requirements gathering to operations,
+- technical guidance/governance,
+- organizational and technical complexity management.
+
+My background is in software engineering, and I keep my engineering
+skills honed: I keep designing, developing, maintaining, and
+operating software systems emphasizing long-term maintainability.
+
 I am a contributor to various open-source projects, including
-prominent ones like BusyBox, fontconfig, GNOME, Linux, and VLC.
+prominent ones like Linux, GNOME, VLC and Busybox.
 
 I'm open to contract and full-time opportunities.
 
 ## Areas of Expertise
+
+### Technical leadership
+
+I have experience in introducing, setting up and fine-tuning software
+development, testing, and deployment processes. I established engineering
+processes for software design, development, code review, continuous
+integration, and testing in Ridge, CFEngine and OpenInkpot.
+
+### Product management
+
+At Ridge, I have defined product requirements based on customers needs,
+aiming to make the product appealing to various roles within our customers'
+organizations.
+
+In OpenInkpot, I determined the product scope, gathered information about
+customer needs, and translated them into specific product requirements.
+
+### Project management
+
+I have managed small, volunteer-based teams, including the the distributed team
+responsible for producing software for the Azbooka e-reader of the OpenInkpot
+project.
 
 ### Software design, Development & Operations
 
@@ -40,28 +68,6 @@ everything from the kernel to a custom UI optimized for e-Ink screens.
 Some of my code can be found on most Linux machines. If you are using a
 desktop Linux system, you might consider executing `man 1 unshare` and
 referring to the `AUTHORS` section.
-
-### Technical leadership
-
-I have experience in introducing, setting up and fine-tuning software
-development, testing, and deployment processes. I established engineering
-processes for code review, continuous integration, and unit and acceptance
-testing in Ridge, CFEngine and OpenInkpot.
-
-### Product management
-
-At Ridge, I have defined product requirements based on customers needs,
-aiming to make the product appealing to various roles within our customers'
-organizations.
-
-In OpenInkpot, I determined the product scope, gathered information about
-customer needs, and translated them into specific product requirements.
-
-### Project management
-
-I have managed small, volunteer-based teams, including the the distributed team
-responsible for producing software for the Azbooka e-reader of the OpenInkpot
-project.
 
 <div style="page-break-before: always;"></div>
 
