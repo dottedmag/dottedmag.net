@@ -69,7 +69,7 @@ project.
 
 ## [Ridge](https://ridge.co) (2018—Present)
 
-Software architect.
+Head of Engineering.
 
 * Responsible for creating product requirements, software architecture,
 internal tools and development procedures.

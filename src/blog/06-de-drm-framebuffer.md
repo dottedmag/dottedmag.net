@@ -17,23 +17,23 @@ Display controllers are very particular about data format as they have to be abl
 and combine several megabytes' worth of data fast enough to generate video signal for every frame,
 so DRM planes have restrictions on pixel formats they accept.
 
+## Memory handles
+
+Display controller or GPU might have their own memory space, so DRM uses _handles_ to refer to
+allocated smemory. Some of these handles may be `mmap`ed to obtain memory pointers though it might
+be very slow.
+
 ## API
 
 DRM framebuffers are manipulated using the following `ioctls`:
 
 `DRM_IOCTL_MODE_ADDFB2` creates a new framebuffer. It takes framebuffer metadata
-(width/height/pixel format+modifier/flags, handles/pitches(strides) of planes), and
-returns framebuffer ID.
+(width/height/pixel format+modifier/flags, handles/pitches(strides) of planes,
+memory handles of planes), and returns framebuffer ID.
 
 `DRM_IOCTL_MODE_RMFB` removes a framebuffer.
 
 `DRM_IOCTL_MODE_GETFB2` retrieves framebuffer metadata: everything one has supplied to `ADDFB2`.
-
-## Memory handles
-
-Display controller or GPU might have their own memory space, so DRM uses _handles_ to allocated
-memory. Some of these handles may be `mmap`ed to obtain memory pointers though it might be very
-slow.
 
 ## Dumb buffers
 
