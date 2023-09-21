@@ -77,7 +77,7 @@ internal tools and development procedures.
 
 ## [Hola!](https://hola.org) / [Luminati](https://luminati.io) (2013—2018)
 
-Senior software engineer.
+Staff software engineer.
 
 * Enhanced the availability of performance information for Hola services
   by implementing centralized application-level logging and metrics.
