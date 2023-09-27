@@ -26,14 +26,23 @@ I'm open to both contract and full-time opportunities.
 
 ## [Ridge](https://ridge.co) (2018—Present)
 
-Distributed IaaS, PaaS cloud.
-
 Head of Engineering.
 
-* Requriements development and management.
-* Software development, testing and operations proceses setup, fine-tuning.
-* Software architecture, component design, design review.
-* Individual contributor.
+Ridge developed and operates a distributed IaaS/PaaS cloud:
+- Workloads run across hundreds of globally dispersed data centers,
+- A new data center can be added to the system within minutes to hours,
+- IaaS offers computing workloads, network isolation, IP management, load balancing and persistent storage.
+- PaaS offers managed Kubernetes, managed containers and managed object storage.
+
+My roles comprised software architect, technical leader and software engineer.
+
+Key achievments:
+- Devised a unique software architecture, reducing the project's complexity and negating the need for a large team to deliver full functionality in a timely manner.
+- Introduced and optimised design, development, testing and operational processes to utilize our limited resources optimally.
+- Oversaw the design and mentored the team.
+- Implemented a significant portion of the system.
+
+Consequently, a compact engineering team, 10 engineers on average, could rapidly deliver the required functionality.
 
 ## [Hola!](https://hola.org) / [Luminati](https://luminati.io) (2013—2018)
 
