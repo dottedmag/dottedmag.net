@@ -36,7 +36,7 @@ Ridge developed and operates a distributed IaaS/PaaS cloud:
 
 My roles comprised software architect, technical leader and software engineer.
 
-Key achievments:
+Key achievements:
 - Devised a unique software architecture, reducing the project's complexity and negating the need for a large team to deliver full functionality in a timely manner.
 - Introduced and optimised design, development, testing and operational processes to utilize our limited resources optimally.
 - Oversaw the design and mentored the team.
