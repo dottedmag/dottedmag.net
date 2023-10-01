@@ -1,7 +1,7 @@
 title: Dependencies
 date: 2022-12-01
 ----
-## Why dependencies are useful?
+## Why are dependencies useful?
 
 - Quick prototyping
 - Bugs are someone else's concern
@@ -9,7 +9,7 @@ date: 2022-12-01
 - Complicated algorithms and cryptography are someone else's concern
 - Security-critical code testing is someone else's concern
 
-## Why dependencies are problematic?
+## Why are dependencies problematic?
 
 - Balooning build times
 - Balooning build graph (hence tools slow down)
