@@ -26,7 +26,7 @@ date: 2022-12-01
 - Stable interfaces for unstable external systems (scraping, unstable APIs etc)
 - Parsing, including basic network protocols: JSON, HTTP, XML et al.
 
-By and large, less often a dependency changes (without accumulating known bugs) the more potentially useful it is.
+By and large, the less often a dependency changes (without accumulating known bugs), the more potentially useful it is.
 
 ## Harmful dependencies
 
