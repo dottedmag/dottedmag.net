@@ -1,9 +1,9 @@
 TEMPLATES = site.tmpl
 SOURCE = src
 OUTPUT = docs
-TITLE = Mikhail Gusarov
+TITLE = Mike Dotty
 URL = https://dottedmag.net/
-AUTHOR = Mikhail Gusarov
+AUTHOR = Mike Dotty
 
 blog/*.md:
 	config
