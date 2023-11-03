@@ -1,10 +1,10 @@
 layout: page
-title: Mikhail Gusarov - CV
+title: Mike Dotty - CV
 ----
 
 ## Contact information
 
-- Mikhail Gusarov
+- Mike Dotty
 - E-mail: [cv@dt.mg](mailto:cv@dt.mg)
 - Phone: +356 99100291 (Timezone: UTC+1)
 
