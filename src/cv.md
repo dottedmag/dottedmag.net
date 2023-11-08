@@ -24,7 +24,7 @@ I'm open to both contract and full-time opportunities.
 
 ## Professional Experience
 
-## [Ridge](https://ridge.co) (2018—Present)
+## [Ridge](https://www.crunchbase.com/organization/tectonic-c189) (2018—Present)
 
 Head of Engineering.
 
