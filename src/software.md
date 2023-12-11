@@ -39,6 +39,7 @@ title: Software
 
 [Attest](https://pythonhosted.org/Attest/),
 [Boost](https://www.boost.org/),
+[blinkenlights](https://justine.lol/blinkenlights/)
 [buddy-sign](https://github.com/funcool/buddy-sign),
 [Buildbot](https://buildbot.net/),
 [BusyBox](https://busybox.net/),
