@@ -3,7 +3,7 @@ date: 2023-12-15
 ----
 Debugging [Klipper](https://www.klipper3d.org/) communication with
 a MCU is not trivial: Klipper has debug commands, but these commands
-use the same communication protocol that might being debugged.
+use the same communication protocol that might need to be debugged.
 
 [My Klipper branch](https://github.com/dottedmag/klipper/tree/debug-print)
 adds `debug_print` function that outputs text to the serial port for
