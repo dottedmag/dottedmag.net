@@ -10,23 +10,22 @@ title: Mike Dotty - CV
 
 ## Professional Summary
 
-I am an experienced technical leader in the field of software engineering, with deep
+I am an experienced software engineer, with background in server automation,
+cloud infrastructure and server-side architecture.
+
+I have experience being a technical leader, with deep
 expertise in the following areas:
 - setting up full cycle development process, from requirements gathering to operations,
 - providing technical guidance/governance,
 - managing organizational and technical complexity.
 
-My background is in software engineering, and I keep my engineering
-skills sharp: I am constantly involved in designing, maintaining,
-and operating software systems with an emphasis on long-term maintainability.
-
 I'm open to both contract and full-time opportunities.
 
 ## Professional Experience
 
-## [Ridge](https://www.crunchbase.com/organization/tectonic-c189) (2018—Present)
+## [Ridge](https://ridge.co) (2018—Present)
 
-Head of Engineering.
+Lead Engineer.
 
 Ridge developed and operates a distributed IaaS/PaaS cloud:
 - Workloads run across hundreds of globally dispersed data centers,
