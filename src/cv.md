@@ -5,7 +5,7 @@ title: Mike Dotty - CV
 ## Contact information
 
 - Mike Dotty
-- E-mail: [cv@dt.mg](mailto:cv@dt.mg)
+- E-mail: [cv@dottedmag.net](mailto:cv@dottedmag.net)
 - Phone: +356 99100291 (Timezone: UTC+1)
 
 ## Professional Summary
