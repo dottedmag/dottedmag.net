@@ -23,7 +23,13 @@ I'm open to both contract and full-time opportunities.
 
 ## Professional Experience
 
-## [Ridge](https://ridge.co) (2018—Present)
+## [Blackbird](https://blackbrd.co) (2024—Present)
+
+Head of Engineering, CSO.
+
+A new startup, the product is still under wraps.
+
+## [Ridge](https://ridge.co) (2018—2024)
 
 Lead Engineer.
 
