@@ -45,10 +45,13 @@ this window in absolute coordinate space", but "The application would like to op
 This step is crucial. Without this reformulation, it's impossible to evaluate whether this functionality
 is already present in Wayland/XDG portals, what its scope if it isn't, and where it belongs.
 
-### Step three: Does the missing functionality require obtaining data from other _uncooperating_ applications?
+### Step three: Check the security aspects
 
-If it does, then it runs afoul of the principle of security. This behaviour will never be added to the Wayland protocol.
-It either should go to compositors or to an XDG portal.
+Does the missing functionality require obtaining data from other _uncooperating_ applications, or user's input not
+directed to the application window?
+
+If it does, then it runs afoul of the principle of security. This behaviour will not be added to the Wayland protocol,
+it either should go to compositors or to an XDG portal.
 
 As an example, screen sharing was initially requested to be an application feature where an application could
 unilaterally grab the whole screen, and then it was narrowed down to a compositor mediating access via an XDG portal
