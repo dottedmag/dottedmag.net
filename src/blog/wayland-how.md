@@ -24,7 +24,18 @@ following principles that override everything else:
 
 ## How to apply these principles?
 
-### Step zero: Reformulate missing functionality in terms of intent
+### Step one: Formulate a concrete use-case
+
+The general format is as follows:
+- An application is trying to provide _the following functionality_ to the user.
+- It is missing _this_ kind of information/control to do so.
+
+It's better if you can find several use-cases.
+
+Note that the format calls for _concrete_ use-cases, not generalities. Note that the format calls for functionality
+as it it provided to the _user_, not for implementation details.
+
+### Step two: Reformulate missing functionality in terms of intent
 
 Drop any references to how it is done under other UI frameworks. Not "I need to grab the whole screen", but
 "The application is trying to share a window/desktop content". Not "I'd like to grab the mouse", but "The
@@ -34,7 +45,7 @@ this window in absolute coordinate space", but "The application would like to op
 This step is crucial. Without this reformulation, it's impossible to evaluate whether this functionality
 is already present in Wayland/XDG portals, what its scope if it isn't, and where it belongs.
 
-### Step one: Does the missing functionality require obtaining data from other _uncooperating_ applications?
+### Step three: Does the missing functionality require obtaining data from other _uncooperating_ applications?
 
 If it does, then it runs afoul of the principle of security. This behaviour will never be added to the Wayland protocol.
 It either should go to compositors or to an XDG portal.
@@ -48,7 +59,7 @@ it is closely tied to the compositor, or in XDG portals development channel if i
 
 Most of functionality from the "accessibility" category in other UI frameworks belongs here.
 
-### Step two: Re-check assumptions
+### Step four: Re-check assumptions
 
 Does the missing functionality still have assumptions about the behaviour of a compositor? Does it assume that
 windows are laid out as overlapping rectangles? Does it assume that pixels in an application correspond to pixels
@@ -57,18 +68,7 @@ on screen?
 If it does, then it's still not a pure intent but a mechanism. Try to strip it further to find a user's intent
 behind it.
 
-### Step three: Formulate a concrete use-case
-
-The general format is as follows:
-- An application is trying to provide _the following functionality_ to the user.
-- It is missing _this_ kind of information/control to do so.
-
-It's better if you can find several use-cases.
-
-Note that the format calls for _concrete_ use-cases, not generalities. Note that the format calls for functionality
-as it it provided to the _user_, not for implementation details.
-
-### Step four: Discuss
+### Step five: Discuss
 
 Now that you've got your functionality cleaned up from implementation details, assumptions from other UI frameworks,
 and checked that the functionality is not security-sensitive, please start the discussion.
