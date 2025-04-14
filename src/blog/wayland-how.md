@@ -40,7 +40,7 @@ If it does, then it runs afoul of the principle of security. This behaviour will
 It either should go to compositors or to an XDG portal.
 
 As an example, screen sharing was initially requested to be an application feature where an application could
-unilaterally grab the whole screen, and then it was narrowed down to a compositor mediating access via an sXDG portal
+unilaterally grab the whole screen, and then it was narrowed down to a compositor mediating access via an XDG portal
 with the user's control and awareness of what is being shared.
 
 If your functionality belongs here, then start a discussion either in your compositor's development channels, if
