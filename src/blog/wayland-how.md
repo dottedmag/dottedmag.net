@@ -2,8 +2,8 @@ title: How to add a new feature to Wayland?
 date: 2025-04-14
 ----
 The Wayland development process is often quite frustrating for application developers.
-When they discover missing functionality by Wayland and try to request it
-they find series of closed bugs and discussions development channels that go nowhere.
+When they discover missing functionality in Wayland and try to request it
+they often find series of closed bugs and discussions in development channels that go nowhere.
 
 I'll try to demystify the process a bit and explain the reasons why this is happening
 and how to avoid it.
