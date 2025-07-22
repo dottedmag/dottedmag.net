@@ -29,7 +29,7 @@ Head of Engineering, CSO.
 
 A new startup, the product is still under wraps.
 
-## [Ridge](https://ridge.co) (2018—2024)
+## [Ridge](https://www.crunchbase.com/organization/tectonic-c189) (2018—2024)
 
 Lead Engineer.
 
