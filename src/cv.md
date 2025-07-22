@@ -47,8 +47,6 @@ Key achievements:
 - Oversaw the design and mentored the team.
 - Implemented a significant portion of the system.
 
-Consequently, a compact engineering team, 10 engineers on average, could rapidly deliver the required functionality.
-
 ## [Hola!](https://hola.org) / [Luminati](https://luminati.io) (2013—2018)
 
 Staff software engineer.
@@ -106,7 +104,7 @@ referring to the `AUTHORS` section.
 
 ## Education and Achievements
 
-* Finalist of International Collegiate Programmin Contest (ICPC) in 2004.
+* Finalist of International Collegiate Programming Contest (ICPC) in 2004.
 * MSc in CS, with honors. Novosibirsk State University, 2000-2005.
 * Systems Theory and Systems Management courses. Systems Management School, 2018-2020.
 
