@@ -4,6 +4,7 @@ title: Software
 # My projects
 
 * [OpenInkpot](https://wiki.mobileread.com/wiki/Openinkpot)
+* [Apeiron calendar browser extension](https://apeiron-calendar.dottedmag.net/)
 
 # My contributions
 
