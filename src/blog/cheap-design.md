@@ -145,3 +145,7 @@ enables: not more software, but better-fitting software.
 In the physical world, cheap fabrication gave us 3D-printed rockets
 that are lighter and cheaper than the ones assembled from standard parts.
 I wonder what cheap design will give us in software.
+
+<hr>
+
+*[Comments here](https://news.ycombinator.com/item?id=46932797)*
