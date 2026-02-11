@@ -5,6 +5,7 @@ title: Software
 
 * [OpenInkpot](https://wiki.mobileread.com/wiki/Openinkpot)
 * [Apeiron calendar browser extension](https://apeiron-calendar.dottedmag.net/)
+* [Voice pitch detection (Telegram bot)](https://t.me/voice_pitch_bot/)
 
 # My contributions
 
