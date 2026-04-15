@@ -26,6 +26,7 @@ This solution doesn't always work (which one does?), but when it fits, it works 
 plumbing code disappear.
 
 - [Slides](https://github.com/dottedmag/talks/blob/master/configs-2026-04-15/gusarov-2026-04-15-configs-malta-tech-talks.pdf)
+- [Video](https://www.youtube.com/live/rcLkkuSEqGE?si=j8yQq0P6ERl-QB3x&t=10323)
 
 15 Apr 2026, [Malta Tech Talks](https://maltatechtalks.com/).
 
