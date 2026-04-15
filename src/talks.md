@@ -36,6 +36,7 @@ This talk gives you a glimpse of what has changed in CPUs in the last 30 years, 
 
 - [Slides](https://github.com/dottedmag/talks/blob/master/perf-2025-05-22/gusarov-2025-05-22-perf-malta-tech-talks.pdf)
 - [Source code](https://github.com/dottedmag/talks/tree/master/perf-2025-05-22/src)
+- [Video](https://www.youtube.com/live/C82dBLaqiNA?si=Cj7ITlp0D76yAjgH&t=4286)
 
 Blog posts, documentation and papers mentioned in the talk:
 - [Apple Silicon CPU Optimization Guide](https://developer.apple.com/documentation/apple-silicon/cpu-optimization-guide) (needs Apple account)
