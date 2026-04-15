@@ -1,5 +1,34 @@
 title: Talks
 ----
+# "One little config," they said
+
+Configuration files were invented when software developers and operators became separate groups,
+so that the operators could adjust the software for their local environments without bothering the
+developers.
+
+Configuration files come at a cost:
+- they use their own languages with worse ergonomics and tooling than the programming languages used for the code,
+- they are often limited in expressivity,
+- they need serializers and deserializers,
+- they have to be read at runtime,
+- they come with their own deployment complexities.
+
+SaaS systems are often developed and operated by the same people, so the initial motivation for separate
+configuration files no longer applies.
+
+Why don't we put the configuration back into the source code, thus removing serializers, deserializers, DTOs,
+schemas, command-line flags, bolted-on templating overlays, and poor parser error messages?
+
+Just create a package `config`, define an environment variable `PROJECT_ENV` for selecting the current
+environment, put secrets into KMS, and off you go.
+
+This solution doesn't always work (which one does?), but when it fits, it works gloriously: whole swaths of
+plumbing code disappear.
+
+- [Slides](https://github.com/dottedmag/talks/blob/master/configs-2026-04-15/gusarov-2026-04-15-configs-malta-tech-talks.pdf)
+
+15 Apr 2026, [Malta Tech Talks](https://maltatechtalks.com/).
+
 # You're Wasting Most of Your Production CPUs
 
 Modern CPUs are beasts of performance. Are you sure your Python program uses significant part of this power? Or even your C program?
