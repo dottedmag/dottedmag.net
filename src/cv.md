@@ -1,10 +1,10 @@
 layout: page
-title: Mike Dotty - CV
+title: Mikhail Gusarov - CV
 ----
 
 ## Contact information
 
-- Mike Dotty
+- Mikhail Gusarov
 - E-mail: [cv@dottedmag.net](mailto:cv@dottedmag.net)
 - Phone: +356 99100291 (Timezone: UTC+1)
 
@@ -25,9 +25,13 @@ I'm open to both contract and full-time opportunities.
 
 ## [Blackbird](https://blackbrd.co) (2024—Present)
 
-Head of Engineering, CSO.
+Head of Engineering, CISO.
 
-A new startup, the product is still under wraps.
+KYC software for regulated companies with complex clients and complex structures.
+
+My achievements:
+- security-first architecture for dealing with sensitive documents,
+- audit-ready project structure that keeps development velocity
 
 ## [Ridge](https://www.crunchbase.com/organization/tectonic-c189) (2018—2024)
 
